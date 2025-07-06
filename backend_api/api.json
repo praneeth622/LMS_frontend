@@ -1,0 +1,1929 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Health check endpoint",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/health/db": {
+      "get": {
+        "operationId": "HealthController_checkDatabase",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Database connection check",
+        "tags": [
+          "health"
+        ]
+      }
+    },
+    "/api/users": {
+      "post": {
+        "operationId": "UsersController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          }
+        },
+        "summary": "Create a new user",
+        "tags": [
+          "users"
+        ]
+      },
+      "get": {
+        "operationId": "UsersController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Users retrieved successfully"
+          }
+        },
+        "summary": "Get all users",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "operationId": "UsersController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User retrieved successfully"
+          }
+        },
+        "summary": "Get user by ID",
+        "tags": [
+          "users"
+        ]
+      },
+      "put": {
+        "operationId": "UsersController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User updated successfully"
+          }
+        },
+        "summary": "Update user",
+        "tags": [
+          "users"
+        ]
+      },
+      "delete": {
+        "operationId": "UsersController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted successfully"
+          }
+        },
+        "summary": "Soft delete user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/assign-role": {
+      "post": {
+        "operationId": "UsersController_assignRole",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Role assigned successfully"
+          }
+        },
+        "summary": "Assign role to user",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/roles": {
+      "post": {
+        "operationId": "UsersController_createRole",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRoleDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Role created successfully"
+          }
+        },
+        "summary": "Create a new role",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/users/roles/all": {
+      "get": {
+        "operationId": "UsersController_getAllRoles",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Roles retrieved successfully"
+          }
+        },
+        "summary": "Get all roles",
+        "tags": [
+          "users"
+        ]
+      }
+    },
+    "/api/organizations": {
+      "post": {
+        "operationId": "OrganizationsController_create",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Organization created successfully"
+          }
+        },
+        "summary": "Create organization",
+        "tags": [
+          "organizations"
+        ]
+      },
+      "get": {
+        "operationId": "OrganizationsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Organizations retrieved successfully"
+          }
+        },
+        "summary": "Get all organizations",
+        "tags": [
+          "organizations"
+        ]
+      }
+    },
+    "/api/organizations/{id}": {
+      "get": {
+        "operationId": "OrganizationsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization retrieved successfully"
+          }
+        },
+        "summary": "Get organization by ID",
+        "tags": [
+          "organizations"
+        ]
+      }
+    },
+    "/api/organizations/{id}/users": {
+      "post": {
+        "operationId": "OrganizationsController_addUserToOrganization",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User added to organization successfully"
+          }
+        },
+        "summary": "Add user to organization",
+        "tags": [
+          "organizations"
+        ]
+      },
+      "get": {
+        "operationId": "OrganizationsController_getOrganizationUsers",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Organization users retrieved successfully"
+          }
+        },
+        "summary": "Get organization users",
+        "tags": [
+          "organizations"
+        ]
+      }
+    },
+    "/api/organizations/{id}/users/{userId}": {
+      "delete": {
+        "operationId": "OrganizationsController_removeUserFromOrganization",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User removed from organization successfully"
+          }
+        },
+        "summary": "Remove user from organization",
+        "tags": [
+          "organizations"
+        ]
+      }
+    },
+    "/api/courses": {
+      "post": {
+        "operationId": "CoursesController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Course created successfully"
+          }
+        },
+        "summary": "Create a new course",
+        "tags": [
+          "courses"
+        ]
+      },
+      "get": {
+        "operationId": "CoursesController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Courses retrieved successfully"
+          }
+        },
+        "summary": "Get all courses",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/{id}": {
+      "get": {
+        "operationId": "CoursesController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course retrieved successfully"
+          }
+        },
+        "summary": "Get course by ID",
+        "tags": [
+          "courses"
+        ]
+      },
+      "patch": {
+        "operationId": "CoursesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCourseDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Course updated successfully"
+          }
+        },
+        "summary": "Update course",
+        "tags": [
+          "courses"
+        ]
+      },
+      "delete": {
+        "operationId": "CoursesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course deleted successfully"
+          }
+        },
+        "summary": "Soft delete course",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/{id}/instructors/{userId}": {
+      "post": {
+        "operationId": "CoursesController_addInstructor",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Instructor added successfully"
+          }
+        },
+        "summary": "Add instructor to course",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/sections": {
+      "post": {
+        "operationId": "CoursesController_createSection",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSectionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Section created successfully"
+          }
+        },
+        "summary": "Create a new section",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/lectures": {
+      "post": {
+        "operationId": "CoursesController_createLecture",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLectureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Lecture created successfully"
+          }
+        },
+        "summary": "Create a new lecture",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/{id}/sections": {
+      "get": {
+        "operationId": "CoursesController_getCourseSections",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sections retrieved successfully"
+          }
+        },
+        "summary": "Get course sections",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/courses/sections/{id}/lectures": {
+      "get": {
+        "operationId": "CoursesController_getSectionLectures",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lectures retrieved successfully"
+          }
+        },
+        "summary": "Get section lectures",
+        "tags": [
+          "courses"
+        ]
+      }
+    },
+    "/api/sections": {
+      "post": {
+        "operationId": "SectionsController_createSection",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSectionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Section created successfully"
+          }
+        },
+        "summary": "Create a new section",
+        "tags": [
+          "sections"
+        ]
+      }
+    },
+    "/api/sections/{id}/lectures": {
+      "get": {
+        "operationId": "SectionsController_getSectionLectures",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lectures retrieved successfully"
+          }
+        },
+        "summary": "Get section lectures",
+        "tags": [
+          "sections"
+        ]
+      }
+    },
+    "/api/lectures": {
+      "post": {
+        "operationId": "LecturesController_createLecture",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLectureDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Lecture created successfully"
+          }
+        },
+        "summary": "Create a new lecture",
+        "tags": [
+          "lectures"
+        ]
+      }
+    },
+    "/api/lectures/{id}/resources": {
+      "post": {
+        "operationId": "LecturesController_addResource",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Resource added successfully"
+          }
+        },
+        "summary": "Add resource to lecture",
+        "tags": [
+          "lectures"
+        ]
+      }
+    },
+    "/api/resources": {
+      "post": {
+        "operationId": "ResourcesController_attachResource",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Resource attached successfully"
+          }
+        },
+        "summary": "Attach resource to lecture",
+        "tags": [
+          "resources"
+        ]
+      }
+    },
+    "/api/enrollments": {
+      "post": {
+        "operationId": "EnrollmentsController_createEnrollment",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEnrollmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User enrolled successfully"
+          }
+        },
+        "summary": "Enroll user in a course",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/enrollments/progress": {
+      "put": {
+        "operationId": "EnrollmentsController_updateProgress",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProgressDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Progress updated successfully"
+          }
+        },
+        "summary": "Update enrollment progress",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/enrollments/user/{userId}": {
+      "get": {
+        "operationId": "EnrollmentsController_getUserEnrollments",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User enrollments retrieved"
+          }
+        },
+        "summary": "Get user enrollments",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/enrollments/certificates/{userId}": {
+      "get": {
+        "operationId": "EnrollmentsController_getUserCertificates",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User certificates retrieved"
+          }
+        },
+        "summary": "Get user certificates",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/enrollments/course/{courseId}": {
+      "get": {
+        "operationId": "EnrollmentsController_getCourseEnrollments",
+        "parameters": [
+          {
+            "name": "courseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course enrollments retrieved"
+          }
+        },
+        "summary": "Get course enrollments",
+        "tags": [
+          "enrollments"
+        ]
+      }
+    },
+    "/api/quizzes": {
+      "post": {
+        "operationId": "QuizzesController_createQuiz",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuizDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Quiz created successfully"
+          }
+        },
+        "summary": "Create a new quiz",
+        "tags": [
+          "quizzes"
+        ]
+      }
+    },
+    "/api/quizzes/questions": {
+      "post": {
+        "operationId": "QuizzesController_addQuestion",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateQuizQuestionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Question added successfully"
+          }
+        },
+        "summary": "Add question to quiz",
+        "tags": [
+          "quizzes"
+        ]
+      }
+    },
+    "/api/quizzes/{id}": {
+      "get": {
+        "operationId": "QuizzesController_getQuiz",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quiz retrieved successfully"
+          }
+        },
+        "summary": "Get quiz with questions",
+        "tags": [
+          "quizzes"
+        ]
+      }
+    },
+    "/api/quizzes/{id}/questions": {
+      "get": {
+        "operationId": "QuizzesController_getQuizQuestions",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Quiz questions retrieved successfully"
+          }
+        },
+        "summary": "Get quiz questions",
+        "tags": [
+          "quizzes"
+        ]
+      }
+    },
+    "/api/quizzes/{id}/submit": {
+      "post": {
+        "operationId": "QuizzesController_submitQuiz",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitQuizDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Quiz submitted successfully"
+          }
+        },
+        "summary": "Submit quiz answers",
+        "tags": [
+          "quizzes"
+        ]
+      }
+    },
+    "/api/assignments": {
+      "post": {
+        "operationId": "AssignmentsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAssignmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Assignment created successfully"
+          }
+        },
+        "summary": "Create a new assignment",
+        "tags": [
+          "assignments"
+        ]
+      }
+    },
+    "/api/assignments/{id}": {
+      "get": {
+        "operationId": "AssignmentsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Assignment retrieved successfully"
+          }
+        },
+        "summary": "Get assignment by ID",
+        "tags": [
+          "assignments"
+        ]
+      }
+    },
+    "/api/assignments/submit": {
+      "post": {
+        "operationId": "AssignmentsController_submit",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SubmitAssignmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Assignment submitted successfully"
+          }
+        },
+        "summary": "Submit assignment",
+        "tags": [
+          "assignments"
+        ]
+      }
+    },
+    "/api/assignments/grade": {
+      "put": {
+        "operationId": "AssignmentsController_grade",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GradeAssignmentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Assignment graded successfully"
+          }
+        },
+        "summary": "Grade assignment submission",
+        "tags": [
+          "assignments"
+        ]
+      }
+    },
+    "/api/discussions": {
+      "post": {
+        "operationId": "DiscussionsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDiscussionDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Discussion created successfully"
+          }
+        },
+        "summary": "Create new discussion",
+        "tags": [
+          "discussions"
+        ]
+      },
+      "get": {
+        "operationId": "DiscussionsController_findAll",
+        "parameters": [
+          {
+            "name": "course_id",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Discussions retrieved successfully"
+          }
+        },
+        "summary": "Get all discussions",
+        "tags": [
+          "discussions"
+        ]
+      }
+    },
+    "/api/discussions/{id}": {
+      "get": {
+        "operationId": "DiscussionsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Discussion retrieved successfully"
+          }
+        },
+        "summary": "Get discussion by ID",
+        "tags": [
+          "discussions"
+        ]
+      }
+    },
+    "/api/discussions/course/{courseId}": {
+      "get": {
+        "operationId": "DiscussionsController_findByCourse",
+        "parameters": [
+          {
+            "name": "courseId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Course discussions retrieved successfully"
+          }
+        },
+        "summary": "Get discussions by course",
+        "tags": [
+          "discussions"
+        ]
+      }
+    },
+    "/api/comments": {
+      "post": {
+        "operationId": "CommentsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCommentDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Comment added successfully"
+          }
+        },
+        "summary": "Add comment to discussion",
+        "tags": [
+          "comments"
+        ]
+      }
+    },
+    "/api/comments/discussion/{discussionId}": {
+      "get": {
+        "operationId": "CommentsController_findByDiscussion",
+        "parameters": [
+          {
+            "name": "discussionId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Comments retrieved successfully"
+          }
+        },
+        "summary": "Get comments for discussion",
+        "tags": [
+          "comments"
+        ]
+      }
+    },
+    "/api/notifications": {
+      "get": {
+        "operationId": "NotificationsController_findAll",
+        "parameters": [
+          {
+            "name": "user_id",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notifications retrieved successfully"
+          }
+        },
+        "summary": "List all notifications (admin) or user notifications",
+        "tags": [
+          "notifications"
+        ]
+      },
+      "post": {
+        "operationId": "NotificationsController_create",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "Notification created successfully"
+          }
+        },
+        "summary": "Create notification (for testing)",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/notifications/user/{userId}": {
+      "get": {
+        "operationId": "NotificationsController_findAllForUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User notifications retrieved successfully"
+          }
+        },
+        "summary": "Get notifications for specific user",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/notifications/user/{userId}/unread-count": {
+      "get": {
+        "operationId": "NotificationsController_getUnreadCount",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Unread count retrieved successfully"
+          }
+        },
+        "summary": "Get unread notifications count for user",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/notifications/{id}/read": {
+      "put": {
+        "operationId": "NotificationsController_markAsRead",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification marked as read successfully"
+          }
+        },
+        "summary": "Mark notification as read",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/notifications/user/{userId}/read-all": {
+      "put": {
+        "operationId": "NotificationsController_markAllAsRead",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All notifications marked as read successfully"
+          }
+        },
+        "summary": "Mark all notifications as read for user",
+        "tags": [
+          "notifications"
+        ]
+      }
+    },
+    "/api/audit-logs": {
+      "get": {
+        "operationId": "AuditController_findAll",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "table",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "action",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Audit logs retrieved successfully"
+          }
+        },
+        "summary": "Get all audit logs (Admin only)",
+        "tags": [
+          "audit-logs"
+        ]
+      }
+    },
+    "/api/audit-logs/user/{userId}": {
+      "get": {
+        "operationId": "AuditController_findByUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User audit logs retrieved successfully"
+          }
+        },
+        "summary": "Get audit logs by user ID",
+        "tags": [
+          "audit-logs"
+        ]
+      }
+    },
+    "/api/audit-logs/table/{tableName}": {
+      "get": {
+        "operationId": "AuditController_findByTable",
+        "parameters": [
+          {
+            "name": "tableName",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "limit",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Table audit logs retrieved successfully"
+          }
+        },
+        "summary": "Get audit logs by table name",
+        "tags": [
+          "audit-logs"
+        ]
+      }
+    },
+    "/api/audit-logs/stats": {
+      "get": {
+        "operationId": "AuditController_getStats",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Audit statistics retrieved successfully"
+          }
+        },
+        "summary": "Get audit statistics",
+        "tags": [
+          "audit-logs"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "LMS Backend API",
+    "description": "Learning Management System API Documentation",
+    "version": "1.0",
+    "contact": {
+
+    }
+  },
+  "tags": [
+    {
+      "name": "users",
+      "description": "User management operations"
+    },
+    {
+      "name": "courses",
+      "description": "Course management operations"
+    },
+    {
+      "name": "quizzes",
+      "description": "Quiz management operations"
+    },
+    {
+      "name": "assignments",
+      "description": "Assignment management operations"
+    },
+    {
+      "name": "enrollments",
+      "description": "Enrollment management operations"
+    },
+    {
+      "name": "discussions",
+      "description": "Discussion forum operations"
+    }
+  ],
+  "servers": [],
+  "components": {
+    "schemas": {
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123",
+            "minLength": 6
+          },
+          "role_id": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "password"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "example": "john@example.com"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123",
+            "minLength": 6
+          },
+          "role_id": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "CreateRoleDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "instructor"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "CreateCourseDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Introduction to Web Development"
+          },
+          "description": {
+            "type": "string",
+            "example": "Learn the basics of web development"
+          },
+          "price": {
+            "type": "number",
+            "example": 99.99
+          },
+          "category": {
+            "type": "string",
+            "example": "Programming"
+          },
+          "created_by": {
+            "type": "number",
+            "example": 1
+          },
+          "status": {
+            "type": "string",
+            "example": "published"
+          }
+        },
+        "required": [
+          "title",
+          "created_by"
+        ]
+      },
+      "UpdateCourseDto": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "example": "Introduction to Web Development"
+          },
+          "description": {
+            "type": "string",
+            "example": "Learn the basics of web development"
+          },
+          "price": {
+            "type": "number",
+            "example": 99.99
+          },
+          "category": {
+            "type": "string",
+            "example": "Programming"
+          },
+          "created_by": {
+            "type": "number",
+            "example": 1
+          },
+          "status": {
+            "type": "string",
+            "example": "published"
+          }
+        }
+      },
+      "CreateSectionDto": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Introduction to HTML"
+          },
+          "section_order": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "course_id",
+          "title"
+        ]
+      },
+      "CreateLectureDto": {
+        "type": "object",
+        "properties": {
+          "section_id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Introduction to HTML"
+          },
+          "video_url": {
+            "type": "string",
+            "example": "https://example.com/video.mp4"
+          },
+          "duration": {
+            "type": "number",
+            "example": 1800,
+            "description": "Duration in seconds"
+          }
+        },
+        "required": [
+          "section_id",
+          "title"
+        ]
+      },
+      "CreateEnrollmentDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "course_id": {
+            "type": "number",
+            "example": 1
+          }
+        },
+        "required": [
+          "user_id",
+          "course_id"
+        ]
+      },
+      "UpdateProgressDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "course_id": {
+            "type": "number",
+            "example": 1
+          },
+          "progress": {
+            "type": "number",
+            "example": 75.5,
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "user_id",
+          "course_id",
+          "progress"
+        ]
+      },
+      "CreateQuizDto": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Chapter 1 Quiz"
+          }
+        },
+        "required": [
+          "course_id",
+          "title"
+        ]
+      },
+      "CreateQuizQuestionDto": {
+        "type": "object",
+        "properties": {
+          "quiz_id": {
+            "type": "number",
+            "example": 1
+          },
+          "question_text": {
+            "type": "string",
+            "example": "What does HTML stand for?"
+          },
+          "type": {
+            "type": "string",
+            "example": "multiple_choice"
+          },
+          "options": {
+            "type": "object",
+            "example": [
+              "HyperText Markup Language",
+              "Home Tool Markup Language",
+              "Hyperlinks and Text Markup Language"
+            ]
+          },
+          "correct_answer": {
+            "type": "string",
+            "example": "HyperText Markup Language"
+          }
+        },
+        "required": [
+          "quiz_id",
+          "question_text",
+          "type",
+          "correct_answer"
+        ]
+      },
+      "SubmitQuizDto": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "quiz_id": {
+            "type": "number",
+            "example": 1
+          },
+          "answers": {
+            "type": "object",
+            "example": {
+              "1": "HyperText Markup Language",
+              "2": "Cascading Style Sheets"
+            }
+          }
+        },
+        "required": [
+          "user_id",
+          "quiz_id",
+          "answers"
+        ]
+      },
+      "CreateAssignmentDto": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Build a Simple Website"
+          },
+          "description": {
+            "type": "string",
+            "example": "Create a responsive website using HTML and CSS"
+          },
+          "due_date": {
+            "format": "date-time",
+            "type": "string",
+            "example": "2025-06-15"
+          }
+        },
+        "required": [
+          "course_id",
+          "title"
+        ]
+      },
+      "SubmitAssignmentDto": {
+        "type": "object",
+        "properties": {
+          "assignment_id": {
+            "type": "number",
+            "example": 1
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "submission_url": {
+            "type": "string",
+            "example": "https://github.com/user/project"
+          }
+        },
+        "required": [
+          "assignment_id",
+          "user_id",
+          "submission_url"
+        ]
+      },
+      "GradeAssignmentDto": {
+        "type": "object",
+        "properties": {
+          "submission_id": {
+            "type": "number",
+            "example": 1
+          },
+          "grade": {
+            "type": "number",
+            "example": 85.5,
+            "minimum": 0,
+            "maximum": 100
+          }
+        },
+        "required": [
+          "submission_id",
+          "grade"
+        ]
+      },
+      "CreateDiscussionDto": {
+        "type": "object",
+        "properties": {
+          "course_id": {
+            "type": "number",
+            "example": 1
+          },
+          "lecture_id": {
+            "type": "number",
+            "example": 1
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Question about HTML basics"
+          },
+          "content": {
+            "type": "string",
+            "example": "I need help understanding how to use HTML tags properly."
+          }
+        },
+        "required": [
+          "course_id",
+          "user_id",
+          "title",
+          "content"
+        ]
+      },
+      "CreateCommentDto": {
+        "type": "object",
+        "properties": {
+          "discussion_id": {
+            "type": "number",
+            "example": 1
+          },
+          "user_id": {
+            "type": "number",
+            "example": 1
+          },
+          "comment_text": {
+            "type": "string",
+            "example": "You can use HTML tags like \u003Cp\u003E for paragraphs."
+          }
+        },
+        "required": [
+          "discussion_id",
+          "user_id",
+          "comment_text"
+        ]
+      }
+    }
+  }
+}
