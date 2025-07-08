@@ -318,7 +318,7 @@ export default function StudentAssessmentsPage() {
                         ))
                       ) : (
                         assignments.map((assignment, index) => {
-                          const daysUntilDue = getDaysUntilDue(assignment.due_date)
+                          const daysUntilDue = assignment.due_date ? getDaysUntilDue(assignment.due_date) : 0
                           
                           return (
                             <motion.div
@@ -346,7 +346,7 @@ export default function StudentAssessmentsPage() {
                                     <div className="flex items-center justify-between text-sm text-muted-foreground">
                                       <div className="flex items-center space-x-1">
                                         <Calendar className="h-4 w-4" />
-                                        <span>Due {format(new Date(assignment.due_date), "MMM dd")}</span>
+                                        <span>Due {assignment.due_date ? format(new Date(assignment.due_date), "MMM dd") : "TBD"}</span>
                                       </div>
                                       <div className="flex items-center space-x-1">
                                         <Target className="h-4 w-4" />

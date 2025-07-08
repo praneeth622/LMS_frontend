@@ -15,7 +15,8 @@ import {
   ChevronLeft,
   ChevronRight,
   LogOut,
-  GraduationCap
+  GraduationCap,
+  FileText
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -41,6 +42,11 @@ const navigation = [
     name: "Students",
     href: "/instructor/students",
     icon: Users,
+  },
+  {
+    name: "Assessments",
+    href: "/instructor/assessments",
+    icon: FileText,
   },
   {
     name: "Analytics",

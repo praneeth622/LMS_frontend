@@ -39,7 +39,8 @@ export interface User {
   id: number
   name: string
   email: string
-  role_id: number
+  role_id?: number  // For backward compatibility
+  role?: Role       // New nested structure from API
   created_at: string
 }
 
@@ -75,6 +76,12 @@ export const authApi = {
   // Get user by ID - this will be our workaround for getting current user profile
   getUserById: async (userId: number): Promise<ApiResponse<User>> => {
     const response = await api.get(`/users/${userId}`)
+    return response.data
+  },
+
+  // Get all users (admin only) - we'll use this as a fallback to find user by email
+  getAllUsers: async (): Promise<ApiResponse<User[]>> => {
+    const response = await api.get('/users')
     return response.data
   },
 

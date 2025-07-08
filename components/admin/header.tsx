@@ -19,13 +19,15 @@ interface AdminHeaderProps {
   subtitle?: string
   searchPlaceholder?: string
   onSearch?: (query: string) => void
+  action?: React.ReactNode // Added action prop
 }
 
 export function AdminHeader({ 
   title, 
   subtitle, 
   searchPlaceholder = "Search...",
-  onSearch 
+  onSearch,
+  action // Destructure the action prop
 }: AdminHeaderProps) {
   const [searchQuery, setSearchQuery] = React.useState("")
 
@@ -51,6 +53,7 @@ export function AdminHeader({
         </div>
 
         <div className="flex items-center space-x-4">
+          {action /* Render the action prop if provided */}
           {/* Search */}
           <div className="relative">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />

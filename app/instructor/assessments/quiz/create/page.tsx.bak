@@ -528,7 +528,7 @@ export default function CreateQuizPage() {
                                   <p className="font-medium">{question.question_text}</p>
                                   {question.options && (
                                     <div className="mt-2 space-y-1">
-                                      {question.options.map((option : String, optIndex : number) => (
+                                      {question.options.map((option, optIndex) => (
                                         <div key={optIndex} className="flex items-center space-x-2">
                                           <div className={`w-2 h-2 rounded-full ${
                                             option === question.correct_answer ? 'bg-green-500' : 'bg-gray-300'

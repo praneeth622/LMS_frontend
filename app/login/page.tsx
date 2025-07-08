@@ -50,7 +50,6 @@ export default function LoginPage() {
 
       if (authData?.user) {
         toast.success("Welcome back!")
-        await refreshProfile()
         
         // Redirect will be handled by the auth context based on user role
         router.push('/dashboard')

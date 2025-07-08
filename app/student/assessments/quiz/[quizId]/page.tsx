@@ -88,7 +88,6 @@ export default function TakeQuizPage() {
           ],
           correct_answer: "Declares a variable",
           points: 2,
-          order: 1
         },
         {
           id: 2,
@@ -98,7 +97,6 @@ export default function TakeQuizPage() {
           options: ["True", "False"],
           correct_answer: "false",
           points: 1,
-          order: 2
         },
         {
           id: 3,
@@ -107,7 +105,6 @@ export default function TakeQuizPage() {
           type: "short_answer",
           correct_answer: "push",
           points: 2,
-          order: 3
         },
         {
           id: 4,
@@ -122,7 +119,6 @@ export default function TakeQuizPage() {
           ],
           correct_answer: "Integer",
           points: 2,
-          order: 4
         }
       ]
 
@@ -189,12 +185,7 @@ export default function TakeQuizPage() {
       setSubmitting(true)
       const timeTaken = Math.floor((new Date().getTime() - startTime.getTime()) / 1000)
       
-      const response = await assessmentApi.submitQuiz(quizId, {
-        user_id: userProfile.id,
-        answers,
-        time_taken: timeTaken
-      })
-
+      const response = await assessmentApi.submitQuiz(quizId, userProfile.id, answers)
       if (response.success) {
         setQuizCompleted(true)
         toast.success('Quiz submitted successfully!')
@@ -494,7 +485,7 @@ export default function TakeQuizPage() {
                           onValueChange={(value) => handleAnswerChange(currentQuestion.id, value)}
                         >
                           <div className="space-y-3">
-                            {currentQuestion.options?.map((option, index) => (
+                            {currentQuestion.options?.map((option : string, index : number) => (
                               <div key={index} className="flex items-center space-x-3 p-3 border rounded-lg hover:bg-muted/50 transition-colors">
                                 <RadioGroupItem value={option} id={`option-${index}`} />
                                 <Label htmlFor={`option-${index}`} className="flex-1 cursor-pointer">

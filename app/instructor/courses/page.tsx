@@ -33,6 +33,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { toast } from "react-hot-toast"
 import { instructorApi, Course } from '@/lib/instructor-api'
+import { authApi } from '@/lib/api'
 import { useAuth } from '@/contexts/auth-context'
 import Link from "next/link"
 
@@ -47,7 +48,20 @@ export default function InstructorCoursesPage() {
   const [courses, setCourses] = React.useState<Course[]>([])
   const [loading, setLoading] = React.useState(true)
   const [searchQuery, setSearchQuery] = React.useState("")
-  const { userProfile } = useAuth()
+  const { userProfile, user, loading: authLoading } = useAuth()
+
+  // Debug logging
+  React.useEffect(() => {
+    console.log('🔍 InstructorCourses - Auth state:', {
+      hasUser: !!user,
+      userEmail: user?.email,
+      hasUserProfile: !!userProfile,
+      userProfileId: userProfile?.id,
+      userProfileRoleId: userProfile?.role_id,
+      authLoading,
+      coursesLoading: loading
+    })
+  }, [user, userProfile, authLoading, loading])
 
   const stats = [
     {
@@ -84,50 +98,71 @@ export default function InstructorCoursesPage() {
     }
   ]
 
+  const testApiConnection = async () => {
+    try {
+      console.log('🔍 Testing API connection...')
+      const healthResponse = await authApi.healthCheck()
+      console.log('✅ Health check response:', healthResponse)
+      return true
+    } catch (error) {
+      console.error('❌ Health check failed:', error)
+      return false
+    }
+  }
+
   const fetchCourses = async () => {
     try {
       setLoading(true)
-      if (!userProfile?.id) return
       
+      // First test API connection
+      const apiConnected = await testApiConnection()
+      if (!apiConnected) {
+        toast.error('Cannot connect to API server')
+        setCourses([])
+        return
+      }
+      
+      if (!userProfile?.id) {
+        console.log('No user profile available')
+        setCourses([])
+        toast.success('Please ensure you are logged in as an instructor')
+        return
+      }
+      
+      console.log('Fetching courses for instructor:', userProfile.id)
       const response = await instructorApi.getCoursesByInstructor(userProfile.id)
+      console.log('API response:', response)
+      
       if (response.success) {
         setCourses(response.data)
+        console.log('Courses loaded successfully:', response.data.length)
+        if (response.data.length === 0) {
+          toast.success('No courses found. Create your first course!')
+        }
+      } else {
+        console.error('API returned error:', response)
+        toast.error(`Failed to load courses: ${response.message || 'Unknown error'}`)
+        setCourses([])
       }
     } catch (error) {
       console.error('Error fetching courses:', error)
-      // Use mock data if API fails
-      setCourses([
-        {
-          id: 1,
-          title: "React Fundamentals",
-          description: "Learn the basics of React development",
-          price: 99.99,
-          category: "Programming",
-          created_by: userProfile?.id || 1,
-          status: "published",
-          created_at: new Date().toISOString()
-        },
-        {
-          id: 2,
-          title: "Advanced JavaScript",
-          description: "Master advanced JavaScript concepts",
-          price: 149.99,
-          category: "Programming",
-          created_by: userProfile?.id || 1,
-          status: "draft",
-          created_at: new Date(Date.now() - 86400000).toISOString()
-        }
-      ])
+      toast.error('Network error. Please check your connection.')
+      setCourses([])
     } finally {
       setLoading(false)
     }
   }
 
   React.useEffect(() => {
-    if (userProfile?.id) {
-      fetchCourses()
+    // Don't fetch courses while authentication is still loading
+    if (authLoading) {
+      console.log('Auth still loading, waiting...')
+      return
     }
-  }, [userProfile])
+
+    // Fetch courses once auth is complete
+    fetchCourses()
+  }, [userProfile, authLoading])
 
   const handleDeleteCourse = async (courseId: number) => {
     try {
@@ -184,7 +219,7 @@ export default function InstructorCoursesPage() {
       header: "Price",
       cell: ({ row }) => {
         const price = row.getValue<number>("price")
-        return <span>${price.toFixed(2)}</span>
+        return <span>${typeof price === 'number' ? price.toFixed(2) : '0.00'}</span>
       },
     },
     {

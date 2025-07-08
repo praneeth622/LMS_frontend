@@ -28,15 +28,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     console.log('👤 Current user state:', user?.email || 'No user')
     
     if (user?.email) {
-      console.log('📡 Fetching profile for user:', user.email)
-      const profile = await getUserProfile(user.email)
-      console.log('📋 Profile fetch result:', profile ? {
-        id: profile.id,
-        name: profile.name,
-        email: profile.email,
-        role_id: profile.role_id
-      } : 'null')
-      setUserProfile(profile)
+      try {
+        console.log('📡 Fetching fresh profile for user:', user.email)
+        const profile = await getUserProfile(user.email)
+        console.log('📋 Profile refresh result:', profile ? {
+          id: profile.id,
+          name: profile.name,
+          email: profile.email,
+          role_id: profile.role_id
+        } : 'null')
+        
+        if (profile) {
+          setUserProfile(profile)
+          storeUserData(profile)
+        }
+      } catch (error) {
+        console.error('❌ Error refreshing profile:', error)
+      }
     } else {
       console.log('⚠️ No user email available, skipping profile fetch')
     }
@@ -63,6 +71,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     console.log('🚀 AuthContext: Initializing auth state...')
     
+    // Add timeout to prevent infinite loading
+    const timeoutId = setTimeout(() => {
+      console.log('⏰ Auth initialization timeout, setting loading to false')
+      setLoading(false)
+    }, 5000) // 5 second timeout
+    
     // Get initial session
     const initializeAuth = async () => {
       try {
@@ -80,18 +94,38 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (currentUser?.email) {
           console.log('👤 User found, fetching profile...')
-          const profile = await getUserProfile(currentUser.email)
-          console.log('📋 Initial profile result:', profile ? {
-            id: profile.id,
-            name: profile.name,
-            email: profile.email,
-            role_id: profile.role_id
-          } : 'null')
-          setUserProfile(profile)
           
-          // Store user data if we got a profile
-          if (profile) {
-            storeUserData(profile)
+          // First check localStorage for quick loading
+          const storedUserData = localStorage.getItem('user_data')
+          if (storedUserData) {
+            try {
+              const userData = JSON.parse(storedUserData)
+              if (userData.id && userData.email === currentUser.email) {
+                console.log('📱 Using cached profile for quick load')
+                setUserProfile(userData)
+              }
+            } catch (error) {
+              console.error('❌ Error parsing cached profile:', error)
+            }
+          }
+          
+          // Then fetch fresh data from API
+          try {
+            const profile = await getUserProfile(currentUser.email)
+            console.log('📋 Initial profile result:', profile ? {
+              id: profile.id,
+              name: profile.name,
+              email: profile.email,
+              role_id: profile.role_id
+            } : 'null')
+            
+            if (profile) {
+              setUserProfile(profile)
+              storeUserData(profile)
+            }
+          } catch (profileError) {
+            console.error('❌ Error fetching profile during init:', profileError)
+            // Don't fail initialization if profile fetch fails
           }
         } else {
           console.log('⚠️ No user found in initial session')
@@ -102,6 +136,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         clearUserData()
       } finally {
         console.log('✅ Auth initialization complete, setting loading to false')
+        clearTimeout(timeoutId) // Clear timeout if we finish early
         setLoading(false)
       }
     }
@@ -123,19 +158,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         
         if (session?.user?.email) {
           console.log('👤 Auth change: User found, fetching profile...')
-          const profile = await getUserProfile(session.user.email)
-          console.log('📋 Auth change profile result:', profile ? {
-            id: profile.id,
-            name: profile.name,
-            email: profile.email,
-            role_id: profile.role_id
-          } : 'null')
-          setUserProfile(profile)
           
-          // Store user data if we got a profile
-          if (profile) {
-            storeUserData(profile)
+          // First check localStorage for quick loading
+          const storedUserData = localStorage.getItem('user_data')
+          if (storedUserData) {
+            try {
+              const userData = JSON.parse(storedUserData)
+              if (userData.id && userData.email === session.user.email) {
+                console.log('📱 Using cached profile for auth change')
+                setUserProfile(userData)
+              }
+            } catch (error) {
+              console.error('❌ Error parsing cached profile during auth change:', error)
+            }
           }
+          
+          // Then fetch fresh data from API (non-blocking)
+          setTimeout(async () => {
+            try {
+              if (!session?.user?.email) {
+                console.warn('⚠️ No email found in session, skipping profile fetch')
+                return
+              }
+
+              const profile = await getUserProfile(session.user.email)
+              console.log('📋 Auth change profile result:', profile ? {
+                id: profile.id,
+                name: profile.name,
+                email: profile.email,
+                role_id: profile.role_id
+              } : 'null')
+
+              if (profile) {
+                setUserProfile(profile)
+                storeUserData(profile)
+              }
+            } catch (profileError) {
+              console.error('❌ Error fetching profile during auth change:', profileError)
+            }
+          }, 100)
         } else {
           console.log('⚠️ Auth change: No user, clearing profile and stored data')
           setUserProfile(null)
@@ -149,6 +210,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => {
       console.log('🧹 Cleaning up auth state change listener')
+      clearTimeout(timeoutId)
       subscription.unsubscribe()
     }
   }, [])

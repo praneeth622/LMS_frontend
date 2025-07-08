@@ -88,7 +88,6 @@ export function CourseWizard({ onComplete, onCancel }: CourseWizardProps) {
 
   const handleComplete = () => {
     onComplete(courseData)
-    toast.success("Course created successfully!")
   }
 
   const updateCourseData = (field: string, value: any) => {

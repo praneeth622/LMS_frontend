@@ -12,7 +12,7 @@ import {
   Minus
 } from "lucide-react"
 import { ProtectedRoute } from '@/components/auth/protected-route'
-import { AdminSidebar } from '@/components/admin/sidebar'
+// import { AdminSidebar } from '@/components/admin/sidebar'
 import { AdminHeader } from '@/components/admin/header'
 import { StatsCards } from '@/components/admin/stats-cards'
 import { 
@@ -21,7 +21,8 @@ import {
   RoleDistributionChart, 
   SystemMetricsChart 
 } from '@/components/admin/charts'
-import { adminApi } from '@/lib/admin-api'
+import { adminApiExtended } from '@/lib/admin-api-extended'
+import { adminApi } from "@/lib/admin-api"
 
 // Mock data for charts
 const userGrowthData = [
@@ -147,10 +148,10 @@ export default function AdminDashboard() {
   return (
     <ProtectedRoute allowedRoles={[1]}>
       <div className="flex h-screen bg-background">
-        <AdminSidebar 
+        {/* <AdminSidebar 
           collapsed={sidebarCollapsed} 
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        /> */}
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <AdminHeader 

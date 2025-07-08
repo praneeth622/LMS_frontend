@@ -30,13 +30,25 @@ export default function CreateDiscussionPage() {
   const [title, setTitle] = React.useState("")
   const [content, setContent] = React.useState("")
   const [type, setType] = React.useState<'question' | 'discussion' | 'announcement'>('question')
-  const [courseId, setCourseId] = React.useState<string>("")
-  const [lectureId, setLectureId] = React.useState<string>("")
-  const [loading, setLoading] = React.useState(false)
+  const [courseId, setCourseId] = React.useState<string>("none")
+  const [lectureId, setLectureId] = React.useState<string>("none")
+  const [submitting, setSubmitting] = React.useState(false)
   const [activeTab, setActiveTab] = React.useState<'write' | 'preview'>('write')
   
-  const { userProfile } = useAuth()
+  const { userProfile, user, loading } = useAuth()
   const router = useRouter()
+
+  // Debug logging
+  React.useEffect(() => {
+    console.log('🔍 CreateDiscussion - Auth state:', {
+      hasUser: !!user,
+      userEmail: user?.email,
+      hasUserProfile: !!userProfile,
+      userProfileId: userProfile?.id,
+      userProfileRoleId: userProfile?.role_id,
+      loading
+    })
+  }, [user, userProfile, loading])
 
   // Mock courses and lectures data
   const courses = [
@@ -53,11 +65,16 @@ export default function CreateDiscussionPage() {
   ]
 
   const filteredLectures = lectures.filter(lecture => 
-    courseId ? lecture.course_id === parseInt(courseId) : false
+    courseId && courseId !== "none" ? lecture.course_id === parseInt(courseId) : false
   )
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (loading) {
+      toast.error('Please wait while we verify your authentication...')
+      return
+    }
     
     if (!title.trim() || !content.trim()) {
       toast.error('Please fill in all required fields')
@@ -65,20 +82,34 @@ export default function CreateDiscussionPage() {
     }
 
     if (!userProfile?.id) {
-      toast.error('You must be logged in to create a discussion')
-      return
+      console.error('❌ CreateDiscussion - No user profile found:', {
+        hasUser: !!user,
+        userEmail: user?.email,
+        hasUserProfile: !!userProfile,
+        userProfileId: userProfile?.id,
+        authLoading: loading
+      })
+      
+      if (!user?.email) {
+        toast.error('You must be logged in to create a discussion.')
+        router.push('/login')
+        return
+      } else {
+        toast.error('Your session data is incomplete. Please sign out and sign in again to continue.')
+        return
+      }
     }
 
     try {
-      setLoading(true)
+      setSubmitting(true)
       
       const discussionData = {
         title: title.trim(),
         content: content.trim(),
         type,
         user_id: userProfile.id,
-        course_id: courseId ? parseInt(courseId) : undefined,
-        lecture_id: lectureId ? parseInt(lectureId) : undefined
+        course_id: courseId && courseId !== "none" ? parseInt(courseId) : undefined,
+        lecture_id: lectureId && lectureId !== "none" ? parseInt(lectureId) : undefined
       }
 
       const response = await discussionApi.createDiscussion(discussionData)
@@ -91,7 +122,7 @@ export default function CreateDiscussionPage() {
       console.error('Error creating discussion:', error)
       toast.error('Failed to create discussion')
     } finally {
-      setLoading(false)
+      setSubmitting(false)
     }
   }
 
@@ -118,8 +149,8 @@ export default function CreateDiscussionPage() {
         setTitle(draft.title || '')
         setContent(draft.content || '')
         setType(draft.type || 'question')
-        setCourseId(draft.courseId || '')
-        setLectureId(draft.lectureId || '')
+        setCourseId(draft.courseId || 'none')
+        setLectureId(draft.lectureId || 'none')
       } catch (error) {
         console.error('Error loading draft:', error)
       }
@@ -151,8 +182,8 @@ export default function CreateDiscussionPage() {
                   <Save className="mr-2 h-4 w-4" />
                   Save Draft
                 </Button>
-                <Button onClick={handleSubmit} disabled={loading}>
-                  {loading ? 'Creating...' : 'Create Discussion'}
+                <Button onClick={handleSubmit} disabled={submitting || loading || Boolean(user && !userProfile)}>
+                  {loading ? 'Verifying...' : submitting ? 'Creating...' : (user && !userProfile) ? 'Session Invalid' : 'Create Discussion'}
                 </Button>
               </div>
             </div>
@@ -161,6 +192,28 @@ export default function CreateDiscussionPage() {
 
         <main className="container mx-auto px-4 py-8">
           <div className="max-w-4xl mx-auto">
+            {user && !userProfile && !loading && (
+              <div className="mb-6 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-sm font-medium text-red-800 dark:text-red-200">
+                      Session Data Missing
+                    </h3>
+                    <p className="text-sm text-red-700 dark:text-red-300 mt-1">
+                      Your session data is incomplete. Please{' '}
+                      <button 
+                        onClick={() => router.push('/login')}
+                        className="underline hover:no-underline"
+                      >
+                        sign out and sign in again
+                      </button>{' '}
+                      to continue.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
             <form onSubmit={handleSubmit} className="space-y-8">
               {/* Discussion Details */}
               <Card>
@@ -195,7 +248,7 @@ export default function CreateDiscussionPage() {
                           <SelectValue placeholder="Select course" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">No specific course</SelectItem>
+                          <SelectItem value="none">No specific course</SelectItem>
                           {courses.map((course) => (
                             <SelectItem key={course.id} value={course.id.toString()}>
                               {course.title}
@@ -206,7 +259,7 @@ export default function CreateDiscussionPage() {
                     </div>
                   </div>
                   
-                  {courseId && (
+                  {courseId && courseId !== "none" && (
                     <div className="space-y-2">
                       <Label htmlFor="lecture">Lecture (Optional)</Label>
                       <Select value={lectureId} onValueChange={setLectureId}>
@@ -214,7 +267,7 @@ export default function CreateDiscussionPage() {
                           <SelectValue placeholder="Select lecture" />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="">No specific lecture</SelectItem>
+                          <SelectItem value="none">No specific lecture</SelectItem>
                           {filteredLectures.map((lecture) => (
                             <SelectItem key={lecture.id} value={lecture.id.toString()}>
                               {lecture.title}

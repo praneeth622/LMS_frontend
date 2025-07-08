@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { motion } from "framer-motion"
-import { DivideIcon as LucideIcon } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface StatCard {
@@ -10,7 +9,7 @@ interface StatCard {
   value: string | number
   change?: string
   changeType?: 'positive' | 'negative' | 'neutral'
-  icon: LucideIcon
+  icon: React.ComponentType<{ className?: string }>
   color: string
 }
 

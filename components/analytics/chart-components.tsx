@@ -12,8 +12,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  RadialBarChart,
-  RadialBar,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -333,52 +331,6 @@ export function LearningTimeChart({ title, description, data, loading }: ChartPr
               <Tooltip />
               <Bar dataKey="hours" fill="#ffc658" />
             </BarChart>
-          </ResponsiveContainer>
-        </CardContent>
-      </Card>
-    </motion.div>
-  )
-}
-
-// Radial Progress Chart
-export function RadialProgressChart({ title, description, data, loading }: ChartProps) {
-  if (loading) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          {description && <CardDescription>{description}</CardDescription>}
-        </CardHeader>
-        <CardContent>
-          <div className="h-[300px] bg-muted rounded animate-pulse"></div>
-        </CardContent>
-      </Card>
-    )
-  }
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
-    >
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          {description && <CardDescription>{description}</CardDescription>}
-        </CardHeader>
-        <CardContent>
-          <ResponsiveContainer width="100%" height={300}>
-            <RadialBarChart cx="50%" cy="50%" innerRadius="10%" outerRadius="80%" data={data}>
-              <RadialBar
-                minAngle={15}
-                label={{ position: 'insideStart', fill: '#fff' }}
-                background
-                clockWise
-                dataKey="value"
-              />
-              <Legend iconSize={18} layout="vertical" verticalAlign="middle" />
-            </RadialBarChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>

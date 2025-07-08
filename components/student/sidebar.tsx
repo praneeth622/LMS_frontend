@@ -17,7 +17,8 @@ import {
   ChevronRight,
   LogOut,
   GraduationCap,
-  FileText
+  FileText,
+  MessageSquare
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -43,6 +44,11 @@ const navigation = [
     name: "Assessments",
     href: "/student/assessments",
     icon: FileText,
+  },
+  {
+    name: "Discussions",
+    href: "/student/discussions",
+    icon: MessageSquare,
   },
   {
     name: "Analytics",

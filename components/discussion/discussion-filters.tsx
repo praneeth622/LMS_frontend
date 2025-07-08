@@ -197,7 +197,7 @@ export function DiscussionFilters({
                         <SelectValue placeholder="All courses" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All courses</SelectItem>
+                        <SelectItem value="all">All courses</SelectItem>
                         {courses.map((course) => (
                           <SelectItem key={course.id} value={course.id.toString()}>
                             {course.title}
@@ -220,7 +220,7 @@ export function DiscussionFilters({
                         <SelectValue placeholder="All lectures" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="">All lectures</SelectItem>
+                        <SelectItem value="all">All lectures</SelectItem>
                         {lectures.map((lecture) => (
                           <SelectItem key={lecture.id} value={lecture.id.toString()}>
                             {lecture.title}

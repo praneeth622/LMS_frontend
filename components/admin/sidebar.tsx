@@ -14,7 +14,9 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
-  LogOut
+  LogOut,
+  GraduationCap,
+  Bell
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -37,6 +39,21 @@ const navigation = [
     icon: Building2,
   },
   {
+    name: "Course Management",
+    href: "/admin/courses",
+    icon: BookOpen,
+  },
+  {
+    name: "Enrollments",
+    href: "/admin/enrollments",
+    icon: GraduationCap,
+  },
+  {
+    name: "Notifications",
+    href: "/admin/notifications",
+    icon: Bell,
+  },
+  {
     name: "System Health",
     href: "/admin/health",
     icon: Activity,
@@ -45,11 +62,6 @@ const navigation = [
     name: "Audit Logs",
     href: "/admin/audit-logs",
     icon: FileText,
-  },
-  {
-    name: "Course Approval",
-    href: "/admin/courses",
-    icon: BookOpen,
   },
   {
     name: "Settings",

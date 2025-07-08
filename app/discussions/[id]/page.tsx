@@ -261,7 +261,7 @@ Hope this helps!`,
           user: {
             id: userProfile.id,
             name: userProfile.name,
-            avatar: userProfile.avatar,
+            avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${userProfile.name}`,
             reputation: 0,
             role: userProfile.role_id === 1 ? 'Admin' : userProfile.role_id === 2 ? 'Instructor' : 'Student'
           }
@@ -306,7 +306,7 @@ Hope this helps!`,
                   user: {
                     id: userProfile.id,
                     name: userProfile.name,
-                    avatar: userProfile.avatar,
+                    avatar: `https://api.dicebear.com/7.x/initials/svg?seed=${userProfile.name}`,
                     reputation: 0,
                     role: userProfile.role_id === 1 ? 'Admin' : userProfile.role_id === 2 ? 'Instructor' : 'Student'
                   }

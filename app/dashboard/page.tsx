@@ -12,6 +12,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!loading && userProfile) {
       // Redirect based on user role
+      console.log('User profile:', userProfile)
       switch (userProfile.role_id) {
         case 1: // Admin
           router.push('/admin/dashboard')

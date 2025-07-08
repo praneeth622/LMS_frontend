@@ -57,6 +57,46 @@ export const signIn = async (email: string, password: string) => {
     }
 
     console.log('✅ Supabase signin successful:', data.user?.email)
+    
+    // After successful Supabase login, try to get user profile from backend
+    // Do this in the background without blocking the login
+    if (data.user?.email) {
+      // Use setTimeout to make this non-blocking
+      setTimeout(async () => {
+        try {
+          console.log('🔍 Fetching user profile from backend after login...')
+          const response = await authApi.getAllUsers()
+          console.log('📊 Users response during login:', response)
+          
+          if (response.success && Array.isArray(response.data)) {
+            const userProfile = response.data.find(u => u.email === data.user.email)
+            console.log('🎯 User profile search result:', userProfile)
+            
+            if (userProfile) {
+              // Handle both role_id and role object structures
+              const normalizedUser = {
+                id: userProfile.id,
+                name: userProfile.name,
+                email: userProfile.email,
+                role_id: userProfile.role_id || userProfile.role?.id,
+                created_at: userProfile.created_at
+              }
+              
+              console.log('✅ User profile found and storing:', normalizedUser)
+              storeUserData(normalizedUser)
+            } else {
+              console.warn('⚠️ User profile not found in backend users list')
+              console.log('📋 Available users:', response.data.map(u => ({ id: u.id, email: u.email, name: u.name })))
+            }
+          } else {
+            console.error('❌ Invalid response from getAllUsers:', response)
+          }
+        } catch (profileError) {
+          console.error('❌ Error fetching user profile after login:', profileError)
+        }
+      }, 100) // Small delay to make it non-blocking
+    }
+    
     return { data, error: null }
   } catch (error: any) {
     console.error('❌ Sign in failed:', error)
@@ -106,43 +146,44 @@ export const getUserProfile = async (email: string): Promise<User | null> => {
   try {
     console.log('👤 Fetching user profile for email:', email)
     
-    // TEMPORARY WORKAROUND: Since there's no /users/me endpoint, we'll use a different approach
-    // We'll store the user ID in localStorage during login and use getUserById
-    const storedUserData = localStorage.getItem('user_data')
+    // Clear any cached data to ensure we get fresh data with correct structure
+    console.log('🧹 Clearing cached user data to fetch fresh data')
+    localStorage.removeItem('user_data')
     
-    if (storedUserData) {
-      try {
-        const userData = JSON.parse(storedUserData)
-        console.log('📱 Found stored user data:', userData)
-        
-        if (userData.id) {
-          console.log('🔍 Fetching user by ID:', userData.id)
-          const response = await authApi.getUserById(userData.id)
-          
-          if (response.success) {
-            console.log('✅ User profile fetched successfully:', {
-              id: response.data.id,
-              name: response.data.name,
-              email: response.data.email,
-              role_id: response.data.role_id
-            })
-            return response.data
-          } else {
-            console.error('❌ Failed to fetch user by ID:', response)
-          }
+    // Fetch fresh data from API
+    console.log('🔍 Fetching fresh data from API...')
+    const response = await authApi.getAllUsers()
+    console.log('📊 API response:', response)
+    
+    if (response.success && Array.isArray(response.data)) {
+      const userProfile = response.data.find(u => u.email === email)
+      console.log('🎯 Found user profile:', userProfile)
+      
+      if (userProfile) {
+        // Handle both role_id and role object structures
+        const normalizedUser = {
+          id: userProfile.id,
+          name: userProfile.name,
+          email: userProfile.email,
+          role_id: userProfile.role_id || userProfile.role?.id,
+          created_at: userProfile.created_at
         }
-      } catch (parseError) {
-        console.error('❌ Error parsing stored user data:', parseError)
-        localStorage.removeItem('user_data')
+        
+        console.log('✅ User profile found and storing:', normalizedUser)
+        storeUserData(normalizedUser)
+        return normalizedUser
+      } else {
+        console.warn('⚠️ User not found in API response')
+        console.log('📋 Available users:', response.data.map(u => ({ id: u.id, email: u.email, name: u.name })))
       }
+    } else {
+      console.error('❌ Invalid API response:', response)
     }
     
-    console.warn('⚠️ No stored user data found or failed to fetch by ID')
-    console.warn('💡 This indicates the user needs to log in again to store their profile data')
-    
+    console.warn('⚠️ Unable to fetch user profile')
     return null
   } catch (error: any) {
-    console.error('❌ Failed to fetch user profile:', {
+    console.error('❌ Error fetching user profile:', {
       email,
       error: error.message,
       status: error.response?.status,
@@ -179,4 +220,43 @@ export const storeUserData = (userData: User) => {
 export const clearUserData = () => {
   console.log('🧹 Clearing stored user data')
   localStorage.removeItem('user_data')
+}
+
+// Helper function to manually refresh user profile
+export const refreshUserProfile = async (email: string): Promise<User | null> => {
+  console.log('🔄 Manually refreshing user profile for:', email)
+  
+  try {
+    const response = await authApi.getAllUsers()
+    console.log('📊 Manual refresh - users response:', response)
+    
+    if (response.success && Array.isArray(response.data)) {
+      const userProfile = response.data.find(u => u.email === email)
+      console.log('🎯 Manual refresh - found user:', userProfile)
+      
+      if (userProfile) {
+        // Handle both role_id and role object structures
+        const normalizedUser = {
+          id: userProfile.id,
+          name: userProfile.name,
+          email: userProfile.email,
+          role_id: userProfile.role_id || userProfile.role?.id,
+          created_at: userProfile.created_at
+        }
+        
+        console.log('✅ Manual refresh - storing user data:', normalizedUser)
+        storeUserData(normalizedUser)
+        return normalizedUser
+      } else {
+        console.warn('⚠️ Manual refresh - user not found')
+        console.log('📋 Available users:', response.data.map(u => ({ id: u.id, email: u.email, name: u.name })))
+      }
+    } else {
+      console.error('❌ Manual refresh - invalid response:', response)
+    }
+  } catch (error) {
+    console.error('❌ Manual refresh - error:', error)
+  }
+  
+  return null
 }

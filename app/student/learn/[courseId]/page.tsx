@@ -51,7 +51,10 @@ import { studentApi, Course, CourseContent, Lecture } from '@/lib/student-api'
 import { useAuth } from '@/contexts/auth-context'
 
 // Dynamically import ReactPlayer to avoid SSR issues
-const ReactPlayer = dynamic(() => import('react-player'), { ssr: false })
+const ReactPlayer = dynamic(() => import('react-player'), { 
+  ssr: false,
+  loading: () => <div className="w-full h-64 bg-muted animate-pulse rounded-lg" />
+}) as any
 
 interface Bookmark {
   id: string

@@ -84,7 +84,6 @@ export function DragDropQuestions({
       ...question,
       id: Date.now(), // Temporary ID
       question_text: `${question.question_text} (Copy)`,
-      order: questions.length + 1
     }
     onQuestionsChange([...questions, newQuestion])
   }
@@ -252,26 +251,26 @@ function SortableQuestion({
             <p className="font-medium">{question.question_text}</p>
             
             {question.type === 'multiple_choice' && question.options && (
-              <div className="space-y-2">
-                {question.options.map((option, optionIndex) => (
+                <div className="space-y-2">
+                {question.options.map((option: string, optionIndex: number) => (
                   <div 
-                    key={optionIndex} 
-                    className={`p-2 rounded border text-sm ${
-                      option === question.correct_answer 
-                        ? 'bg-green-50 border-green-200 text-green-800' 
-                        : 'bg-muted/50'
-                    }`}
+                  key={optionIndex} 
+                  className={`p-2 rounded border text-sm ${
+                    option === question.correct_answer 
+                    ? 'bg-green-50 border-green-200 text-green-800' 
+                    : 'bg-muted/50'
+                  }`}
                   >
-                    <span className="font-medium mr-2">{String.fromCharCode(65 + optionIndex)}.</span>
-                    {option}
-                    {option === question.correct_answer && (
-                      <Badge variant="outline" className="ml-2 text-xs bg-green-100 text-green-800">
-                        Correct
-                      </Badge>
-                    )}
+                  <span className="font-medium mr-2">{String.fromCharCode(65 + optionIndex)}.</span>
+                  {option}
+                  {option === question.correct_answer && (
+                    <Badge variant="outline" className="ml-2 text-xs bg-green-100 text-green-800">
+                    Correct
+                    </Badge>
+                  )}
                   </div>
                 ))}
-              </div>
+                </div>
             )}
             
             {question.type === 'true_false' && (
@@ -294,7 +293,7 @@ function SortableQuestion({
             
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <span>Points: {question.points}</span>
-              <span>Order: {question.order}</span>
+              <span>Question {index + 1}</span>
             </div>
           </div>
         </CardContent>
