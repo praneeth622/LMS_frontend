@@ -27,7 +27,7 @@ export function ProtectedRoute({
       }
 
       if (allowedRoles.length > 0 && userProfile) {
-        if (!allowedRoles.includes(userProfile.role_id)) {
+        if (userProfile.role_id !== undefined && !allowedRoles.includes(userProfile.role_id)) {
           // Redirect based on user role
           switch (userProfile.role_id) {
             case 1: // Admin
@@ -60,7 +60,7 @@ export function ProtectedRoute({
     return null
   }
 
-  if (allowedRoles.length > 0 && userProfile && !allowedRoles.includes(userProfile.role_id)) {
+  if (allowedRoles.length > 0 && userProfile && userProfile.role_id !== undefined && !allowedRoles.includes(userProfile.role_id)) {
     return null
   }
 

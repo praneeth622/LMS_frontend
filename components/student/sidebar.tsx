@@ -18,7 +18,12 @@ import {
   LogOut,
   GraduationCap,
   FileText,
-  MessageSquare
+  MessageSquare,
+  Bell,
+  User,
+  ClipboardList,
+  Award,
+  HelpCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
@@ -46,6 +51,11 @@ const navigation = [
     icon: FileText,
   },
   {
+    name: "Assignments",
+    href: "/student/assignments",
+    icon: ClipboardList,
+  },
+  {
     name: "Discussions",
     href: "/student/discussions",
     icon: MessageSquare,
@@ -58,7 +68,7 @@ const navigation = [
   {
     name: "Certificates",
     href: "/student/certificates",
-    icon: Trophy,
+    icon: Award,
   },
   {
     name: "Calendar",
@@ -66,9 +76,19 @@ const navigation = [
     icon: Calendar,
   },
   {
-    name: "Settings",
-    href: "/student/settings",
-    icon: Settings,
+    name: "Notifications",
+    href: "/student/notifications",
+    icon: Bell,
+  },
+  {
+    name: "Profile",
+    href: "/student/profile",
+    icon: User,
+  },
+  {
+    name: "Help",
+    href: "/student/help",
+    icon: HelpCircle,
   },
 ]
 
