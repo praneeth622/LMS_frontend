@@ -84,10 +84,11 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
       initial={false}
       animate={{ width: collapsed ? 80 : 280 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-card border-r border-border h-screen flex flex-col"
+      className="bg-white border-r border-[#E8EAED] h-screen flex flex-col shadow-sm"
+      style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
     >
       {/* Header */}
-      <div className="p-4 border-b border-border">
+      <div className="p-6 border-b border-[#E8EAED]">
         <div className="flex items-center justify-between">
           <AnimatePresence mode="wait">
             {!collapsed && (
@@ -96,12 +97,12 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.2 }}
-                className="flex items-center space-x-2"
+                className="flex items-center gap-3"
               >
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                  <LayoutDashboard className="h-5 w-5 text-primary-foreground" />
+                <div className="w-10 h-10 bg-[#8B5CF6] rounded-xl flex items-center justify-center shadow-sm">
+                  <LayoutDashboard className="h-6 w-6 text-white" />
                 </div>
-                <span className="font-bold text-lg">Admin Panel</span>
+                <span className="font-semibold text-xl text-[#1F2937]">Admin Panel</span>
               </motion.div>
             )}
           </AnimatePresence>
@@ -109,34 +110,40 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
             variant="ghost"
             size="icon"
             onClick={onToggle}
-            className="h-8 w-8"
+            className="h-10 w-10 rounded-lg hover:bg-[#F1F3F4] transition-colors"
           >
             {collapsed ? (
-              <ChevronRight className="h-4 w-4" />
+              <ChevronRight className="h-5 w-5 text-[#6B7280]" />
             ) : (
-              <ChevronLeft className="h-4 w-4" />
+              <ChevronLeft className="h-5 w-5 text-[#6B7280]" />
             )}
           </Button>
         </div>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-4 space-y-2">
+      <nav className="flex-1 p-6 space-y-2">
         {navigation.map((item) => {
           const isActive = pathname === item.href
           return (
             <Link key={item.name} href={item.href}>
               <motion.div
-                whileHover={{ x: collapsed ? 0 : 4 }}
+                whileHover={{ 
+                  x: collapsed ? 0 : 4,
+                  backgroundColor: isActive ? "#8B5CF6" : "#F8F9FA"
+                }}
                 whileTap={{ scale: 0.98 }}
                 className={cn(
-                  "flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors duration-200",
+                  "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 group",
                   isActive
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted"
+                    ? "bg-[#8B5CF6] text-white shadow-md"
+                    : "text-[#6B7280] hover:text-[#1F2937] hover:bg-[#F8F9FA]"
                 )}
               >
-                <item.icon className="h-5 w-5 flex-shrink-0" />
+                <item.icon className={cn(
+                  "h-5 w-5 flex-shrink-0 transition-colors",
+                  isActive ? "text-white" : "text-[#6B7280] group-hover:text-[#8B5CF6]"
+                )} />
                 <AnimatePresence mode="wait">
                   {!collapsed && (
                     <motion.span
@@ -144,7 +151,7 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: -10 }}
                       transition={{ duration: 0.2 }}
-                      className="font-medium"
+                      className="font-medium text-sm"
                     >
                       {item.name}
                     </motion.span>
@@ -157,10 +164,10 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
       </nav>
 
       {/* User Profile */}
-      <div className="p-4 border-t border-border">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center">
-            <span className="text-sm font-medium text-primary">
+      <div className="p-6 border-t border-[#E8EAED] bg-[#F8F9FA]">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#8B5CF6] to-[#A855F7] rounded-full flex items-center justify-center shadow-sm border-2 border-white">
+            <span className="text-sm font-semibold text-white">
               {userProfile?.name?.charAt(0) || 'A'}
             </span>
           </div>
@@ -173,10 +180,10 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
                 transition={{ duration: 0.2 }}
                 className="flex-1 min-w-0"
               >
-                <p className="text-sm font-medium truncate">
+                <p className="text-sm font-semibold text-[#1F2937] truncate">
                   {userProfile?.name || 'Admin'}
                 </p>
-                <p className="text-xs text-muted-foreground truncate">
+                <p className="text-xs text-[#6B7280] truncate">
                   Administrator
                 </p>
               </motion.div>
@@ -186,7 +193,7 @@ export function AdminSidebar({ collapsed, onToggle }: AdminSidebarProps) {
             variant="ghost"
             size="icon"
             onClick={signOut}
-            className="h-8 w-8 text-muted-foreground hover:text-foreground"
+            className="h-9 w-9 rounded-lg text-[#6B7280] hover:text-[#8B5CF6] hover:bg-white transition-colors"
           >
             <LogOut className="h-4 w-4" />
           </Button>

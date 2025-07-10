@@ -89,7 +89,7 @@ export default function StudentAnalyticsPage() {
       change: "+2 this month",
       changeType: "positive" as const,
       icon: BookOpen,
-      color: "#0088FE"
+      color: "hsl(var(--chart-1))"
     },
     {
       title: "Learning Hours",
@@ -97,7 +97,7 @@ export default function StudentAnalyticsPage() {
       change: "+24 this week",
       changeType: "positive" as const,
       icon: Clock,
-      color: "#00C49F"
+      color: "hsl(var(--chart-2))"
     },
     {
       title: "Average Score",
@@ -105,7 +105,7 @@ export default function StudentAnalyticsPage() {
       change: "+5% improvement",
       changeType: "positive" as const,
       icon: Target,
-      color: "#FFBB28"
+      color: "hsl(var(--chart-3))"
     },
     {
       title: "Learning Streak",
@@ -113,7 +113,7 @@ export default function StudentAnalyticsPage() {
       change: "days in a row",
       changeType: "positive" as const,
       icon: Flame,
-      color: "#FF8042"
+      color: "hsl(var(--chart-4))"
     }
   ]
 
@@ -130,14 +130,14 @@ export default function StudentAnalyticsPage() {
       description: "Score 90+ on 5 quizzes",
       icon: <Trophy className="h-5 w-5" />,
       earned: true,
-      color: "bg-yellow-500"
+      color: "bg-emerald-500"
     },
     {
       title: "Consistent Learner",
       description: "Learn for 7 days straight",
       icon: <Flame className="h-5 w-5" />,
       earned: true,
-      color: "bg-orange-500"
+      color: "bg-blue-500"
     },
     {
       title: "Speed Learner",

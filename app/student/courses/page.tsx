@@ -241,7 +241,7 @@ export default function StudentCoursesPage() {
             <Button
               size="icon"
               variant={wishlist.includes(course.id) ? "default" : "secondary"}
-              className="h-8 w-8 bg-white/90 hover:bg-white"
+              className="h-8 w-8 bg-background/90 hover:bg-background dark:bg-card/90 dark:hover:bg-card"
               onClick={() => toggleWishlist(course.id)}
             >
               <Heart className={`h-4 w-4 ${wishlist.includes(course.id) ? 'fill-current' : ''}`} />
