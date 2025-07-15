@@ -40,7 +40,7 @@ export function InstructorHeader({
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-white border-b border-[#E8EAED] px-8 py-6 shadow-sm"
+      className="bg-background border-b border-border px-8 py-6 shadow-sm"
       style={{ 
         fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         height: '4rem'
@@ -48,22 +48,22 @@ export function InstructorHeader({
     >
       <div className="flex items-center justify-between h-full">
         <div>
-          <h1 className="text-2xl font-bold text-[#1F2937] leading-tight">{title}</h1>
+          <h1 className="text-2xl font-bold text-foreground leading-tight">{title}</h1>
           {subtitle && (
-            <p className="text-[#6B7280] mt-1 text-sm font-medium">{subtitle}</p>
+            <p className="text-muted-foreground mt-1 text-sm font-medium">{subtitle}</p>
           )}
         </div>
 
         <div className="flex items-center gap-4">
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-[#6B7280]" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="text"
               placeholder={searchPlaceholder}
               value={searchQuery}
               onChange={handleSearchChange}
-              className="pl-12 w-80 h-10 border-[#E8EAED] rounded-lg bg-white text-sm font-medium placeholder:text-[#9CA3AF] focus:border-[#FF4B4B] focus:ring-2 focus:ring-[#FF4B4B] focus:ring-opacity-20 transition-all"
+              className="pl-12 w-80 h-10 border-border rounded-lg bg-background text-sm font-medium placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all"
               style={{ fontSize: '0.875rem' }}
             />
           </div>
@@ -74,11 +74,11 @@ export function InstructorHeader({
               <Button 
                 variant="ghost" 
                 size="icon" 
-                className="relative h-10 w-10 rounded-lg hover:bg-[#F1F3F4] transition-colors"
+                className="relative h-10 w-10 rounded-lg hover:bg-accent transition-colors"
               >
-                <Bell className="h-5 w-5 text-[#6B7280]" />
+                <Bell className="h-5 w-5 text-muted-foreground" />
                 <Badge 
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-[#FF4B4B] text-white border-2 border-white rounded-full font-semibold"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground border-2 border-background rounded-full font-semibold"
                 >
                   2
                 </Badge>
@@ -86,23 +86,23 @@ export function InstructorHeader({
             </DropdownMenuTrigger>
             <DropdownMenuContent 
               align="end" 
-              className="w-80 bg-white border-[#E8EAED] rounded-xl shadow-lg p-0"
+              className="w-80 bg-popover border-border rounded-xl shadow-lg p-0"
             >
               <div className="p-4">
-                <h4 className="font-semibold mb-3 text-[#1F2937]">Notifications</h4>
+                <h4 className="font-semibold mb-3 text-popover-foreground">Notifications</h4>
                 <div className="space-y-3">
-                  <div className="p-3 rounded-lg bg-[#F8F9FA] border border-[#E8EAED]">
-                    <p className="text-sm font-semibold text-[#1F2937]">New student enrolled</p>
-                    <p className="text-xs text-[#6B7280] mt-1">Sarah joined your React course</p>
+                  <div className="p-3 rounded-lg bg-muted border border-border">
+                    <p className="text-sm font-semibold text-foreground">New student enrolled</p>
+                    <p className="text-xs text-muted-foreground mt-1">Sarah joined your React course</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-[#F8F9FA] border border-[#E8EAED]">
-                    <p className="text-sm font-semibold text-[#1F2937]">Course review submitted</p>
-                    <p className="text-xs text-[#6B7280] mt-1">5-star review for JavaScript Basics</p>
+                  <div className="p-3 rounded-lg bg-muted border border-border">
+                    <p className="text-sm font-semibold text-foreground">Course review submitted</p>
+                    <p className="text-xs text-muted-foreground mt-1">5-star review for JavaScript Basics</p>
                   </div>
                 </div>
               </div>
-              <DropdownMenuSeparator className="bg-[#E8EAED]" />
-              <DropdownMenuItem className="p-4 text-sm font-medium text-[#FF4B4B] hover:bg-[#F8F9FA] cursor-pointer">
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem className="p-4 text-sm font-medium text-primary hover:bg-accent cursor-pointer">
                 <span>View all notifications</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
@@ -112,9 +112,9 @@ export function InstructorHeader({
           <Button 
             variant="ghost" 
             size="icon"
-            className="h-10 w-10 rounded-lg hover:bg-[#F1F3F4] transition-colors"
+            className="h-10 w-10 rounded-lg hover:bg-accent transition-colors"
           >
-            <Settings className="h-5 w-5 text-[#6B7280]" />
+            <Settings className="h-5 w-5 text-muted-foreground" />
           </Button>
         </div>
       </div>

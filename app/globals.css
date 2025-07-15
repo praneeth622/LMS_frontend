@@ -4,278 +4,314 @@
 
 @layer base {
   :root {
-    /* Premium Light Mode Design System */
-    --background: 250 251 252; /* #FAFBFC - Ultra light background */
-    --foreground: 15 23 42; /* #0F172A - Rich dark text */
-    --card: 255 255 255; /* #FFFFFF - Pure white cards */
-    --card-foreground: 15 23 42; /* #0F172A - Rich dark text */
-    --popover: 255 255 255; /* #FFFFFF */
-    --popover-foreground: 15 23 42; /* #0F172A */
-
-    /* Role-based Primary Colors */
-    --primary: 16 185 129; /* #10B981 - Student Green */
-    --primary-foreground: 255 255 255; /* #FFFFFF */
-    --primary-light: 167 243 208; /* #A7F3D0 */
-    --primary-dark: 5 150 105; /* #059669 */
-
-    /* Admin Colors */
-    --admin-primary: 99 102 241; /* #6366F1 - Indigo */
-    --admin-secondary: 139 92 246; /* #8B5CF6 - Purple */
-    --admin-light: 199 210 254; /* #C7D2FE */
-
-    /* Instructor Colors */
-    --instructor-primary: 239 68 68; /* #EF4444 - Red */
-    --instructor-secondary: 249 115 22; /* #F97316 - Orange */
-    --instructor-light: 254 202 202; /* #FECACA */
-
-    /* Neutral Colors */
-    --secondary: 248 250 252; /* #F8FAFC */
-    --secondary-foreground: 51 65 85; /* #334155 */
-    --muted: 241 245 249; /* #F1F5F9 */
-    --muted-foreground: 51 65 85; /* #334155 */
-    --accent: 14 165 233; /* #0EA5E9 - Sky blue */
-    --accent-foreground: 255 255 255; /* #FFFFFF */
-
-    /* Status Colors */
-    --destructive: 239 68 68; /* #EF4444 */
-    --destructive-foreground: 255 255 255; /* #FFFFFF */
-    --success: 34 197 94; /* #22C55E */
-    --warning: 245 158 11; /* #F59E0B */
-    --info: 59 130 246; /* #3B82F6 */
-
-    /* UI Elements */
-    --border: 226 232 240; /* #E2E8F0 */
-    --input: 241 245 249; /* #F1F5F9 */
-    --ring: 16 185 129; /* #10B981 */
-    --radius: 0.75rem; /* 12px */
-
-    /* Chart Colors */
-    --chart-1: 16 185 129; /* #10B981 - Green */
-    --chart-2: 59 130 246; /* #3B82F6 - Blue */
-    --chart-3: 245 158 11; /* #F59E0B - Orange */
-    --chart-4: 139 92 246; /* #8B5CF6 - Purple */
-    --chart-5: 236 72 153; /* #EC4899 - Pink */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 72.2% 50.6%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+    
+    /* EduFlow brand colors */
+    --eduflow-red: 0 72.2% 50.6%;
+    --eduflow-red-light: 0 84.2% 60.2%;
+    --eduflow-red-dark: 0 62.8% 30.6%;
+    
+    /* Enhanced theme variables */
+    --success: 142 76% 36%;
+    --success-foreground: 138 76% 97%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
+    --info: 199 89% 48%;
+    --info-foreground: 210 40% 98%;
   }
 
   .dark {
-  /* Enhanced Premium Dark Mode Design System - Pure Black Theme */
-  --background: 0 0 0; /* #000000 - Pure black background */
-  --foreground: 255 255 255; /* #FFFFFF - Pure white text */
-  --card: 10 10 10; /* #0A0A0A - Near black cards */
-  --card-foreground: 255 255 255; /* #FFFFFF - Pure white text */
-  --popover: 10 10 10; /* #0A0A0A - Near black popover */
-  --popover-foreground: 255 255 255; /* #FFFFFF - Pure white text */
-
-  /* Primary Colors - Clean emerald green */
-  --primary: 16 185 129; /* #10B981 - Emerald green */
-  --primary-foreground: 255 255 255; /* #FFFFFF - White text on green */
-  --primary-light: 52 211 153; /* #34D399 - Lighter emerald */
-  --primary-dark: 5 150 105; /* #059669 - Darker emerald */
-
-  /* Admin Colors */
-  --admin-primary: 99 102 241; /* #6366F1 - Indigo */
-  --admin-secondary: 139 92 246; /* #8B5CF6 - Purple */
-  --admin-light: 129 140 248; /* #818CF8 - Bright indigo */
-
-  /* Instructor Colors */
-  --instructor-primary: 239 68 68; /* #EF4444 - Red */
-  --instructor-secondary: 249 115 22; /* #F97316 - Orange */
-  --instructor-light: 248 113 113; /* #F87171 - Bright red */
-
-  /* Neutral Colors - Pure grayscale only */
-  --secondary: 20 20 20; /* #141414 - Dark gray secondary */
-  --secondary-foreground: 255 255 255; /* #FFFFFF - White text */
-  --muted: 25 25 25; /* #191919 - Muted dark background */
-  --muted-foreground: 163 163 163; /* #A3A3A3 - Light gray text */
-  --accent: 30 30 30; /* #1E1E1E - Dark accent */
-  --accent-foreground: 255 255 255; /* #FFFFFF - White text on accent */
-
-  /* Status Colors - No yellow/brown tones */
-  --destructive: 239 68 68; /* #EF4444 - Red */
-  --destructive-foreground: 255 255 255; /* #FFFFFF - White text on red */
-  --success: 34 197 94; /* #22C55E - Green */
-  --warning: 59 130 246; /* #3B82F6 - Blue instead of yellow */
-  --info: 14 165 233; /* #0EA5E9 - Sky blue */
-
-  /* UI Elements - Pure dark theme */
-  --border: 30 30 30; /* #1E1E1E - Dark border */
-  --input: 15 15 15; /* #0F0F0F - Dark input background */
-  --ring: 16 185 129; /* #10B981 - Emerald focus ring */
-
-  /* Chart Colors - No amber/brown */
-  --chart-1: 52 211 153; /* #34D399 - Emerald */
-  --chart-2: 96 165 250; /* #60A5FA - Blue */
-  --chart-3: 59 130 246; /* #3B82F6 - Blue instead of amber */
-  --chart-4: 167 139 250; /* #A78BFA - Purple */
-  --chart-5: 244 114 182; /* #F472B6 - Pink */
-}
-
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 72.2% 50.6%;
+    --primary-foreground: 0 85.7% 97.3%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 72.2% 50.6%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    
+    /* EduFlow brand colors for dark theme */
+    --eduflow-red: 0 72.2% 50.6%;
+    --eduflow-red-light: 0 84.2% 60.2%;
+    --eduflow-red-dark: 0 62.8% 30.6%;
+    
+    /* Enhanced dark theme variables */
+    --success: 142 71% 45%;
+    --success-foreground: 144 61% 20%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 48 96% 89%;
+    --info: 199 89% 48%;
+    --info-foreground: 210 40% 98%;
+  }
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
-
-  /* Smooth scrolling */
+  
   html {
     scroll-behavior: smooth;
+    transition: color-scheme 0.3s ease-in-out;
+  }
+  
+  html[data-theme='dark'] {
+    color-scheme: dark;
+  }
+  
+  html[data-theme='light'] {
+    color-scheme: light;
+  }
+
+  /* Smooth theme transitions for all elements */
+  * {
+    transition: 
+      background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer components {
+  /* Custom scrollbar for webkit browsers */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+
+  /* Focus ring utilities */
+  .focus-visible-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  }
+
+  /* Gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--eduflow-red)), hsl(var(--eduflow-red-light)));
+  }
+  
+  .gradient-secondary {
+    background: linear-gradient(135deg, hsl(var(--muted)), hsl(var(--accent)));
+  }
+
+  /* Glass morphism effect */
+  .glass {
+    background: hsl(var(--background) / 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid hsl(var(--border) / 0.2);
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    @apply transition-all duration-200 ease-in-out hover:shadow-lg hover:scale-[1.02];
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-eduflow-red hover:bg-eduflow-red-dark text-white font-medium px-4 py-2 rounded-md transition-colors duration-200;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium px-4 py-2 rounded-md transition-colors duration-200;
+  }
+  
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground font-medium px-4 py-2 rounded-md transition-colors duration-200;
+  }
+
+  /* Loading spinner */
+  .spinner {
+    @apply animate-spin rounded-full border-2 border-current border-t-transparent;
+  }
+
+  /* Text utilities */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--eduflow-red)), hsl(var(--eduflow-red-light)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Form elements */
+  .form-input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Navigation styles */
+  .nav-link {
+    @apply text-muted-foreground hover:text-foreground transition-colors duration-200 relative;
+  }
+  
+  .nav-link.active {
+    @apply text-foreground;
+  }
+  
+  .nav-link.active::after {
+    content: '';
+    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-eduflow-red rounded-full;
+  }
+
+  /* Layout utilities */
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-12 lg:py-20;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+  
+  .animate-fade-in-down {
+    animation: fadeInDown 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+  
+  .animate-slide-in-right {
+    animation: slideInRight 0.6s ease-out forwards;
+  }
+
+  /* Notification styles */
+  .notification-success {
+    @apply bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400;
+  }
+  
+  .notification-error {
+    @apply bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400;
+  }
+  
+  .notification-warning {
+    @apply bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-400;
+  }
+  
+  .notification-info {
+    @apply bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400;
   }
 }
 
 @layer utilities {
-  /* Premium Glass Effect - Improved Dark Mode */
-  .glass {
-    @apply backdrop-blur-xl bg-white/80 dark:bg-zinc-900/80 border border-white/20 dark:border-zinc-700/50;
+  /* Hide scrollbar but allow scrolling */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 
-  .glass-card {
-    @apply backdrop-blur-xl bg-white/90 dark:bg-zinc-900/90 border border-white/20 dark:border-zinc-700/50 shadow-xl;
+  /* Truncate text utilities */
+  .truncate-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .truncate-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  /* Premium Gradients */
-  .gradient-primary {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 100%);
+  /* Aspect ratio utilities */
+  .aspect-video {
+    aspect-ratio: 16 / 9;
+  }
+  
+  .aspect-square {
+    aspect-ratio: 1 / 1;
   }
 
-  .gradient-admin {
-    background: linear-gradient(135deg, hsl(var(--admin-primary)) 0%, hsl(var(--admin-secondary)) 100%);
+  /* Safe area utilities for mobile */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
   }
-
-  .gradient-instructor {
-    background: linear-gradient(135deg, hsl(var(--instructor-primary)) 0%, hsl(var(--instructor-secondary)) 100%);
+  
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
-
-  .gradient-card {
-    background: linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--muted)) 100%);
+  
+  .safe-left {
+    padding-left: env(safe-area-inset-left);
   }
-
-  .gradient-dark {
-    background: linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--card)) 100%);
-  }
-
-  /* Premium Shadows */
-  .shadow-premium {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  }
-
-  .shadow-glow {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
-  }
-
-  .shadow-admin-glow {
-    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
-  }
-
-  .shadow-instructor-glow {
-    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
-  }
-
-  /* Modern Cards */
-  .card-premium {
-    @apply bg-card border border-border rounded-2xl shadow-lg hover:shadow-premium transition-all duration-300 hover:-translate-y-1;
-  }
-
-  .card-glass {
-    @apply glass-card rounded-2xl shadow-xl hover:shadow-premium transition-all duration-300 hover:-translate-y-1;
-  }
-
-  .card-gradient {
-    @apply gradient-card border border-border rounded-2xl shadow-lg hover:shadow-premium transition-all duration-300 hover:-translate-y-1;
-  }
-
-  /* Interactive Elements */
-  .btn-premium {
-    @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300 transform hover:scale-105 active:scale-95;
-  }
-
-  .btn-gradient {
-    @apply btn-premium gradient-primary text-white shadow-lg hover:shadow-glow;
-  }
-
-  .btn-glass {
-    @apply btn-premium glass text-foreground hover:bg-white/20 dark:hover:bg-zinc-800/20;
-  }
-
-  /* Animations */
-  .animate-fade-in {
-    animation: fadeIn 0.6s ease-out;
-  }
-
-  .animate-slide-up {
-    animation: slideUp 0.6s ease-out;
-  }
-
-  .animate-scale-in {
-    animation: scaleIn 0.4s ease-out;
-  }
-
-  .animate-glow {
-    animation: glow 2s ease-in-out infinite alternate;
-  }
-
-  /* Enhanced Role-based Backgrounds - Pure Dark Mode */
-  .bg-student {
-    @apply bg-gradient-to-br from-emerald-50 to-teal-50 dark:from-black dark:to-zinc-900;
-  }
-
-  .bg-admin {
-    @apply bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-black dark:to-zinc-900;
-  }
-
-  .bg-instructor {
-    @apply bg-gradient-to-br from-red-50 to-orange-50 dark:from-black dark:to-zinc-900;
-  }
-
-  /* Enhanced Student-specific Dark Mode Styles - Pure Black Theme */
-  .dark .student-card {
-    @apply bg-zinc-900/90 border-zinc-800/50 backdrop-blur-sm;
-  }
-
-  .dark .student-card:hover {
-    @apply bg-zinc-800/90 border-zinc-700/50 shadow-lg shadow-emerald-500/10;
-  }
-
-  .dark .student-glass {
-    @apply bg-black/50 border-zinc-800/30 backdrop-blur-xl;
-  }
-
-  .dark .student-sidebar {
-    @apply bg-black border-zinc-900/50;
-  }
-
-  .dark .student-header {
-    @apply bg-black/95 border-zinc-900/50 backdrop-blur-xl;
-  }
-
-  /* Text Gradients */
-  .text-gradient-primary {
-    @apply bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent;
-  }
-
-  .text-gradient-admin {
-    @apply bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent;
-  }
-
-  .text-gradient-instructor {
-    @apply bg-gradient-to-r from-red-600 to-orange-600 dark:from-red-400 dark:to-orange-400 bg-clip-text text-transparent;
+  
+  .safe-right {
+    padding-right: env(safe-area-inset-right);
   }
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideUp {
+/* Custom animations */
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -283,242 +319,231 @@
   }
 }
 
-@keyframes scaleIn {
+@keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: translateY(0);
   }
 }
 
-@keyframes glow {
+@keyframes slideInLeft {
   from {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+    opacity: 0;
+    transform: translateX(-30px);
   }
   to {
-    box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 
-@layer base {
-  * {
-    @apply border-border;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
   }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(220, 38, 38, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(220, 38, 38, 0.8);
+  }
+}
+
+@keyframes bounce-subtle {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
   body {
-    @apply bg-background text-foreground;
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
   }
   
-  /* Design System Typography */
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 600;
-    line-height: 1.25;
-  }
-  
-  /* Smooth transitions for interactive elements */
-  button, a, [role="button"] {
-    transition: all 0.2s ease-in-out;
-  }
-  
-  /* Custom scrollbar - Dark Mode Support */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: hsl(var(--muted));
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground));
-  }
-
-  /* Dark mode scrollbar improvements */
-  .dark ::-webkit-scrollbar-track {
-    background: hsl(var(--background));
-  }
-
-  .dark ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
-  }
-
-  .dark ::-webkit-scrollbar-thumb:hover {
-    background: hsl(var(--muted-foreground));
-  }
-
-  /* Enhanced dark mode improvements for student section */
   .dark {
-    color-scheme: dark;
+    --border: 0 0% 80%;
+    --input: 0 0% 80%;
   }
+}
 
-  /* Force proper colors for all student components */
-  .dark * {
-    border-color: hsl(var(--border));
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
+}
 
-  .dark .bg-card {
-    background-color: hsl(var(--card));
+/* Focus indicators for keyboard navigation */
+@media (prefers-reduced-motion: no-preference) {
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
+}
 
-  .dark .text-card-foreground {
-    color: hsl(var(--card-foreground));
+/* Enhanced dark mode styles */
+.dark {
+  /* Improved dark background with subtle gradient */
+  --background: 222 84% 4.9%;
+  --foreground: 210 40% 98%;
+  
+  /* Enhanced card styling for dark mode */
+  --card: 222 84% 4.9%;
+  --card-foreground: 210 40% 98%;
+  
+  /* Better contrast for popovers */
+  --popover: 222 84% 4.9%;
+  --popover-foreground: 210 40% 98%;
+  
+  /* Refined border and input colors */
+  --border: 217 32% 17.5%;
+  --input: 217 32% 17.5%;
+  
+  /* Improved muted colors for better readability */
+  --muted: 217 32% 17.5%;
+  --muted-foreground: 215 20.2% 65.1%;
+  
+  /* Enhanced accent colors */
+  --accent: 217 32% 17.5%;
+  --accent-foreground: 210 40% 98%;
+  
+  /* Better secondary colors */
+  --secondary: 217 32% 17.5%;
+  --secondary-foreground: 210 40% 98%;
+}
+
+/* Dark mode specific enhancements */
+.dark body {
+  background: linear-gradient(135deg, 
+    hsl(var(--background)) 0%, 
+    hsl(222 84% 3.9%) 100%);
+  background-attachment: fixed;
+}
+
+/* Enhanced glass morphism for dark mode */
+.dark .glass {
+  background: hsl(var(--background) / 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid hsl(var(--border) / 0.3);
+  box-shadow: 
+    0 8px 32px hsl(var(--background) / 0.3),
+    inset 0 1px 0 hsl(var(--border) / 0.2);
+}
+
+/* Improved dark mode card styling */
+.dark .card-hover {
+  @apply hover:shadow-2xl hover:shadow-primary/5;
+}
+
+/* Better dark mode borders */
+.dark .border {
+  border-color: hsl(var(--border) / 0.8);
+}
+
+/* Enhanced dark mode text contrast */
+.dark .text-muted-foreground {
+  color: hsl(var(--muted-foreground) / 0.9);
+}
+
+/* Dark mode specific gradients */
+.dark .gradient-primary {
+  background: linear-gradient(135deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--primary) / 0.8) 100%);
+}
+
+/* Theme-aware shadows */
+.shadow-theme {
+  box-shadow: 
+    0 1px 3px 0 hsl(var(--foreground) / 0.1),
+    0 1px 2px 0 hsl(var(--foreground) / 0.06);
+}
+  
+.dark .shadow-theme {
+  box-shadow: 
+    0 1px 3px 0 hsl(0 0% 0% / 0.3),
+    0 1px 2px 0 hsl(0 0% 0% / 0.2);
+}
+
+/* Theme toggle animations */
+.theme-toggle-enter {
+  animation: themeToggleEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+  
+.theme-toggle-exit {
+  animation: themeToggleExit 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes themeToggleEnter {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.5);
   }
-
-  /* Student-specific enhanced shadows */
-  .dark .shadow-student {
-    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.3);
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
-
-  .dark .shadow-student-glow {
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+}
+  
+@keyframes themeToggleExit {
+  from {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
-
-  /* Enhanced student-specific elements */
-  .dark .student-progress-bar {
-    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary-light)));
-    box-shadow: 0 0 10px hsl(var(--primary) / 0.3);
+  to {
+    opacity: 0;
+    transform: rotate(180deg) scale(0.5);
   }
+}
 
-  .dark .student-achievement-card {
-    background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--secondary)));
-    border: 1px solid hsl(var(--border));
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  }
+/* Enhanced focus indicators for dark mode */
+.dark .focus-visible-ring {
+  @apply focus-visible:ring-primary/50 focus-visible:ring-offset-background;
+}
 
-  .dark .student-achievement-card:hover {
-    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.15), 0 4px 12px rgba(0, 0, 0, 0.3);
-    transform: translateY(-2px);
-  }
+/* Dark mode specific button styles */
+.dark .btn-outline {
+  @apply border-border/50 hover:bg-accent/50 hover:border-border;
+}
 
-  /* Enhanced navigation and sidebar */
-  .dark .student-nav-item {
-    color: hsl(var(--muted-foreground));
-    transition: all 0.2s ease-in-out;
-  }
-
-  .dark .student-nav-item:hover {
-    color: hsl(var(--primary));
-    background-color: hsl(var(--primary) / 0.1);
-  }
-
-  .dark .student-nav-item.active {
-    color: hsl(var(--primary));
-    background-color: hsl(var(--primary) / 0.15);
-    border-right: 3px solid hsl(var(--primary));
-  }
-
-  /* Better form elements in dark mode */
-  .dark input[type="text"],
-  .dark input[type="email"],
-  .dark input[type="password"],
-  .dark input[type="search"],
-  .dark textarea,
-  .dark select {
-    background-color: hsl(var(--input));
-    border-color: hsl(var(--border));
-    color: hsl(var(--foreground));
-  }
-
-  .dark input[type="text"]:focus,
-  .dark input[type="email"]:focus,
-  .dark input[type="password"]:focus,
-  .dark input[type="search"]:focus,
-  .dark textarea:focus,
-  .dark select:focus {
-    border-color: hsl(var(--ring));
-    box-shadow: 0 0 0 2px hsl(var(--ring) / 0.2);
-  }
-
-  /* Better button styles in dark mode */
-  .dark button:not(.btn-gradient):not(.gradient-primary):not(.gradient-admin):not(.gradient-instructor) {
-    background-color: hsl(var(--secondary));
-    color: hsl(var(--secondary-foreground));
-    border-color: hsl(var(--border));
-  }
-
-  .dark button:not(.btn-gradient):not(.gradient-primary):not(.gradient-admin):not(.gradient-instructor):hover {
-    background-color: hsl(var(--muted));
-  }
-
-  /* Improved shadows for dark mode */
-  .dark .shadow-sm {
-    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  .dark .shadow {
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px 0 rgba(0, 0, 0, 0.2);
-  }
-
-  .dark .shadow-md {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
-
-  /* .dark .shadow-lg {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
-  } */
-
-  .dark .shadow-xl {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
-  }
-
-  /* Better text contrast in dark mode - Pure black theme */
-  .dark .text-gray-500 {
-    color: hsl(var(--muted-foreground));
-  }
-
-  .dark .text-gray-600 {
-    color: hsl(var(--muted-foreground));
-  }
-
-  .dark .text-gray-700 {
-    color: hsl(var(--foreground));
-  }
-
-  .dark .text-gray-800 {
-    color: hsl(var(--foreground));
-  }
-
-  .dark .text-gray-900 {
-    color: hsl(var(--foreground));
-  }
-
-  /* Remove any brown/amber tones in dark mode */
-  .dark .bg-amber-50,
-  .dark .bg-amber-100,
-  .dark .bg-yellow-50,
-  .dark .bg-yellow-100 {
-    background-color: hsl(var(--card));
-  }
-
-  .dark .text-amber-600,
-  .dark .text-amber-700,
-  .dark .text-amber-800,
-  .dark .text-yellow-600,
-  .dark .text-yellow-700,
-  .dark .text-yellow-800 {
-    color: hsl(var(--primary));
-  }
-
-  /* Ensure proper dark mode for student components */
-  .dark .bg-background {
-    background-color: hsl(var(--background));
-  }
-
-  .dark .text-foreground {
-    color: hsl(var(--foreground));
-  }
-
-  .dark .text-muted-foreground {
-    color: hsl(var(--muted-foreground));
-  }
+/* Improved dark mode form inputs */
+.dark .form-input {
+  @apply bg-background/50 border-border/50 focus-visible:border-primary/50;
 }
