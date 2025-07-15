@@ -34,7 +34,7 @@ const categories = [
 ]
 
 export default function CreateCoursePage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(true)
   const [loading, setLoading] = React.useState(false)
   const [formData, setFormData] = React.useState({
     title: '',

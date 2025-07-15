@@ -147,7 +147,10 @@ export default function AdminDashboard() {
 
   return (
     <ProtectedRoute allowedRoles={[1]}>
-      <div className="flex h-screen bg-background">
+      <div 
+        className="flex h-screen bg-[#F8F9FA]"
+        style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
+      >
         {/* <AdminSidebar 
           collapsed={sidebarCollapsed} 
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
@@ -159,40 +162,91 @@ export default function AdminDashboard() {
             subtitle="Welcome to your admin dashboard"
           />
           
-          <main className="flex-1 overflow-y-auto p-6">
-            <div className="space-y-6">
+          <main className="flex-1 overflow-y-auto p-8">
+            <div className="max-w-7xl mx-auto space-y-8">
               {/* Stats Cards */}
-              <StatsCards stats={stats} loading={loading} />
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {stats.map((stat, index) => (
+                  <motion.div
+                    key={stat.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="bg-white rounded-2xl p-6 border border-[#E8EAED] shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1"
+                  >
+                    <div className="flex items-center justify-between mb-4">
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}>
+                        <stat.icon className="h-6 w-6 text-white" />
+                      </div>
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-[#1F2937] leading-tight">{stat.value}</div>
+                      </div>
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#1F2937] mb-2">{stat.title}</h3>
+                      <p className="text-sm text-[#6B7280] leading-relaxed">{stat.change}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
 
               {/* Charts Grid */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <UserGrowthChart
-                  title="User Growth"
-                  description="Monthly user registration trends"
-                  data={userGrowthData}
-                  loading={loading}
-                />
-                <ActivityChart
-                  title="Weekly Activity"
-                  description="User activity over the past week"
-                  data={activityData}
-                  loading={loading}
-                />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4 }}
+                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                >
+                  <UserGrowthChart
+                    title="User Growth"
+                    description="Monthly user registration trends"
+                    data={userGrowthData}
+                    loading={loading}
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 }}
+                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                >
+                  <ActivityChart
+                    title="Weekly Activity"
+                    description="User activity over the past week"
+                    data={activityData}
+                    loading={loading}
+                  />
+                </motion.div>
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <RoleDistributionChart
-                  title="User Role Distribution"
-                  description="Breakdown of users by role"
-                  data={roleDistributionData}
-                  loading={loading}
-                />
-                <SystemMetricsChart
-                  title="System Performance"
-                  description="Real-time system metrics"
-                  data={systemMetricsData}
-                  loading={loading}
-                />
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6 }}
+                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                >
+                  <RoleDistributionChart
+                    title="User Role Distribution"
+                    description="Breakdown of users by role"
+                    data={roleDistributionData}
+                    loading={loading}
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.7 }}
+                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                >
+                  <SystemMetricsChart
+                    title="System Performance"
+                    description="Real-time system metrics"
+                    data={systemMetricsData}
+                    loading={loading}
+                  />
+                </motion.div>
               </div>
             </div>
           </main>

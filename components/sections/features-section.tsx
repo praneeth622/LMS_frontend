@@ -10,147 +10,211 @@ import {
   Shield, 
   Zap,
   CheckCircle,
-  Star
+  Star,
+  Brain,
+  Smartphone,
+  Globe,
+  Target
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
 const features = [
   {
-    icon: BookOpen,
-    title: "Expert-Led Courses",
-    description: "Learn from industry professionals with real-world experience and proven track records.",
-    gradient: "from-blue-500 to-cyan-500"
+    icon: Brain,
+    title: "AI-Powered Learning",
+    description: "Personalized learning paths and recommendations based on your progress and goals.",
+    gradient: "from-purple-500 to-pink-500",
+    highlight: "Smart",
+    stats: "98% accuracy"
   },
   {
     icon: Users,
-    title: "Interactive Learning",
-    description: "Engage with peers and instructors through live sessions, discussions, and group projects.",
-    gradient: "from-purple-500 to-pink-500"
+    title: "Interactive Community",
+    description: "Connect with learners worldwide through live sessions, study groups, and forums.",
+    gradient: "from-blue-500 to-cyan-500",
+    highlight: "Global",
+    stats: "50K+ students"
   },
   {
     icon: Trophy,
-    title: "Certifications",
-    description: "Earn recognized certificates upon completion to boost your career prospects.",
-    gradient: "from-orange-500 to-red-500"
+    title: "Industry Certifications",
+    description: "Earn recognized certificates from top companies and institutions.",
+    gradient: "from-orange-500 to-red-500",
+    highlight: "Verified",
+    stats: "200+ partners"
   },
   {
     icon: Clock,
-    title: "Flexible Schedule",
-    description: "Learn at your own pace with 24/7 access to course materials and resources.",
-    gradient: "from-green-500 to-emerald-500"
+    title: "Learn at Your Pace",
+    description: "Flexible scheduling with offline access and mobile-first design.",
+    gradient: "from-green-500 to-emerald-500",
+    highlight: "24/7",
+    stats: "Anytime access"
   },
   {
-    icon: Shield,
-    title: "Lifetime Access",
-    description: "Get unlimited access to course content and updates for continuous learning.",
-    gradient: "from-indigo-500 to-blue-500"
+    icon: Smartphone,
+    title: "Mobile Learning",
+    description: "Seamless experience across all devices with offline content download.",
+    gradient: "from-indigo-500 to-purple-500",
+    highlight: "Mobile",
+    stats: "iOS & Android"
   },
   {
-    icon: Zap,
-    title: "Fast Track Learning",
-    description: "Accelerated learning paths designed to help you achieve your goals quickly.",
-    gradient: "from-yellow-500 to-orange-500"
+    icon: Target,
+    title: "Goal-Oriented Tracks",
+    description: "Structured learning paths designed to achieve specific career outcomes.",
+    gradient: "from-pink-500 to-rose-500",
+    highlight: "Focused",
+    stats: "95% success rate"
   }
+]
+
+const stats = [
+  { value: "50K+", label: "Students Enrolled", icon: Users },
+  { value: "200+", label: "Expert Courses", icon: BookOpen },
+  { value: "95%", label: "Completion Rate", icon: CheckCircle },
+  { value: "4.9/5", label: "Average Rating", icon: Star }
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/20">
+    <section className="py-24 bg-gradient-to-b from-background to-muted/30">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          viewport={{ once: true }}
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Why Choose <span className="text-primary">EduFlow</span>?
+          <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm font-medium bg-primary/10 text-primary">
+            Why Choose EduFlow
+          </Badge>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+            Features that
+            <span className="text-gradient block">Accelerate Learning</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Experience the future of online learning with our cutting-edge platform designed for modern learners.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Experience next-generation online education with cutting-edge technology, 
+            expert instructors, and a global community of learners.
           </p>
         </motion.div>
 
+        {/* Stats Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              viewport={{ once: true }}
+              className="text-center group"
+            >
+              <div className="flex justify-center mb-3">
+                <div className="p-3 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary/20 transition-all duration-300">
+                  <stat.icon className="w-6 h-6" />
+                </div>
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">
+                {stat.value}
+              </div>
+              <div className="text-sm text-muted-foreground font-medium">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-              className="group"
+              viewport={{ once: true }}
             >
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-card/50 backdrop-blur-sm">
-                <CardHeader className="text-center pb-4">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-full mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="h-8 w-8 text-white" />
+              <Card className="card-interactive h-full group relative overflow-hidden">
+                {/* Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
+                
+                <CardHeader className="relative">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`p-4 rounded-2xl bg-gradient-to-br ${feature.gradient} group-hover:scale-110 transition-transform duration-300`}>
+                      <feature.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <Badge variant="outline" className="text-xs font-medium border-primary/20 text-primary">
+                      {feature.highlight}
+                    </Badge>
                   </div>
-                  <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                  <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <CardDescription className="text-muted-foreground leading-relaxed">
+                
+                <CardContent className="relative">
+                  <CardDescription className="text-muted-foreground mb-4 leading-relaxed">
                     {feature.description}
                   </CardDescription>
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm text-primary font-medium">
+                      {feature.stats}
+                    </span>
+                    <motion.div 
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      whileHover={{ x: 5 }}
+                    >
+                      <CheckCircle className="w-5 h-5 text-green-500" />
+                    </motion.div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* Additional Features Grid */}
+        {/* Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="text-center mt-20"
         >
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Learning Benefits</h3>
-            {[
-              "Access to 200+ premium courses",
-              "Interactive quizzes and assignments",
-              "Progress tracking and analytics",
-              "Mobile-friendly learning experience"
-            ].map((benefit, index) => (
-              <motion.div
-                key={benefit}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center space-x-3"
+          <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-3xl p-8 md:p-12">
+            <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+              Ready to Transform Your Skills?
+            </h3>
+            <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Join thousands of learners who have already started their journey to success.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-primary px-8 py-4 text-lg font-medium"
               >
-                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                <span className="text-muted-foreground">{benefit}</span>
-              </motion.div>
-            ))}
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Success Metrics</h3>
-            {[
-              "95% completion rate",
-              "4.8/5 average rating",
-              "50,000+ satisfied learners",
-              "Industry-recognized certificates"
-            ].map((metric, index) => (
-              <motion.div
-                key={metric}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center space-x-3"
+                Start Free Trial
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="btn-secondary px-8 py-4 text-lg font-medium"
               >
-                <Star className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                <span className="text-muted-foreground">{metric}</span>
-              </motion.div>
-            ))}
+                View All Courses
+              </motion.button>
+            </div>
           </div>
         </motion.div>
       </div>

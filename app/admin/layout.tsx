@@ -10,7 +10,7 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(true)
 
   return (
     <ProtectedRoute allowedRoles={[1]}>

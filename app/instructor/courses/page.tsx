@@ -44,7 +44,7 @@ const statusColors = {
 }
 
 export default function InstructorCoursesPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(true)
   const [courses, setCourses] = React.useState<Course[]>([])
   const [loading, setLoading] = React.useState(true)
   const [searchQuery, setSearchQuery] = React.useState("")

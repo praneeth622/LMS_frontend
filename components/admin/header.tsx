@@ -42,71 +42,86 @@ export function AdminHeader({
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      className="bg-background border-b border-border px-6 py-4"
+      className="bg-background border-b border-border px-8 py-6 shadow-sm"
+      style={{ 
+        fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+        height: '4rem'
+      }}
     >
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between h-full">
         <div>
-          <h1 className="text-2xl font-bold text-foreground">{title}</h1>
+          <h1 className="text-2xl font-bold text-foreground leading-tight">{title}</h1>
           {subtitle && (
-            <p className="text-muted-foreground mt-1">{subtitle}</p>
+            <p className="text-muted-foreground mt-1 text-sm font-medium">{subtitle}</p>
           )}
         </div>
 
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-4">
           {action /* Render the action prop if provided */}
           {/* Search */}
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
               type="text"
               placeholder={searchPlaceholder}
               value={searchQuery}
               onChange={handleSearchChange}
-              className="pl-10 w-64"
+              className="pl-12 w-80 h-10 border-border rounded-lg bg-background text-sm font-medium placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 transition-all"
+              style={{ fontSize: '0.875rem' }}
             />
           </div>
 
           {/* Notifications */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="relative">
-                <Bell className="h-5 w-5" />
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="relative h-10 w-10 rounded-lg hover:bg-accent transition-colors"
+              >
+                <Bell className="h-5 w-5 text-muted-foreground" />
                 <Badge 
-                  variant="destructive" 
-                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs"
+                  className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center p-0 text-xs bg-primary text-primary-foreground border-2 border-background rounded-full font-semibold"
                 >
                   3
                 </Badge>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80">
-              <div className="p-2">
-                <h4 className="font-medium mb-2">Notifications</h4>
-                <div className="space-y-2">
-                  <div className="p-2 rounded-lg bg-muted/50">
-                    <p className="text-sm font-medium">New user registration</p>
-                    <p className="text-xs text-muted-foreground">John Doe registered as a student</p>
+            <DropdownMenuContent 
+              align="end" 
+              className="w-80 bg-popover border-border rounded-xl shadow-lg p-0"
+            >
+              <div className="p-4">
+                <h4 className="font-semibold mb-3 text-popover-foreground">Notifications</h4>
+                <div className="space-y-3">
+                  <div className="p-3 rounded-lg bg-muted border border-border">
+                    <p className="text-sm font-semibold text-foreground">New user registration</p>
+                    <p className="text-xs text-muted-foreground mt-1">John Doe registered as a student</p>
                   </div>
-                  <div className="p-2 rounded-lg bg-muted/50">
-                    <p className="text-sm font-medium">Course approval needed</p>
-                    <p className="text-xs text-muted-foreground">React Fundamentals pending review</p>
+                  <div className="p-3 rounded-lg bg-muted border border-border">
+                    <p className="text-sm font-semibold text-foreground">Course approval needed</p>
+                    <p className="text-xs text-muted-foreground mt-1">React Fundamentals pending review</p>
                   </div>
-                  <div className="p-2 rounded-lg bg-muted/50">
-                    <p className="text-sm font-medium">System update</p>
-                    <p className="text-xs text-muted-foreground">Database backup completed</p>
+                  <div className="p-3 rounded-lg bg-muted border border-border">
+                    <p className="text-sm font-semibold text-foreground">System update</p>
+                    <p className="text-xs text-muted-foreground mt-1">Database backup completed</p>
                   </div>
                 </div>
               </div>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuSeparator className="bg-border" />
+              <DropdownMenuItem className="p-4 text-sm font-medium text-primary hover:bg-accent cursor-pointer">
                 <span>View all notifications</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
           {/* Settings */}
-          <Button variant="ghost" size="icon">
-            <Settings className="h-5 w-5" />
+          <Button 
+            variant="ghost" 
+            size="icon"
+            className="h-10 w-10 rounded-lg hover:bg-accent transition-colors"
+          >
+            <Settings className="h-5 w-5 text-muted-foreground" />
           </Button>
         </div>
       </div>

@@ -1,17 +1,14 @@
 
+import React from 'react';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/ui/theme-provider';
+import { ExtendedThemeProvider } from '@/contexts/extended-theme-context';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from '@/contexts/auth-context';
 import { NotificationProvider } from '@/contexts/notification-context';
-import dynamic from 'next/dynamic';
-
-// Dynamically import the client-only component
-const NotificationWrapper = dynamic(() => import('@/contexts/NotificationWrapper'), {
-  ssr: false,
-})
+import ClientNotificationWrapper from '@/components/client-notification-wrapper';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -30,28 +27,31 @@ export default function RootLayout({
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          storageKey="eduflow-theme"
         >
-          <AuthProvider>
-            <NotificationProvider>
-              <NotificationWrapper>
-                {children}
-              </NotificationWrapper>
-              <Toaster
-                position="top-right"
-                toastOptions={{
-                  duration: 4000,
-                  style: {
-                    background: 'hsl(var(--card))',
-                    color: 'hsl(var(--card-foreground))',
-                    border: '1px solid hsl(var(--border))',
-                  },
-                }}
-              />
-            </NotificationProvider>
-          </AuthProvider>
+          <ExtendedThemeProvider>
+            <AuthProvider>
+              <NotificationProvider>
+                <ClientNotificationWrapper>
+                  {children}
+                </ClientNotificationWrapper>
+                <Toaster
+                  position="top-right"
+                  toastOptions={{
+                    duration: 4000,
+                    style: {
+                      background: 'hsl(var(--card))',
+                      color: 'hsl(var(--card-foreground))',
+                      border: '1px solid hsl(var(--border))',
+                    },
+                  }}
+                />
+              </NotificationProvider>
+            </AuthProvider>
+          </ExtendedThemeProvider>
         </ThemeProvider>
       </body>
     </html>

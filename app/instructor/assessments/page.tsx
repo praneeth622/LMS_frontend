@@ -38,7 +38,7 @@ import { useAuth } from '@/contexts/auth-context'
 import Link from "next/link"
 
 export default function InstructorAssessmentsPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(true)
   const [quizzes, setQuizzes] = React.useState<Quiz[]>([])
   const [assignments, setAssignments] = React.useState<Assignment[]>([])
   const [loading, setLoading] = React.useState(true)
