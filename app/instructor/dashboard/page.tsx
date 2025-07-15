@@ -50,7 +50,7 @@ const revenueData = [
 ]
 
 export default function InstructorDashboard() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(true)
   const { userProfile } = useAuth()
 
 
