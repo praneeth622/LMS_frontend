@@ -100,11 +100,11 @@
     transition: color-scheme 0.3s ease-in-out;
   }
   
-  html[data-theme='dark'] {
+  .dark {
     color-scheme: dark;
   }
   
-  html[data-theme='light'] {
+  .light {
     color-scheme: light;
   }
 
