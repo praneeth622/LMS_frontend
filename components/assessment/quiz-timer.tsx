@@ -55,8 +55,8 @@ export function QuizTimer({ timeLimit, onTimeUp, isActive }: QuizTimerProps) {
   }
 
   const getTimerColor = () => {
-    if (timeLeft <= 60) return "text-red-600"
-    if (isWarning) return "text-yellow-600"
+    if (timeLeft <= 60) return "text-critical"
+    if (isWarning) return "text-warning"
     return "text-foreground"
   }
 

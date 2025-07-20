@@ -46,7 +46,6 @@ interface QuestionFormData {
 }
 
 export default function CreateQuizPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [courses, setCourses] = React.useState<any[]>([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = React.useState(0)
@@ -262,10 +261,7 @@ export default function CreateQuizPage() {
   return (
     <ProtectedRoute allowedRoles={[2]}>
       <div className="flex h-screen bg-background">
-        <InstructorSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <InstructorSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <InstructorHeader 
@@ -528,15 +524,15 @@ export default function CreateQuizPage() {
                                   <p className="font-medium">{question.question_text}</p>
                                   {question.options && (
                                     <div className="mt-2 space-y-1">
-                                      {question.options.map((option : String, optIndex : number) => (
-                                        <div key={optIndex} className="flex items-center space-x-2">
-                                          <div className={`w-2 h-2 rounded-full ${
-                                            option === question.correct_answer ? 'bg-green-500' : 'bg-gray-300'
-                                          }`} />
-                                          <span className={option === question.correct_answer ? 'font-medium text-green-700' : ''}>
-                                            {option}
-                                          </span>
-                                        </div>
+                                      {question.options.map((option: string, optIndex: number) => (
+                                      <div key={optIndex} className="flex items-center space-x-2">
+                                        <div className={`w-2 h-2 rounded-full ${
+                                        option === question.correct_answer ? 'bg-green-500' : 'bg-gray-300'
+                                        }`} />
+                                        <span className={option === question.correct_answer ? 'font-medium text-green-700' : ''}>
+                                        {option}
+                                        </span>
+                                      </div>
                                       ))}
                                     </div>
                                   )}

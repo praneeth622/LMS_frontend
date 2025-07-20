@@ -5,6 +5,45 @@
 /* Import dark theme enhancements */
 @import url('./dark-theme-enhancements.css');
 
+/*
+=================================
+EDUFLOW COLOR STRATEGY
+=================================
+
+REPLACED: Red (#DC2626) with Blue-Violet (#3B82F6)
+
+BENEFITS OF BLUE-VIOLET SYSTEM:
+1. Color Psychology:
+   - Blue: Promotes trust, focus, and calm learning
+   - Violet: Enhances creativity and innovative thinking
+   - Combined: Balances professionalism with inspiration
+
+2. Visual Hierarchy:
+   - High contrast for accessibility (WCAG AA compliant)
+   - Better differentiation from semantic colors
+   - Maintains visual prominence without aggression
+
+3. Accessibility:
+   - Better for color-blind users (blue-violet vs red-green issues)
+   - Reduced eye strain during long study sessions  
+   - Clear distinction from error states (coral/red)
+
+4. Learning Environment:
+   - Creates calming, focused atmosphere
+   - Associated with knowledge and wisdom
+   - Reduces stress compared to red urgency
+
+SEMANTIC COLOR MAPPING:
+- Primary (Blue-violet): Main actions, navigation, branding
+- Success (Green): Completions, achievements, positive feedback
+- Warning (Orange): Cautions, important notices
+- Error (Coral): Mistakes, validation errors
+- Info (Blue): Helpful information, tips
+- Critical (Rose): Urgent attention needed
+- Attention (Purple): Special highlights, promotions
+================================= 
+*/
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -13,38 +52,46 @@
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 85.7% 97.3%;
+    --primary: 212 100% 46%;            /* Modern blue-violet primary */
+    --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
     --muted: 0 0% 96.1%;
     --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
+    --accent: 212 100% 96%;              /* Light blue-violet accent */
+    --accent-foreground: 212 100% 20%;  /* Dark blue-violet text */
+    --destructive: 4 90% 58%;           /* Softer coral for destructive actions */
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 89.8%;
     --input: 0 0% 89.8%;
-    --ring: 0 72.2% 50.6%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --ring: 212 100% 46%;               /* Ring matches primary */
+    --chart-1: 212 100% 46%;            /* Blue-violet */
+    --chart-2: 173 58% 39%;             /* Teal */
+    --chart-3: 259 94% 51%;             /* Purple */
+    --chart-4: 142 76% 36%;             /* Green */
+    --chart-5: 25 95% 53%;              /* Amber */
     --radius: 0.5rem;
     
-    /* EduFlow brand colors */
-    --eduflow-red: 0 72.2% 50.6%;
-    --eduflow-red-light: 0 84.2% 60.2%;
-    --eduflow-red-dark: 0 62.8% 30.6%;
+    /* EduFlow enhanced brand colors - Blue-Violet System */
+    --eduflow-primary: 212 100% 46%;     /* Professional blue-violet */
+    --eduflow-primary-light: 213 100% 56%; /* Light blue-violet */
+    --eduflow-primary-dark: 211 100% 36%;  /* Dark blue-violet */
     
-    /* Enhanced theme variables */
-    --success: 142 76% 36%;
-    --success-foreground: 138 76% 97%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 48 96% 89%;
-    --info: 199 89% 48%;
-    --info-foreground: 210 40% 98%;
+    /* Enhanced semantic color system */
+    --success: 142 76% 36%;             /* Professional green */
+    --success-foreground: 0 0% 98%;
+    --warning: 33 100% 50%;             /* Clear orange warning */
+    --warning-foreground: 0 0% 98%;
+    --info: 199 89% 48%;                /* Calm info blue */
+    --info-foreground: 0 0% 98%;
+    --error: 4 90% 58%;                 /* Softer coral error */
+    --error-foreground: 0 0% 98%;
+    --critical: 351 83% 61%;            /* Rose-red for critical */
+    --critical-foreground: 0 0% 98%;
+    --caution: 33 100% 50%;             /* Orange for caution */
+    --caution-foreground: 0 0% 98%;
+    --attention: 259 94% 51%;           /* Purple for attention */
+    --attention-foreground: 0 0% 98%;
   }
 
   .dark {
@@ -54,37 +101,45 @@
     --card-foreground: 0 0% 98%;
     --popover: 0 0% 3.9%;
     --popover-foreground: 0 0% 98%;
-    --primary: 0 72.2% 50.6%;
-    --primary-foreground: 0 85.7% 97.3%;
+    --primary: 213 100% 64%;            /* Brighter blue-violet for dark mode */
+    --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 14.9%;
     --secondary-foreground: 0 0% 98%;
     --muted: 0 0% 14.9%;
     --muted-foreground: 0 0% 63.9%;
     --accent: 0 0% 14.9%;
     --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
+    --destructive: 4 90% 65%;           /* Brighter coral for dark mode visibility */
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;
     --input: 0 0% 14.9%;
-    --ring: 0 72.2% 50.6%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --ring: 213 100% 64%;               /* Ring matches primary */
+    --chart-1: 213 100% 64%;            /* Blue-violet */
+    --chart-2: 173 58% 39%;             /* Teal */
+    --chart-3: 259 94% 51%;             /* Purple */
+    --chart-4: 142 71% 45%;             /* Green */
+    --chart-5: 25 95% 53%;              /* Amber */
     
-    /* EduFlow brand colors for dark theme */
-    --eduflow-red: 0 72.2% 50.6%;
-    --eduflow-red-light: 0 84.2% 60.2%;
-    --eduflow-red-dark: 0 62.8% 30.6%;
+    /* EduFlow enhanced brand colors for dark theme */
+    --eduflow-primary: 213 100% 64%;     /* Professional blue-violet */
+    --eduflow-primary-light: 214 100% 74%; /* Light blue-violet */
+    --eduflow-primary-dark: 212 100% 54%;  /* Dark blue-violet */
     
-    /* Enhanced dark theme variables */
-    --success: 142 71% 45%;
-    --success-foreground: 144 61% 20%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 48 96% 89%;
-    --info: 199 89% 48%;
-    --info-foreground: 210 40% 98%;
+    /* Enhanced dark theme semantic colors */
+    --success: 142 71% 45%;             /* Balanced green for dark mode */
+    --success-foreground: 0 0% 98%;
+    --warning: 33 100% 50%;             /* Consistent warning orange */
+    --warning-foreground: 0 0% 98%;
+    --info: 199 89% 58%;                /* Brighter info blue for dark mode */
+    --info-foreground: 0 0% 98%;
+    --error: 4 90% 65%;                 /* Brighter coral for dark mode */
+    --error-foreground: 0 0% 98%;
+    --critical: 351 83% 68%;            /* Brighter rose-red for dark mode visibility */
+    --critical-foreground: 0 0% 98%;
+    --caution: 33 100% 50%;             /* Orange for caution */
+    --caution-foreground: 0 0% 98%;
+    --attention: 259 94% 51%;           /* Purple for attention */
+    --attention-foreground: 0 0% 98%;
   }
 }
 
@@ -149,7 +204,7 @@
 
   /* Gradient backgrounds */
   .gradient-primary {
-    background: linear-gradient(135deg, hsl(var(--eduflow-red)), hsl(var(--eduflow-red-light)));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.9));
   }
   
   .gradient-secondary {
@@ -170,7 +225,7 @@
 
   /* Button variants */
   .btn-primary {
-    @apply bg-eduflow-red hover:bg-eduflow-red-dark text-white font-medium px-4 py-2 rounded-md transition-colors duration-200;
+    @apply bg-primary hover:bg-primary/90 text-primary-foreground font-medium px-4 py-2 rounded-md transition-colors duration-200;
   }
   
   .btn-secondary {
@@ -188,7 +243,7 @@
 
   /* Text utilities */
   .text-gradient {
-    background: linear-gradient(135deg, hsl(var(--eduflow-red)), hsl(var(--eduflow-red-light)));
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -210,7 +265,13 @@
   
   .nav-link.active::after {
     content: '';
-    @apply absolute bottom-0 left-0 right-0 h-0.5 bg-eduflow-red rounded-full;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 0.125rem;
+    background: hsl(var(--primary));
+    border-radius: 9999px;
   }
 
   /* Layout utilities */
@@ -239,21 +300,65 @@
     animation: slideInRight 0.6s ease-out forwards;
   }
 
-  /* Notification styles */
+  /* Notification styles with improved semantic colors */
   .notification-success {
-    @apply bg-green-50 border-green-200 text-green-800 dark:bg-green-900/20 dark:border-green-800 dark:text-green-400;
+    background: hsl(var(--success) / 0.1);
+    border: 1px solid hsl(var(--success) / 0.2);
+    color: hsl(var(--success));
+  }
+  
+  .dark .notification-success {
+    background: hsl(var(--success) / 0.15);
+    border: 1px solid hsl(var(--success) / 0.3);
+    color: hsl(var(--success-foreground));
   }
   
   .notification-error {
-    @apply bg-red-50 border-red-200 text-red-800 dark:bg-red-900/20 dark:border-red-800 dark:text-red-400;
+    background: hsl(var(--error) / 0.1);
+    border: 1px solid hsl(var(--error) / 0.2);
+    color: hsl(var(--error));
+  }
+  
+  .dark .notification-error {
+    background: hsl(var(--error) / 0.15);
+    border: 1px solid hsl(var(--error) / 0.3);
+    color: hsl(var(--error-foreground));
   }
   
   .notification-warning {
-    @apply bg-yellow-50 border-yellow-200 text-yellow-800 dark:bg-yellow-900/20 dark:border-yellow-800 dark:text-yellow-400;
+    background: hsl(var(--warning) / 0.1);
+    border: 1px solid hsl(var(--warning) / 0.2);
+    color: hsl(var(--warning));
+  }
+  
+  .dark .notification-warning {
+    background: hsl(var(--warning) / 0.15);
+    border: 1px solid hsl(var(--warning) / 0.3);
+    color: hsl(var(--warning-foreground));
+  }
+  
+  .notification-critical {
+    background: hsl(var(--critical) / 0.1);
+    border: 1px solid hsl(var(--critical) / 0.2);
+    color: hsl(var(--critical));
+  }
+  
+  .dark .notification-critical {
+    background: hsl(var(--critical) / 0.15);
+    border: 1px solid hsl(var(--critical) / 0.3);
+    color: hsl(var(--critical-foreground));
   }
   
   .notification-info {
-    @apply bg-blue-50 border-blue-200 text-blue-800 dark:bg-blue-900/20 dark:border-blue-800 dark:text-blue-400;
+    background: hsl(var(--info) / 0.1);
+    border: 1px solid hsl(var(--info) / 0.2);
+    color: hsl(var(--info));
+  }
+  
+  .dark .notification-info {
+    background: hsl(var(--info) / 0.15);
+    border: 1px solid hsl(var(--info) / 0.3);
+    color: hsl(var(--info-foreground));
   }
 }
 

@@ -69,7 +69,6 @@ const courses = [
 ]
 
 export default function StudentDiscussionsPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [searchQuery, setSearchQuery] = React.useState("")
   const [selectedCourse, setSelectedCourse] = React.useState("all")
   const [selectedType, setSelectedType] = React.useState("all")
@@ -100,8 +99,8 @@ export default function StudentDiscussionsPage() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
         <StudentSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          
+          
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">

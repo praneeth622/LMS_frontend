@@ -45,7 +45,7 @@ const categories = [
     title: "Photography & Video",
     description: "Capture and create stunning visual content",
     courses: 24,
-    color: "from-orange-500 to-red-500"
+    color: "from-orange-500 to-amber-500"
   },
   {
     icon: Music,

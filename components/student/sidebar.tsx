@@ -83,17 +83,16 @@ const navigation = [
 ]
 
 interface StudentSidebarProps {
-  collapsed: boolean
-  onToggle: () => void
+  // Removed collapsed and onToggle props since sidebar is now hover-only
 }
 
-export function StudentSidebar({ collapsed, onToggle }: StudentSidebarProps) {
+export function StudentSidebar({}: StudentSidebarProps = {}) {
   const pathname = usePathname()
   const { userProfile, signOut } = useAuth()
   const [isHovered, setIsHovered] = React.useState(false)
   
-  // Determine if sidebar should be expanded (either manually toggled open or hovered)
-  const isExpanded = !collapsed || isHovered
+  // Sidebar is collapsed by default and expands only on hover
+  const isExpanded = isHovered
 
   return (
     <motion.div
@@ -144,29 +143,7 @@ export function StudentSidebar({ collapsed, onToggle }: StudentSidebarProps) {
               </motion.div>
             )}
           </AnimatePresence>
-          {isExpanded && (
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onToggle}
-              className="h-9 w-9 rounded-lg hover:bg-muted transition-colors flex-shrink-0"
-            >
-              <ChevronLeft className="h-4 w-4 text-muted-foreground" />
-            </Button>
-          )}
         </div>
-        {!isExpanded && (
-          <div className="mt-3 flex justify-center">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={onToggle}
-              className="control-button-compressed expand-button"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-          </div>
-        )}
       </div>
 
       {/* Navigation */}

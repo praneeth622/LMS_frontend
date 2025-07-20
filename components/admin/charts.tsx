@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { TrendingUp, Calendar } from "lucide-react"
 
-const COLORS = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6']
+const COLORS = ['#6366F1', '#10B981', '#F59E0B', '#8B5CF6', '#06B6D4']
 
 interface ChartData {
   name: string
@@ -64,18 +64,18 @@ export function IncomeTrackerChart({ title, description, data, loading = false }
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-800">
-        <CardHeader className="pb-4">
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/95 rounded-3xl overflow-hidden">
+        <CardHeader className="pb-4 bg-gradient-to-r from-muted/10 to-muted/5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <TrendingUp className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+              <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <TrendingUp className="h-4 w-4 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                <CardTitle className="text-lg font-semibold text-foreground">
                   {title}
                 </CardTitle>
-                <CardDescription className="text-gray-600 dark:text-gray-400">
+                <CardDescription className="text-muted-foreground">
                   {description}
                 </CardDescription>
               </div>
@@ -281,8 +281,12 @@ export function UserGrowthChart({ title, description, data, loading = false }: C
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.5 }}
-      className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-sm"
+      className="bg-gradient-to-br from-card to-card/95 rounded-3xl shadow-lg border-0 overflow-hidden"
     >
+      <div className="p-6 bg-gradient-to-r from-muted/10 to-muted/5">
+        <CardTitle className="text-xl font-bold text-foreground">{title}</CardTitle>
+        {description && <CardDescription className="text-muted-foreground mt-2">{description}</CardDescription>}
+      </div>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 p-6">
         <RevenueCard title="Revenue" data={data} />
         <SubscriptionsCard title="Subscriptions" data={data} />
@@ -386,44 +390,44 @@ export function ActivityChart({ title, description, data, loading = false }: Cha
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <Card className="border-0 shadow-sm bg-white dark:bg-gray-800">
-        <CardHeader>
-          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/95 rounded-3xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-muted/10 to-muted/5">
+          <CardTitle className="text-xl font-bold text-foreground">
             {title}
           </CardTitle>
           {description && (
-            <CardDescription className="text-gray-600 dark:text-gray-400">
+            <CardDescription className="text-muted-foreground">
               {description}
             </CardDescription>
           )}
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
               <XAxis
                 dataKey="name"
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#6B7280', fontSize: 12 }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
               />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{ fill: '#6B7280', fontSize: 12 }}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
               />
               <Tooltip
                 contentStyle={{
-                  backgroundColor: 'white',
-                  border: '1px solid #E5E7EB',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+                  backgroundColor: 'hsl(var(--card))',
+                  border: '1px solid hsl(var(--border))',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
                 }}
               />
               <Bar
                 dataKey="value"
-                fill="#3B82F6"
-                radius={[4, 4, 0, 0]}
+                fill="hsl(var(--primary))"
+                radius={[6, 6, 0, 0]}
               />
             </BarChart>
           </ResponsiveContainer>
@@ -454,12 +458,12 @@ export function RoleDistributionChart({ title, description, data, loading = fals
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.2 }}
     >
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          {description && <CardDescription>{description}</CardDescription>}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/95 rounded-3xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-muted/10 to-muted/5">
+          <CardTitle className="text-xl font-bold text-foreground">{title}</CardTitle>
+          {description && <CardDescription className="text-muted-foreground">{description}</CardDescription>}
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>
               <Pie
@@ -476,7 +480,14 @@ export function RoleDistributionChart({ title, description, data, loading = fals
                   <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
-              <Tooltip />
+              <Tooltip 
+                contentStyle={{
+                  backgroundColor: 'hsl(var(--card))',
+                  border: '1px solid hsl(var(--border))',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </CardContent>
@@ -506,22 +517,38 @@ export function SystemMetricsChart({ title, description, data, loading = false }
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5, delay: 0.3 }}
     >
-      <Card>
-        <CardHeader>
-          <CardTitle>{title}</CardTitle>
-          {description && <CardDescription>{description}</CardDescription>}
+      <Card className="border-0 shadow-lg bg-gradient-to-br from-card to-card/95 rounded-3xl overflow-hidden">
+        <CardHeader className="bg-gradient-to-r from-muted/10 to-muted/5">
+          <CardTitle className="text-xl font-bold text-foreground">{title}</CardTitle>
+          {description && <CardDescription className="text-muted-foreground">{description}</CardDescription>}
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-6">
           <ResponsiveContainer width="100%" height={300}>
             <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+              <XAxis 
+                dataKey="name" 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+              />
+              <YAxis 
+                axisLine={false}
+                tickLine={false}
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
+              />
+              <Tooltip 
+                contentStyle={{
+                  backgroundColor: 'hsl(var(--card))',
+                  border: '1px solid hsl(var(--border))',
+                  borderRadius: '12px',
+                  boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
+                }}
+              />
               <Legend />
-              <Line type="monotone" dataKey="cpu" stroke="#8884d8" strokeWidth={2} />
-              <Line type="monotone" dataKey="memory" stroke="#82ca9d" strokeWidth={2} />
-              <Line type="monotone" dataKey="disk" stroke="#ffc658" strokeWidth={2} />
+              <Line type="monotone" dataKey="cpu" stroke={COLORS[0]} strokeWidth={3} dot={{ r: 4 }} />
+              <Line type="monotone" dataKey="memory" stroke={COLORS[1]} strokeWidth={3} dot={{ r: 4 }} />
+              <Line type="monotone" dataKey="disk" stroke={COLORS[2]} strokeWidth={3} dot={{ r: 4 }} />
             </LineChart>
           </ResponsiveContainer>
         </CardContent>

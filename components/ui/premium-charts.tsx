@@ -120,7 +120,7 @@ export function PremiumAreaChart({
                 className={cn(
                   "flex items-center gap-1",
                   trend === "up" ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400" : 
-                  "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                  "bg-error/10 text-error dark:bg-error/20 dark:text-error-foreground"
                 )}
               >
                 {trend === "up" ? (

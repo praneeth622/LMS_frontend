@@ -40,7 +40,7 @@ const features = [
     icon: Trophy,
     title: "Industry Certifications",
     description: "Earn recognized certificates from top companies and institutions.",
-    gradient: "from-orange-500 to-red-500",
+    gradient: "from-orange-500 to-amber-500",
     highlight: "Verified",
     stats: "200+ partners"
   },

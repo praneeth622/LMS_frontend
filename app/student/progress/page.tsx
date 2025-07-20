@@ -80,7 +80,6 @@ export default function StudentProgressPage() {
   const { userProfile } = useAuth()
   const [enrollments, setEnrollments] = React.useState<Enrollment[]>([])
   const [loading, setLoading] = React.useState(true)
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
 
   React.useEffect(() => {
     if (userProfile?.id) {
@@ -171,10 +170,7 @@ export default function StudentProgressPage() {
   return (
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex min-h-screen bg-background">
-        <StudentSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-        />
+        <StudentSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader
             title="Learning Progress"

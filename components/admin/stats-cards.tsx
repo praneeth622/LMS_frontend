@@ -64,9 +64,9 @@ export function StatsCards({ stats, loading = false }: StatsCardsProps) {
               {stat.change && (
                 <p className={`text-xs ${
                   stat.changeType === 'positive' 
-                    ? 'text-green-600' 
+                    ? 'text-success' 
                     : stat.changeType === 'negative' 
-                    ? 'text-red-600' 
+                    ? 'text-error' 
                     : 'text-muted-foreground'
                 }`}>
                   {stat.change}

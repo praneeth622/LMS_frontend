@@ -78,7 +78,6 @@ export default function StudentAnalyticsPage() {
     to: new Date(),
   })
   const [loading, setLoading] = React.useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
 
   const stats = [
     {
@@ -167,31 +166,29 @@ export default function StudentAnalyticsPage() {
 
   return (
     <ProtectedRoute allowedRoles={[3]}>
-      <div className="flex min-h-screen bg-background">
+      <div className="flex h-screen bg-gradient-to-br from-background via-muted/8 to-background">
         <StudentSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          
+          
         />
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader
             title="Learning Analytics"
-            subtitle="Track your progress and achievements"
+            subtitle="Track your progress and achievements with detailed insights"
           />
-          <main className="flex-1 overflow-y-auto" id="analytics-dashboard">
-            <div className="container mx-auto px-6 py-12">
-              <div className="space-y-12">
+          <main className="flex-1 overflow-y-auto page-section" id="analytics-dashboard">
+            <div className="content-container-enhanced">
+              <div className="section-content">
                 {/* Header Section with Actions */}
-                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
                   <div>
-                    <h1 className="text-3xl font-bold text-foreground mb-2">
-                      Analytics Dashboard
-                    </h1>
-                    <p className="text-lg text-muted-foreground">
-                      Track your learning journey and measure your progress
+                    <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-4">Analytics Dashboard</h2>
+                    <p className="text-xl text-muted-foreground leading-relaxed">
+                      Track your learning journey and measure your progress with comprehensive insights
                     </p>
                   </div>
                   
-                  <div className="flex items-center space-x-4">
+                  <div className="flex items-center space-x-6 w-full lg:w-auto">
                     <DateRangePicker date={dateRange} onDateChange={setDateRange} />
                     <ExportButton 
                       data={learningProgressData} 
@@ -211,40 +208,49 @@ export default function StudentAnalyticsPage() {
                       transition={{ duration: 0.5, delay: index * 0.1 }}
                       whileHover={{ y: -4 }}
                     >
-                      <Card className="border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-background to-muted/20">
+                      <Card className="enhanced-card stats-card-enhanced border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/95">
                         <CardContent className="p-8">
-                          <div className="flex items-center justify-between">
-                            <div className="flex-1">
-                              <p className="text-sm font-medium text-muted-foreground mb-2">
-                                {stat.title}
-                              </p>
-                              <div className="flex items-baseline space-x-2 mb-3">
-                                <p className="text-3xl font-bold text-foreground">
-                                  {stat.value}
+                          <div className="flex items-start justify-between mb-6">
+                            <div className="flex items-center space-x-4">
+                              <div 
+                                className="p-3 rounded-xl icon-container transition-transform duration-200 shadow-sm"
+                                style={{ backgroundColor: `${stat.color}15`, border: `1px solid ${stat.color}25` }}
+                              >
+                                <stat.icon 
+                                  className="h-6 w-6 transition-transform duration-200" 
+                                  style={{ color: stat.color }}
+                                />
+                              </div>
+                              <div>
+                                <p className="text-sm font-medium text-muted-foreground stat-title">
+                                  {stat.title}
                                 </p>
-                                {stat.total && (
-                                  <p className="text-lg text-muted-foreground">
-                                    / {stat.total}
+                                <div className="flex items-baseline space-x-2">
+                                  <p className="text-3xl font-bold text-foreground stat-value">
+                                    {stat.value}
                                   </p>
+                                  {stat.total && (
+                                    <span className="text-lg text-muted-foreground">/ {stat.total}</span>
+                                  )}
+                                </div>
+                                {stat.percentage && (
+                                  <div className="mt-2">
+                                    <div className="w-full bg-muted/50 rounded-full h-2">
+                                      <div 
+                                        className="bg-primary h-2 rounded-full transition-all duration-300" 
+                                        style={{ width: `${stat.percentage}%` }}
+                                      />
+                                    </div>
+                                  </div>
                                 )}
                               </div>
-                              <p className="text-sm text-green-600 flex items-center">
-                                <TrendingUp className="h-4 w-4 mr-1" />
-                                {stat.change}
-                              </p>
                             </div>
-                            {stat.percentage ? (
-                              <ProgressRing
-                                value={stat.percentage}
-                                size={70}
-                                strokeWidth={6}
-                                color={stat.color}
-                              />
-                            ) : (
-                              <div className="p-4 rounded-2xl bg-primary/10 hover:bg-primary/20 transition-colors">
-                                <stat.icon className="h-8 w-8 text-primary" />
-                              </div>
-                            )}
+                          </div>
+                          <div className="flex items-center space-x-2 p-3 rounded-lg bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950/20 dark:to-emerald-950/10">
+                            <TrendingUp className="h-4 w-4 text-emerald-600" />
+                            <span className="text-sm text-emerald-700 dark:text-emerald-400 font-medium">
+                              {stat.change}
+                            </span>
                           </div>
                         </CardContent>
                       </Card>
@@ -255,17 +261,17 @@ export default function StudentAnalyticsPage() {
                 {/* Enhanced Analytics Tabs */}
                 <Tabs defaultValue="overview" className="space-y-8">
                   <div className="flex items-center justify-center">
-                    <TabsList className="grid w-full max-w-2xl grid-cols-4 h-12 bg-muted/50 rounded-xl p-1">
-                      <TabsTrigger value="overview" className="rounded-lg text-sm font-medium">
+                    <TabsList className="grid w-full max-w-2xl grid-cols-4 bg-muted/30 rounded-2xl p-3 h-auto">
+                      <TabsTrigger value="overview" className="rounded-xl py-4 text-lg font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                         Overview
                       </TabsTrigger>
-                      <TabsTrigger value="progress" className="rounded-lg text-sm font-medium">
+                      <TabsTrigger value="progress" className="rounded-xl py-4 text-lg font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                         Progress
                       </TabsTrigger>
-                      <TabsTrigger value="performance" className="rounded-lg text-sm font-medium">
+                      <TabsTrigger value="performance" className="rounded-xl py-4 text-lg font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                         Performance
                       </TabsTrigger>
-                      <TabsTrigger value="achievements" className="rounded-lg text-sm font-medium">
+                      <TabsTrigger value="achievements" className="rounded-xl py-4 text-lg font-medium data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                         Achievements
                       </TabsTrigger>
                     </TabsList>

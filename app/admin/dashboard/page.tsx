@@ -10,9 +10,12 @@ import {
   TrendingUp,
   TrendingDown,
   Minus,
-  Shield
+  Shield,
+  DollarSign
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 import { ProtectedRoute } from '@/components/auth/protected-route'
 // import { AdminSidebar } from '@/components/admin/sidebar'
 import { AdminHeader } from '@/components/admin/header'
@@ -71,7 +74,7 @@ export default function AdminDashboard() {
       change: "+20.1% from last month",
       changeType: "positive" as const,
       icon: Users,
-      color: "bg-blue-500"
+      color: "bg-primary"
     },
     {
       title: "Organizations",
@@ -79,7 +82,7 @@ export default function AdminDashboard() {
       change: "+5 new this month",
       changeType: "positive" as const,
       icon: Building2,
-      color: "bg-green-500"
+      color: "bg-success"
     },
     {
       title: "Active Sessions",
@@ -87,7 +90,7 @@ export default function AdminDashboard() {
       change: "+12.5% from last month",
       changeType: "positive" as const,
       icon: Activity,
-      color: "bg-orange-500"
+      color: "bg-info"
     },
     {
       title: "Total Courses",
@@ -95,7 +98,7 @@ export default function AdminDashboard() {
       change: "-2.3% from last month",
       changeType: "negative" as const,
       icon: BookOpen,
-      color: "bg-purple-500"
+      color: "bg-secondary"
     }
   ])
 
@@ -171,7 +174,7 @@ export default function AdminDashboard() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="relative overflow-hidden rounded-3xl p-12 lg:p-16 text-white bg-gradient-to-br from-destructive via-destructive/90 to-orange-600 shadow-2xl"
+                className="relative overflow-hidden rounded-3xl p-12 lg:p-16 text-white bg-gradient-to-br from-primary via-primary/90 to-violet-600 shadow-2xl"
               >
                 {/* Background Pattern */}
                 <div className="absolute inset-0 bg-white/10 opacity-50" />
@@ -192,6 +195,16 @@ export default function AdminDashboard() {
                         <p className="text-white/90 text-2xl leading-relaxed">
                           Complete oversight of platform operations and user management
                         </p>
+                        <div className="flex items-center gap-4 mt-6">
+                          <Badge className="bg-white/20 text-white border-white/30 px-4 py-2">
+                            <Activity className="h-4 w-4 mr-2" />
+                            System Online
+                          </Badge>
+                          <Badge className="bg-white/20 text-white border-white/30 px-4 py-2">
+                            <Shield className="h-4 w-4 mr-2" />
+                            Admin Access
+                          </Badge>
+                        </div>
                       </div>
                     </div>
                     <div className="flex items-center gap-6 w-full lg:w-auto">
@@ -199,7 +212,7 @@ export default function AdminDashboard() {
                         <Activity className="h-6 w-6 mr-3" />
                         System Health
                       </Button>
-                      <Button className="bg-white text-destructive hover:bg-white/90 font-semibold flex-1 lg:flex-none px-8 py-4 text-lg">
+                      <Button className="bg-white text-primary hover:bg-white/90 font-semibold flex-1 lg:flex-none px-8 py-4 text-lg">
                         Generate Report
                       </Button>
                     </div>
@@ -208,27 +221,36 @@ export default function AdminDashboard() {
               </motion.div>
 
               {/* Enhanced Stats Cards with better spacing */}
-              <div className="grid-layout-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.title}
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.6 }}
-                    className="admin-stat-card enhanced-card"
+                    className="enhanced-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/95 group"
                   >
-                    <div className="p-10">
-                      <div className="flex items-start justify-between mb-8">
-                        <div className={`w-20 h-20 rounded-3xl flex items-center justify-center ${stat.color} icon-container transition-transform duration-300 shadow-xl`}>
-                          <stat.icon className="h-10 w-10 text-white" />
+                    <div className="p-8">
+                      <div className="flex items-start justify-between mb-6">
+                        <div className={`w-16 h-16 rounded-2xl flex items-center justify-center ${stat.color} shadow-lg transition-transform duration-300 group-hover:scale-105`}>
+                          <stat.icon className="h-8 w-8 text-white" />
                         </div>
                         <div className="text-right">
-                          <div className="text-4xl lg:text-5xl font-bold text-foreground leading-tight stat-value transition-transform duration-300">{stat.value}</div>
+                          <div className="text-3xl font-bold text-foreground leading-tight group-hover:text-primary transition-colors duration-300">{stat.value}</div>
                         </div>
                       </div>
-                      <div className="space-y-4">
-                        <h3 className="font-semibold text-xl text-foreground stat-title transition-colors duration-300">{stat.title}</h3>
-                        <p className="text-lg text-muted-foreground leading-relaxed">{stat.change}</p>
+                      <div className="space-y-3">
+                        <h3 className="font-semibold text-lg text-foreground group-hover:text-primary transition-colors duration-300">{stat.title}</h3>
+                        <p className={`text-sm flex items-center gap-2 ${
+                          stat.changeType === 'positive' ? 'text-success' : 'text-error'
+                        }`}>
+                          {stat.changeType === 'positive' ? (
+                            <TrendingUp className="h-4 w-4" />
+                          ) : (
+                            <TrendingDown className="h-4 w-4" />
+                          )}
+                          {stat.change}
+                        </p>
                       </div>
                     </div>
                   </motion.div>
@@ -236,61 +258,69 @@ export default function AdminDashboard() {
               </div>
 
               {/* Enhanced Charts Grid with better spacing */}
-              <div className="grid-layout-2">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.6 }}
-                  className="enhanced-card"
+                  className="enhanced-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/95 group"
                 >
-                  <UserGrowthChart
-                    title="User Growth Analytics"
-                    description="Monthly user registration trends and detailed analytics"
-                    data={userGrowthData}
-                    loading={loading}
-                  />
+                  <div className="p-6 bg-gradient-to-r from-muted/10 to-muted/5 rounded-t-3xl">
+                    <UserGrowthChart
+                      title="User Growth Analytics"
+                      description="Monthly user registration trends and detailed analytics"
+                      data={userGrowthData}
+                      loading={loading}
+                    />
+                  </div>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.6 }}
-                  className="bg-card rounded-3xl border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  className="enhanced-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/95 group"
                 >
-                  <ActivityChart
-                    title="Weekly Activity Insights"
-                    description="User engagement patterns and activity analytics"
-                    data={activityData}
-                    loading={loading}
-                  />
+                  <div className="p-6 bg-gradient-to-r from-muted/10 to-muted/5 rounded-t-3xl">
+                    <ActivityChart
+                      title="Weekly Activity Insights"
+                      description="User engagement patterns and activity analytics"
+                      data={activityData}
+                      loading={loading}
+                    />
+                  </div>
                 </motion.div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6, duration: 0.6 }}
-                  className="bg-card rounded-3xl border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  className="enhanced-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/95 group"
                 >
-                  <RoleDistributionChart
-                    title="User Role Distribution"
-                    description="Platform user composition and detailed role breakdown"
-                    data={roleDistributionData}
-                    loading={loading}
-                  />
+                  <div className="p-6 bg-gradient-to-r from-muted/10 to-muted/5 rounded-t-3xl">
+                    <RoleDistributionChart
+                      title="User Role Distribution"
+                      description="Platform user composition and detailed role breakdown"
+                      data={roleDistributionData}
+                      loading={loading}
+                    />
+                  </div>
                 </motion.div>
                 <motion.div
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 0.6 }}
-                  className="bg-card rounded-3xl border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
+                  className="enhanced-card border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-br from-card to-card/95 group"
                 >
-                  <SystemMetricsChart
-                    title="System Performance Metrics"
-                    description="Real-time infrastructure health and performance monitoring"
-                    data={systemMetricsData}
-                    loading={loading}
-                  />
+                  <div className="p-6 bg-gradient-to-r from-muted/10 to-muted/5 rounded-t-3xl">
+                    <SystemMetricsChart
+                      title="System Performance Metrics"
+                      description="Real-time infrastructure health and performance monitoring"
+                      data={systemMetricsData}
+                      loading={loading}
+                    />
+                  </div>
                 </motion.div>
               </div>
             </div>
