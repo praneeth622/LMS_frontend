@@ -290,7 +290,7 @@ export default function InstructorCoursesPage() {
 
   return (
     <ProtectedRoute allowedRoles={[2]}>
-      <div className="flex h-screen bg-background">
+      <div className="flex h-screen bg-gradient-to-br from-background via-muted/5 to-background">
         <InstructorSidebar 
           collapsed={sidebarCollapsed} 
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
@@ -299,70 +299,89 @@ export default function InstructorCoursesPage() {
         <div className="flex-1 flex flex-col overflow-hidden">
           <InstructorHeader 
             title="My Courses"
-            subtitle="Manage your courses and track their performance"
+            subtitle="Manage your courses and track their performance across all platforms"
             searchPlaceholder="Search courses..."
             onSearch={setSearchQuery}
           />
           
-          <main className="flex-1 overflow-y-auto p-6">
-            <div className="space-y-6">
-              {/* Stats Cards */}
-              <StatsCards stats={stats} loading={loading} />
+          <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+            <div className="max-w-7xl mx-auto space-y-10">
+              {/* Enhanced Stats Cards */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <StatsCards stats={stats} loading={loading} />
+              </motion.div>
 
-              {/* Quick Actions */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
-                  <CardDescription>
-                    Common tasks to manage your courses
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <Button asChild className="h-auto p-4 flex-col space-y-2">
-                      <Link href="/instructor/courses/create">
-                        <Plus className="h-6 w-6" />
-                        <span>Create New Course</span>
-                      </Link>
-                    </Button>
-                    <Button variant="outline" className="h-auto p-4 flex-col space-y-2">
-                      <Users className="h-6 w-6" />
-                      <span>View Students</span>
-                    </Button>
-                    <Button variant="outline" className="h-auto p-4 flex-col space-y-2">
-                      <TrendingUp className="h-6 w-6" />
-                      <span>Analytics</span>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Enhanced Quick Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <Card className="border-0 shadow-lg rounded-3xl overflow-hidden bg-gradient-to-r from-card to-muted/20">
+                  <CardHeader className="bg-gradient-to-r from-muted/20 to-muted/10 pb-6">
+                    <CardTitle className="text-2xl">Quick Actions</CardTitle>
+                    <CardDescription className="text-lg">
+                      Common tasks to manage and grow your course portfolio
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                      <Button asChild className="h-auto p-6 flex-col space-y-4 rounded-2xl bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <Link href="/instructor/courses/create">
+                          <Plus className="h-8 w-8" />
+                          <span className="text-lg font-semibold">Create New Course</span>
+                        </Link>
+                      </Button>
+                      <Button variant="outline" className="h-auto p-6 flex-col space-y-4 rounded-2xl border-2 hover:bg-muted/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <Users className="h-8 w-8" />
+                        <span className="text-lg font-semibold">View Students</span>
+                      </Button>
+                      <Button variant="outline" className="h-auto p-6 flex-col space-y-4 rounded-2xl border-2 hover:bg-muted/50 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                        <TrendingUp className="h-8 w-8" />
+                        <span className="text-lg font-semibold">Analytics</span>
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
-              {/* Courses Table */}
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
+              {/* Enhanced Courses Table */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="space-y-8"
+              >
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
                   <div>
-                    <h2 className="text-lg font-semibold">All Courses</h2>
-                    <p className="text-sm text-muted-foreground">
-                      {filteredCourses.length} courses found
+                    <h2 className="text-2xl lg:text-3xl font-bold text-foreground">All Courses</h2>
+                    <p className="text-lg text-muted-foreground">
+                      {filteredCourses.length} courses in your portfolio
                     </p>
                   </div>
                   
-                  <Button asChild>
+                  <Button asChild className="w-full lg:w-auto px-8 py-4 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
                     <Link href="/instructor/courses/create">
-                      <Plus className="mr-2 h-4 w-4" />
+                      <Plus className="mr-3 h-6 w-6" />
                       Create Course
                     </Link>
                   </Button>
                 </div>
 
-                <DataTable
-                  columns={columns}
-                  data={filteredCourses}
-                  searchKey="title"
-                  searchPlaceholder="Search courses..."
-                  loading={loading}
-                />
-              </div>
+                <div className="bg-card rounded-3xl shadow-lg overflow-hidden">
+                  <DataTable
+                    columns={columns}
+                    data={filteredCourses}
+                    searchKey="title"
+                    searchPlaceholder="Search courses..."
+                    loading={loading}
+                  />
+                </div>
+              </motion.div>
             </div>
           </main>
         </div>

@@ -9,8 +9,10 @@ import {
   BookOpen,
   TrendingUp,
   TrendingDown,
-  Minus
+  Minus,
+  Shield
 } from "lucide-react"
+import { Button } from "@/components/ui/button"
 import { ProtectedRoute } from '@/components/auth/protected-route'
 // import { AdminSidebar } from '@/components/admin/sidebar'
 import { AdminHeader } from '@/components/admin/header'
@@ -148,7 +150,7 @@ export default function AdminDashboard() {
   return (
     <ProtectedRoute allowedRoles={[1]}>
       <div 
-        className="flex h-screen bg-[#F8F9FA]"
+        className="flex h-screen bg-gradient-to-br from-background via-muted/8 to-background"
         style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
       >
         {/* <AdminSidebar 
@@ -158,91 +160,134 @@ export default function AdminDashboard() {
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <AdminHeader 
-            title="Dashboard Overview"
-            subtitle="Welcome to your admin dashboard"
+            title="Admin Dashboard"
+            subtitle="System Command Center - Monitor platform performance and manage your LMS infrastructure"
           />
           
-          <main className="flex-1 overflow-y-auto p-8">
-            <div className="max-w-7xl mx-auto space-y-8">
-              {/* Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <main className="flex-1 overflow-y-auto p-8 lg:p-12">
+            <div className="max-w-7xl mx-auto space-y-12">
+              {/* Enhanced Admin Header Section */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative overflow-hidden rounded-3xl p-12 lg:p-16 text-white bg-gradient-to-br from-destructive via-destructive/90 to-orange-600 shadow-2xl"
+              >
+                {/* Background Pattern */}
+                <div className="absolute inset-0 bg-white/10 opacity-50" />
+                <div className="absolute -top-8 -right-8 w-48 h-48 bg-white/10 rounded-full blur-xl" />
+                <div className="absolute -bottom-8 -left-8 w-56 h-56 bg-white/5 rounded-full blur-2xl" />
+
+                {/* Content */}
+                <div className="relative z-10">
+                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+                    <div className="flex items-center gap-8">
+                      <div className="w-24 h-24 rounded-3xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                        <Shield className="h-12 w-12 text-white" />
+                      </div>
+                      <div>
+                        <h1 className="text-5xl lg:text-6xl font-bold mb-6">
+                          System Command Center 🛡️
+                        </h1>
+                        <p className="text-white/90 text-2xl leading-relaxed">
+                          Complete oversight of platform operations and user management
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-6 w-full lg:w-auto">
+                      <Button variant="secondary" className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 flex-1 lg:flex-none px-8 py-4 text-lg">
+                        <Activity className="h-6 w-6 mr-3" />
+                        System Health
+                      </Button>
+                      <Button className="bg-white text-destructive hover:bg-white/90 font-semibold flex-1 lg:flex-none px-8 py-4 text-lg">
+                        Generate Report
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Enhanced Stats Cards with better spacing */}
+              <div className="grid-layout-4">
                 {stats.map((stat, index) => (
                   <motion.div
                     key={stat.title}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="bg-white rounded-2xl p-6 border border-[#E8EAED] shadow-sm hover:shadow-md transition-all duration-200 hover:-translate-y-1"
+                    transition={{ delay: index * 0.1, duration: 0.6 }}
+                    className="admin-stat-card enhanced-card"
                   >
-                    <div className="flex items-center justify-between mb-4">
-                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${stat.color}`}>
-                        <stat.icon className="h-6 w-6 text-white" />
+                    <div className="p-10">
+                      <div className="flex items-start justify-between mb-8">
+                        <div className={`w-20 h-20 rounded-3xl flex items-center justify-center ${stat.color} icon-container transition-transform duration-300 shadow-xl`}>
+                          <stat.icon className="h-10 w-10 text-white" />
+                        </div>
+                        <div className="text-right">
+                          <div className="text-4xl lg:text-5xl font-bold text-foreground leading-tight stat-value transition-transform duration-300">{stat.value}</div>
+                        </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-[#1F2937] leading-tight">{stat.value}</div>
+                      <div className="space-y-4">
+                        <h3 className="font-semibold text-xl text-foreground stat-title transition-colors duration-300">{stat.title}</h3>
+                        <p className="text-lg text-muted-foreground leading-relaxed">{stat.change}</p>
                       </div>
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#1F2937] mb-2">{stat.title}</h3>
-                      <p className="text-sm text-[#6B7280] leading-relaxed">{stat.change}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
 
-              {/* Charts Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Enhanced Charts Grid with better spacing */}
+              <div className="grid-layout-2">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                  transition={{ delay: 0.4, duration: 0.6 }}
+                  className="enhanced-card"
                 >
                   <UserGrowthChart
-                    title="User Growth"
-                    description="Monthly user registration trends"
+                    title="User Growth Analytics"
+                    description="Monthly user registration trends and detailed analytics"
                     data={userGrowthData}
                     loading={loading}
                   />
                 </motion.div>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5 }}
-                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                  transition={{ delay: 0.5, duration: 0.6 }}
+                  className="bg-card rounded-3xl border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
                   <ActivityChart
-                    title="Weekly Activity"
-                    description="User activity over the past week"
+                    title="Weekly Activity Insights"
+                    description="User engagement patterns and activity analytics"
                     data={activityData}
                     loading={loading}
                   />
                 </motion.div>
               </div>
 
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6 }}
-                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                  className="bg-card rounded-3xl border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
                   <RoleDistributionChart
                     title="User Role Distribution"
-                    description="Breakdown of users by role"
+                    description="Platform user composition and detailed role breakdown"
                     data={roleDistributionData}
                     loading={loading}
                   />
                 </motion.div>
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7 }}
-                  className="bg-white rounded-2xl border border-[#E8EAED] shadow-sm"
+                  transition={{ delay: 0.7, duration: 0.6 }}
+                  className="bg-card rounded-3xl border border-border/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
                 >
                   <SystemMetricsChart
-                    title="System Performance"
-                    description="Real-time system metrics"
+                    title="System Performance Metrics"
+                    description="Real-time infrastructure health and performance monitoring"
                     data={systemMetricsData}
                     loading={loading}
                   />

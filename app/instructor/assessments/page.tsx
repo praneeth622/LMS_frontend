@@ -13,6 +13,7 @@ import {
   Users,
   FileText,
   CheckCircle,
+  ArrowRight,
   AlertCircle
 } from "lucide-react"
 import { format } from "date-fns"
@@ -409,33 +410,90 @@ export default function InstructorAssessmentsPage() {
                 ))}
               </div>
 
-              {/* Quick Actions */}
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Actions</CardTitle>
-                  <CardDescription>
-                    Create new assessments for your courses
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Button asChild className="h-auto p-6 flex-col space-y-2">
-                      <Link href="/instructor/assessments/quiz/create">
-                        <FileText className="h-8 w-8" />
-                        <span className="text-lg font-medium">Create Quiz</span>
-                        <span className="text-sm text-muted-foreground">Build interactive quizzes with timers</span>
-                      </Link>
-                    </Button>
-                    <Button variant="outline" asChild className="h-auto p-6 flex-col space-y-2">
-                      <Link href="/instructor/assessments/assignment/create">
-                        <CheckCircle className="h-8 w-8" />
-                        <span className="text-lg font-medium">Create Assignment</span>
-                        <span className="text-sm text-muted-foreground">Design assignments with file uploads</span>
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              {/* Enhanced Quick Actions */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Card className="enhanced-card overflow-hidden">
+                  <CardHeader className="pb-6">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 rounded-lg bg-primary/10">
+                        <Plus className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <CardTitle className="text-2xl">Quick Actions</CardTitle>
+                        <CardDescription className="text-lg">
+                          Create new assessments for your courses
+                        </CardDescription>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="p-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="group"
+                      >
+                        <Button 
+                          asChild 
+                          className="h-auto p-0 w-full bg-gradient-to-br from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 border-0 shadow-lg hover:shadow-xl transition-all duration-300"
+                        >
+                          <Link href="/instructor/assessments/quiz/create">
+                            <div className="flex flex-col items-center justify-center p-10 space-y-4 w-full">
+                              <div className="p-4 rounded-2xl bg-white/20 group-hover:bg-white/30 transition-colors duration-300">
+                                <FileText className="h-12 w-12 text-white" />
+                              </div>
+                              <div className="text-center space-y-2">
+                                <span className="text-2xl font-bold text-white">Create Quiz</span>
+                                <p className="text-red-100 text-base leading-relaxed">
+                                  Build interactive quizzes with timers and instant feedback
+                                </p>
+                              </div>
+                              <div className="flex items-center space-x-2 text-red-100">
+                                <span className="text-sm">Get Started</span>
+                                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                              </div>
+                            </div>
+                          </Link>
+                        </Button>
+                      </motion.div>
+                      
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="group"
+                      >
+                        <Button 
+                          asChild 
+                          variant="outline" 
+                          className="h-auto p-0 w-full border-2 border-border/60 hover:border-primary/30 bg-card hover:bg-accent/50 shadow-lg hover:shadow-xl transition-all duration-300"
+                        >
+                          <Link href="/instructor/assessments/assignment/create">
+                            <div className="flex flex-col items-center justify-center p-10 space-y-4 w-full">
+                              <div className="p-4 rounded-2xl bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+                                <CheckCircle className="h-12 w-12 text-primary" />
+                              </div>
+                              <div className="text-center space-y-2">
+                                <span className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">Create Assignment</span>
+                                <p className="text-muted-foreground text-base leading-relaxed group-hover:text-foreground transition-colors duration-300">
+                                  Design assignments with file uploads and detailed instructions
+                                </p>
+                              </div>
+                              <div className="flex items-center space-x-2 text-muted-foreground group-hover:text-primary transition-colors duration-300">
+                                <span className="text-sm">Get Started</span>
+                                <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                              </div>
+                            </div>
+                          </Link>
+                        </Button>
+                      </motion.div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
 
               {/* Assessments Tabs */}
               <Tabs defaultValue="quizzes" className="space-y-4">

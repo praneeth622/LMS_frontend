@@ -223,207 +223,225 @@ export default function AdminUsers() {
     <>
       <AdminHeader 
         title="User Management"
-        subtitle="Manage users, roles, and permissions"
+        subtitle="Manage users, roles, and permissions across your platform"
       />
       
-      <main className="flex-1 overflow-y-auto p-6">
-        <div className="space-y-6">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <Card>
-              <CardContent className="p-6">
+      <main className="flex-1 overflow-y-auto p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto space-y-10">
+          {/* Enhanced Stats Cards */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            <Card className="border-0 shadow-lg rounded-3xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/50">
+              <CardContent className="p-8">
                 <div className="flex items-center">
-                  <Users className="h-8 w-8 text-blue-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-muted-foreground">Total Users</p>
-                    <p className="text-2xl font-bold">{users.length}</p>
+                  <div className="p-4 bg-blue-600 rounded-2xl">
+                    <Users className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="ml-6">
+                    <p className="text-lg font-medium text-muted-foreground">Total Users</p>
+                    <p className="text-3xl font-bold text-foreground">{users.length}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-0 shadow-lg rounded-3xl overflow-hidden bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/50 dark:to-red-900/50">
+              <CardContent className="p-8">
                 <div className="flex items-center">
-                  <Shield className="h-8 w-8 text-red-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-muted-foreground">Admins</p>
-                    <p className="text-2xl font-bold">{users.filter(u => u.role_id === 1).length}</p>
+                  <div className="p-4 bg-red-600 rounded-2xl">
+                    <Shield className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="ml-6">
+                    <p className="text-lg font-medium text-muted-foreground">Admins</p>
+                    <p className="text-3xl font-bold text-foreground">{users.filter(u => u.role_id === 1).length}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-0 shadow-lg rounded-3xl overflow-hidden bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/50 dark:to-green-900/50">
+              <CardContent className="p-8">
                 <div className="flex items-center">
-                  <UserPlus className="h-8 w-8 text-green-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-muted-foreground">Instructors</p>
-                    <p className="text-2xl font-bold">{users.filter(u => u.role_id === 2).length}</p>
+                  <div className="p-4 bg-green-600 rounded-2xl">
+                    <UserPlus className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="ml-6">
+                    <p className="text-lg font-medium text-muted-foreground">Instructors</p>
+                    <p className="text-3xl font-bold text-foreground">{users.filter(u => u.role_id === 2).length}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-            <Card>
-              <CardContent className="p-6">
+            <Card className="border-0 shadow-lg rounded-3xl overflow-hidden bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/50 dark:to-purple-900/50">
+              <CardContent className="p-8">
                 <div className="flex items-center">
-                  <Activity className="h-8 w-8 text-purple-600" />
-                  <div className="ml-4">
-                    <p className="text-sm font-medium text-muted-foreground">Students</p>
-                    <p className="text-2xl font-bold">{users.filter(u => u.role_id === 3).length}</p>
+                  <div className="p-4 bg-purple-600 rounded-2xl">
+                    <Activity className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="ml-6">
+                    <p className="text-lg font-medium text-muted-foreground">Students</p>
+                    <p className="text-3xl font-bold text-foreground">{users.filter(u => u.role_id === 3).length}</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
 
-          {/* Actions and Filters */}
-          <Card>
-            <CardHeader>
-              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                <div>
-                  <CardTitle>Users</CardTitle>
-                  <CardDescription>
-                    Manage all users in your system
-                  </CardDescription>
+          {/* Enhanced Actions and Filters */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            <Card className="border-0 shadow-lg rounded-3xl overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-muted/20 to-muted/10 pb-8">
+                <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+                  <div>
+                    <CardTitle className="text-2xl lg:text-3xl">User Directory</CardTitle>
+                    <CardDescription className="text-lg">
+                      Manage all users in your system with advanced controls
+                    </CardDescription>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <Button variant="outline" size="lg" className="px-6 py-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <Download className="h-5 w-5 mr-3" />
+                      Export
+                    </Button>
+                    <Button variant="outline" size="lg" className="px-6 py-3 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300">
+                      <Upload className="h-5 w-5 mr-3" />
+                      Import
+                    </Button>
+                    <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
+                      <DialogTrigger asChild>
+                        <Button size="lg" className="px-8 py-3 text-lg font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+                          <Plus className="h-5 w-5 mr-3" />
+                          Add User
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent>
+                        <DialogHeader>
+                          <DialogTitle>Create New User</DialogTitle>
+                          <DialogDescription>
+                            Add a new user to the system
+                          </DialogDescription>
+                        </DialogHeader>
+                        <div className="space-y-4">
+                          <div>
+                            <Label htmlFor="name">Name</Label>
+                            <Input
+                              id="name"
+                              value={formData.name}
+                              onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                              placeholder="Enter user name"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="email">Email</Label>
+                            <Input
+                              id="email"
+                              type="email"
+                              value={formData.email}
+                              onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                              placeholder="Enter email address"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="password">Password</Label>
+                            <Input
+                              id="password"
+                              type="password"
+                              value={formData.password}
+                              onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                              placeholder="Enter password"
+                            />
+                          </div>
+                          <div>
+                            <Label htmlFor="role">Role</Label>
+                            <Select
+                              value={formData.role_id.toString()}
+                              onValueChange={(value) => setFormData(prev => ({ ...prev, role_id: parseInt(value) }))}
+                            >
+                              <SelectTrigger>
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                {roles.map((role) => (
+                                  <SelectItem key={role.id} value={role.id.toString()}>
+                                    {role.name}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                          </div>
+                        </div>
+                        <DialogFooter>
+                          <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
+                            Cancel
+                          </Button>
+                          <Button onClick={handleCreateUser}>
+                            Create User
+                          </Button>
+                        </DialogFooter>
+                      </DialogContent>
+                    </Dialog>
+                  </div>
                 </div>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
-                    <Download className="h-4 w-4 mr-2" />
-                    Export
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <Upload className="h-4 w-4 mr-2" />
-                    Import
-                  </Button>
-                  <Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-                    <DialogTrigger asChild>
-                      <Button size="sm">
-                        <Plus className="h-4 w-4 mr-2" />
-                        Add User
+              </CardHeader>
+              <CardContent className="p-8">
+                {/* Enhanced Search and Filter */}
+                <div className="flex flex-col lg:flex-row gap-6 mb-8">
+                  <div className="relative flex-1">
+                    <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-muted-foreground h-5 w-5" />
+                    <Input
+                      placeholder="Search users by name or email..."
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                      className="pl-12 h-12 text-lg rounded-2xl border-2 focus:border-primary"
+                    />
+                  </div>
+                  <Select value={selectedRole} onValueChange={setSelectedRole}>
+                    <SelectTrigger className="w-full lg:w-[200px] h-12 text-lg rounded-2xl border-2">
+                      <SelectValue placeholder="Filter by role" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Roles</SelectItem>
+                      {roles.map((role) => (
+                        <SelectItem key={role.id} value={role.id.toString()}>
+                          {role.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Enhanced Bulk Actions */}
+                {selectedUsers.length > 0 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8 p-6 bg-gradient-to-r from-muted/30 to-muted/20 rounded-2xl flex items-center justify-between border-2 border-muted/20"
+                  >
+                    <span className="text-lg font-semibold">
+                      {selectedUsers.length} user(s) selected
+                    </span>
+                    <div className="flex gap-3">
+                      <Button variant="outline" size="lg" className="px-6 py-3 rounded-xl">
+                        <Mail className="h-5 w-5 mr-2" />
+                        Send Email
                       </Button>
-                    </DialogTrigger>
-                    <DialogContent>
-                      <DialogHeader>
-                        <DialogTitle>Create New User</DialogTitle>
-                        <DialogDescription>
-                          Add a new user to the system
-                        </DialogDescription>
-                      </DialogHeader>
-                      <div className="space-y-4">
-                        <div>
-                          <Label htmlFor="name">Name</Label>
-                          <Input
-                            id="name"
-                            value={formData.name}
-                            onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                            placeholder="Enter user name"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="email">Email</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                            placeholder="Enter email address"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="password">Password</Label>
-                          <Input
-                            id="password"
-                            type="password"
-                            value={formData.password}
-                            onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
-                            placeholder="Enter password"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="role">Role</Label>
-                          <Select
-                            value={formData.role_id.toString()}
-                            onValueChange={(value) => setFormData(prev => ({ ...prev, role_id: parseInt(value) }))}
-                          >
-                            <SelectTrigger>
-                              <SelectValue />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {roles.map((role) => (
-                                <SelectItem key={role.id} value={role.id.toString()}>
-                                  {role.name}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-                      <DialogFooter>
-                        <Button variant="outline" onClick={() => setShowCreateDialog(false)}>
-                          Cancel
-                        </Button>
-                        <Button onClick={handleCreateUser}>
-                          Create User
-                        </Button>
-                      </DialogFooter>
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </div>
-            </CardHeader>
-            <CardContent>
-              {/* Search and Filter */}
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
-                <div className="relative flex-1">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Search users..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-                <Select value={selectedRole} onValueChange={setSelectedRole}>
-                  <SelectTrigger className="w-full sm:w-[180px]">
-                    <SelectValue placeholder="Filter by role" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Roles</SelectItem>
-                    {roles.map((role) => (
-                      <SelectItem key={role.id} value={role.id.toString()}>
-                        {role.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
+                      <Button variant="outline" size="lg" className="px-6 py-3 rounded-xl text-destructive hover:bg-destructive hover:text-destructive-foreground">
+                        <Trash2 className="h-5 w-5 mr-2" />
+                        Delete Selected
+                      </Button>
+                    </div>
+                  </motion.div>
+                )}
 
-              {/* Bulk Actions */}
-              {selectedUsers.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="mb-4 p-3 bg-muted rounded-lg flex items-center justify-between"
-                >
-                  <span className="text-sm font-medium">
-                    {selectedUsers.length} user(s) selected
-                  </span>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm">
-                      <Mail className="h-4 w-4 mr-2" />
-                      Send Email
-                    </Button>
-                    <Button variant="outline" size="sm">
-                      <Trash2 className="h-4 w-4 mr-2" />
-                      Delete Selected
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Users Table */}
-              <div className="rounded-md border">
-                <Table>
+                {/* Enhanced Users Table */}
+                <div className="rounded-3xl border-2 border-muted/20 overflow-hidden shadow-lg">
+                  <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead className="w-12">
@@ -541,6 +559,7 @@ export default function AdminUsers() {
               </div>
             </CardContent>
           </Card>
+          </motion.div>
         </div>
       </main>
 
