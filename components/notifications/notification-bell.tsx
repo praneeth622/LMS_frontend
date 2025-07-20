@@ -202,7 +202,7 @@ export function NotificationBell({ onPreferencesClick }: NotificationBellProps) 
       case 'certificate_generated':
         return <Award className="h-4 w-4 text-purple-500" />
       case 'system_announcement':
-        return <AlertTriangle className="h-4 w-4 text-red-500" />
+        return <AlertTriangle className="h-4 w-4 text-critical" />
       default:
         return <Bell className="h-4 w-4 text-muted-foreground" />
     }

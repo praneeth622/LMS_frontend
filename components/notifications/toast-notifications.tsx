@@ -48,7 +48,7 @@ export function ToastNotifications({ notifications, onRemove }: ToastNotificatio
       case 'success':
         return <CheckCircle className="h-5 w-5 text-green-500" />
       case 'error':
-        return <AlertCircle className="h-5 w-5 text-red-500" />
+        return <AlertCircle className="h-5 w-5 text-error" />
       case 'warning':
         return <AlertTriangle className="h-5 w-5 text-yellow-500" />
       case 'info':

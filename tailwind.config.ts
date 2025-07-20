@@ -22,10 +22,10 @@ const config: Config = {
     },
     extend: {
       colors: {
-        // EduFlow Brand Colors
-        'eduflow-red': '#DC2626',
-        'eduflow-red-light': '#EF4444',
-        'eduflow-red-dark': '#B91C1C',
+        // EduFlow Brand Colors - Enhanced Blue-Violet System
+        'eduflow-primary': '#3B82F6',        /* Professional blue-violet */
+        'eduflow-primary-light': '#60A5FA',  /* Light blue-violet */
+        'eduflow-primary-dark': '#1D4ED8',   /* Dark blue-violet */
         'eduflow-gray': '#6B7280',
         'eduflow-gray-light': '#9CA3AF',
         'eduflow-gray-dark': '#374151',
@@ -64,7 +64,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Enhanced theme colors
+        // Enhanced semantic color system
         success: {
           DEFAULT: "hsl(var(--success))",
           foreground: "hsl(var(--success-foreground))",
@@ -76,6 +76,28 @@ const config: Config = {
         info: {
           DEFAULT: "hsl(var(--info))",
           foreground: "hsl(var(--info-foreground))",
+        },
+        error: {
+          DEFAULT: "hsl(var(--error))",
+          foreground: "hsl(var(--error-foreground))",
+        },
+        critical: {
+          DEFAULT: "hsl(var(--critical))",
+          foreground: "hsl(var(--critical-foreground))",
+        },
+        caution: {
+          DEFAULT: "hsl(var(--caution))",
+          foreground: "hsl(var(--caution-foreground))",
+        },
+        attention: {
+          DEFAULT: "hsl(var(--attention))",
+          foreground: "hsl(var(--attention-foreground))",
+        },
+        // EduFlow brand colors with semantic names
+        eduflow: {
+          primary: "hsl(var(--eduflow-primary))",
+          light: "hsl(var(--eduflow-primary-light))",
+          dark: "hsl(var(--eduflow-primary-dark))",
         },
       },
       borderRadius: {

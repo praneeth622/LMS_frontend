@@ -74,7 +74,7 @@ export function PremiumStatsCard({
                 "flex items-center space-x-1 px-2 py-1 rounded-full text-xs font-medium",
                 trend === "up" 
                   ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
-                  : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
+                  : "bg-error/10 text-error dark:bg-error/20 dark:text-error-foreground"
               )}>
                 {trend === "up" ? (
                   <TrendingUp className="h-3 w-3" />
@@ -250,7 +250,7 @@ export function MetricCard({
   const gradientClasses = {
     primary: "from-emerald-500 to-teal-500",
     admin: "from-indigo-500 to-purple-500",
-    instructor: "from-red-500 to-orange-500"
+    instructor: "from-amber-500 to-orange-500"
   }
 
   return (

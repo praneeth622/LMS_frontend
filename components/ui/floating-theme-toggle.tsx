@@ -16,7 +16,7 @@ interface FloatingThemeToggleProps {
 }
 
 const accentColors = [
-  { name: 'Red', value: 'red', color: 'bg-red-500' },
+  { name: 'Amber', value: 'amber', color: 'bg-amber-500' },
   { name: 'Blue', value: 'blue', color: 'bg-blue-500' },
   { name: 'Green', value: 'green', color: 'bg-green-500' },
   { name: 'Purple', value: 'purple', color: 'bg-purple-500' },

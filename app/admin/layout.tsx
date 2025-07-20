@@ -10,15 +10,10 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode
 }) {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(true)
-
   return (
     <ProtectedRoute allowedRoles={[1]}>
       <div className="flex h-screen bg-background">
-        <AdminSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <AdminSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           {children}

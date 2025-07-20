@@ -73,7 +73,6 @@ interface PrivacySettings {
 
 export default function StudentProfile() {
   const { userProfile, refreshProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [editingProfile, setEditingProfile] = React.useState(false)
   const [showCurrentPassword, setShowCurrentPassword] = React.useState(false)
@@ -261,10 +260,7 @@ export default function StudentProfile() {
   return (
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
-        <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <StudentSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader 

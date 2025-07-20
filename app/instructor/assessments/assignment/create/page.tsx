@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
 import { 
@@ -11,58 +12,53 @@ import {
   Clock,
   Users
 } from "lucide-react"
-import { ProtectedRoute } from '@/components/auth/protected-route'
-import { InstructorSidebar } from '@/components/instructor/sidebar'
-import { InstructorHeader } from '@/components/instructor/header'
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "react-hot-toast"
-import { instructorApi } from '@/lib/instructor-api'
-import { useAuth } from '@/contexts/auth-context'
-import Link from "next/link"
+import { ProtectedRoute } from '@/components/auth/protected-route'
+import { InstructorSidebar } from '@/components/instructor/sidebar'
+import { InstructorHeader } from '@/components/instructor/header'
+
+const courses = [
+  { id: "1", title: "React for Beginners" },
+  { id: "2", title: "Advanced JavaScript" },
+  { id: "3", title: "Node.js Fundamentals" }
+]
+
+interface AssignmentFormData {
+  title: string
+  course_id: string
+  description: string
+  instructions: string
+  due_date: string
+  max_points: string
+  submission_type: string
+  allow_late_submissions: boolean
+}
 
 export default function CreateAssignmentPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
-  const [loading, setLoading] = React.useState(false)
-  const [courses, setCourses] = React.useState<any[]>([])
-  
   const router = useRouter()
-  const { userProfile } = useAuth()
-
-  const [formData, setFormData] = React.useState({
+  const [loading, setLoading] = useState(false)
+  
+  // Get today's date for minimum date validation
+  const today = new Date().toISOString().slice(0, 16)
+  
+  const [formData, setFormData] = useState<AssignmentFormData>({
     title: '',
-    description: '',
     course_id: '',
-    due_date: '',
+    description: '',
     instructions: '',
+    due_date: '',
     max_points: '100',
     submission_type: 'file',
-    allow_late_submissions: true
+    allow_late_submissions: false
   })
 
-  // Fetch instructor's courses
-  React.useEffect(() => {
-    const fetchCourses = async () => {
-      if (!userProfile?.id) return
-      
-      try {
-        const response = await instructorApi.getCoursesByInstructor(userProfile.id)
-        if (response.success) {
-          setCourses(response.data)
-        }
-      } catch (error) {
-        console.error('Error fetching courses:', error)
-      }
-    }
-
-    fetchCourses()
-  }, [userProfile])
-
-  const handleInputChange = (field: string, value: string | boolean) => {
+  const handleInputChange = (field: keyof AssignmentFormData, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -71,58 +67,23 @@ export default function CreateAssignmentPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
     
-    if (!formData.title.trim()) {
-      toast.error('Assignment title is required')
-      return
-    }
-
-    if (!formData.course_id) {
-      toast.error('Please select a course')
-      return
-    }
-
-    if (!formData.due_date) {
-      toast.error('Due date is required')
-      return
-    }
-
     try {
-      setLoading(true)
-      
-      const assignmentData = {
-        title: formData.title.trim(),
-        description: formData.description.trim(),
-        course_id: parseInt(formData.course_id),
-        due_date: formData.due_date
-      }
-
-      const response = await instructorApi.createAssignment(assignmentData)
-      
-      if (response.success) {
-        toast.success('Assignment created successfully!')
-        router.push('/instructor/assessments')
-      } else {
-        toast.error(response.message || 'Failed to create assignment')
-      }
+      // Submit assignment logic
+      console.log('Creating assignment:', formData)
+      // router.push('/instructor/assessments')
     } catch (error) {
       console.error('Error creating assignment:', error)
-      toast.error('Failed to create assignment')
     } finally {
       setLoading(false)
     }
   }
 
-  // Get minimum date (today)
-  const today = new Date().toISOString().split('T')[0]
-
   return (
-    <ProtectedRoute allowedRoles={[2]}>
-      <div className="flex h-screen bg-background">
-        <InstructorSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+    <ProtectedRoute allowedRoles={['instructor']}>
+      <div className="flex h-screen bg-gray-50">
+        <InstructorSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <InstructorHeader 
@@ -177,7 +138,7 @@ export default function CreateAssignmentPage() {
                             </SelectTrigger>
                             <SelectContent>
                               {courses.map((course) => (
-                                <SelectItem key={course.id} value={course.id.toString()}>
+                                <SelectItem key={course.id} value={course.id}>
                                   {course.title}
                                 </SelectItem>
                               ))}

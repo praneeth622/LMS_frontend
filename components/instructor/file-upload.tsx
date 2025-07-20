@@ -191,7 +191,7 @@ export function FileUpload({
                           <CheckCircle className="h-4 w-4 text-green-500" />
                         )}
                         {uploadedFile.status === 'error' && (
-                          <AlertCircle className="h-4 w-4 text-red-500" />
+                          <AlertCircle className="h-4 w-4 text-error" />
                         )}
                         <Button
                           variant="ghost"

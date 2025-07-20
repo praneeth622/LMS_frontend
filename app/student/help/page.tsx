@@ -59,7 +59,6 @@ interface ContactOption {
 
 export default function StudentHelp() {
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [searchTerm, setSearchTerm] = React.useState("")
   const [selectedCategory, setSelectedCategory] = React.useState("all")
 
@@ -202,10 +201,7 @@ export default function StudentHelp() {
   return (
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
-        <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <StudentSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader 

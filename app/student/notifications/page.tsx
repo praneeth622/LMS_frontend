@@ -52,7 +52,6 @@ interface Notification {
 
 export default function StudentNotifications() {
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [notifications, setNotifications] = React.useState<Notification[]>([])
   const [loading, setLoading] = React.useState(true)
   const [searchTerm, setSearchTerm] = React.useState("")
@@ -283,10 +282,7 @@ export default function StudentNotifications() {
   return (
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
-        <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <StudentSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader 

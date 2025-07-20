@@ -50,7 +50,6 @@ interface Assignment {
 
 export default function StudentAssignments() {
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [assignments, setAssignments] = React.useState<Assignment[]>([])
   const [loading, setLoading] = React.useState(true)
   const [searchTerm, setSearchTerm] = React.useState("")
@@ -128,7 +127,7 @@ export default function StudentAssignments() {
       case 'pending': return 'bg-yellow-100 text-yellow-800'
       case 'submitted': return 'bg-blue-100 text-blue-800'
       case 'graded': return 'bg-green-100 text-green-800'
-      case 'overdue': return 'bg-red-100 text-red-800'
+      case 'overdue': return 'bg-critical/10 text-critical border-critical/20'
       default: return 'bg-gray-100 text-gray-800'
     }
   }
@@ -190,10 +189,7 @@ export default function StudentAssignments() {
   return (
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
-        <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <StudentSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader 
@@ -258,9 +254,9 @@ export default function StudentAssignments() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm text-muted-foreground">Overdue</p>
-                        <p className="text-2xl font-bold text-red-600">{stats.overdue}</p>
+                        <p className="text-2xl font-bold text-critical">{stats.overdue}</p>
                       </div>
-                      <AlertCircle className="h-8 w-8 text-red-600" />
+                      <AlertCircle className="h-8 w-8 text-critical" />
                     </div>
                   </CardContent>
                 </Card>

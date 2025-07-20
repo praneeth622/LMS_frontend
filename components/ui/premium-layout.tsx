@@ -95,7 +95,7 @@ export function PremiumLayout({
               onClick={() => {}}
             >
               <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-critical" />
               <span className="sr-only">Notifications</span>
             </Button>
             

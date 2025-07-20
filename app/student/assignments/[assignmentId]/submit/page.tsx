@@ -44,7 +44,6 @@ export default function SubmitAssignment() {
   const { assignmentId } = useParams()
   const router = useRouter()
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [assignment, setAssignment] = React.useState<Assignment | null>(null)
   const [loading, setLoading] = React.useState(true)
   const [submitting, setSubmitting] = React.useState(false)
@@ -91,11 +90,11 @@ export default function SubmitAssignment() {
     const diffTime = due.getTime() - now.getTime()
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     
-    if (diffDays < 0) return { text: "Overdue", color: "text-red-600" }
-    if (diffDays === 0) return { text: "Due today", color: "text-red-600" }
-    if (diffDays === 1) return { text: "Due tomorrow", color: "text-yellow-600" }
-    if (diffDays <= 3) return { text: `Due in ${diffDays} days`, color: "text-yellow-600" }
-    return { text: `Due in ${diffDays} days`, color: "text-green-600" }
+    if (diffDays < 0) return { text: "Overdue", color: "text-critical" }
+    if (diffDays === 0) return { text: "Due today", color: "text-error" }
+    if (diffDays === 1) return { text: "Due tomorrow", color: "text-warning" }
+    if (diffDays <= 3) return { text: `Due in ${diffDays} days`, color: "text-warning" }
+    return { text: `Due in ${diffDays} days`, color: "text-success" }
   }
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -141,8 +140,8 @@ export default function SubmitAssignment() {
       <ProtectedRoute allowedRoles={[3]}>
         <div className="flex h-screen bg-background">
           <StudentSidebar 
-            collapsed={sidebarCollapsed} 
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            
+            
           />
           
           <div className="flex-1 flex flex-col overflow-hidden">
@@ -169,8 +168,8 @@ export default function SubmitAssignment() {
       <ProtectedRoute allowedRoles={[3]}>
         <div className="flex h-screen bg-background">
           <StudentSidebar 
-            collapsed={sidebarCollapsed} 
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            
+            
           />
           
           <div className="flex-1 flex flex-col overflow-hidden">
@@ -207,8 +206,8 @@ export default function SubmitAssignment() {
       <ProtectedRoute allowedRoles={[3]}>
         <div className="flex h-screen bg-background">
           <StudentSidebar 
-            collapsed={sidebarCollapsed} 
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            
+            
           />
           
           <div className="flex-1 flex flex-col overflow-hidden">
@@ -253,8 +252,8 @@ export default function SubmitAssignment() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
         <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          
+          
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">
@@ -292,7 +291,7 @@ export default function SubmitAssignment() {
               </Card>
 
               {/* Due Date Warning */}
-              {dueInfo.color === "text-red-600" && (
+              {dueInfo.color === "text-error" && (
                 <Alert>
                   <AlertCircle className="h-4 w-4" />
                   <AlertDescription>

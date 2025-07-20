@@ -35,7 +35,6 @@ export default function CreateStudentDiscussionPage() {
   const [lectureId, setLectureId] = React.useState<string>("none")
   const [submitting, setSubmitting] = React.useState(false)
   const [activeTab, setActiveTab] = React.useState<'write' | 'preview'>('write')
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   
   const { userProfile, user, loading } = useAuth()
   const router = useRouter()
@@ -144,8 +143,8 @@ export default function CreateStudentDiscussionPage() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
         <StudentSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          
+          
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">

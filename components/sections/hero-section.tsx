@@ -133,7 +133,7 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-8 justify-center mb-24"
           >
             <Button size="lg" className="btn-primary text-xl px-12 py-6 shadow-learning hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1" asChild>
-              <Link href="/register">
+              <Link href="/login">
                 Start Learning Now
                 <ArrowRight className="ml-4 h-6 w-6" />
               </Link>
