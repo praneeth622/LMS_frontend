@@ -84,13 +84,19 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
       initial={false}
       animate={{ width: isExpanded ? 280 : 80 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-background border-r border-border h-screen flex flex-col shadow-sm"
+      className={cn(
+        "h-screen flex flex-col shadow-lg",
+        isExpanded ? "bg-background border-r border-border" : "sidebar-compressed"
+      )}
       style={{ fontFamily: 'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif' }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Header */}
-      <div className="p-4 border-b border-border">
+      <div className={cn(
+        "p-4 border-b border-border",
+        !isExpanded && "p-3"
+      )}>
         <div className="flex items-center justify-between">
           <AnimatePresence mode="wait">
             {isExpanded ? (
@@ -114,8 +120,8 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
                 transition={{ duration: 0.2 }}
                 className="flex items-center justify-center w-full"
               >
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-sm">
-                  <GraduationCap className="h-5 w-5 text-primary-foreground" />
+                <div className="brand-logo-compressed">
+                  <GraduationCap className="h-6 w-6 text-primary-foreground" />
                 </div>
               </motion.div>
             )}
@@ -132,21 +138,21 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
           )}
         </div>
         {!isExpanded && (
-          <div className="mt-2 flex justify-center">
+          <div className="mt-3 flex justify-center">
             <Button
               variant="ghost"
               size="icon"
               onClick={onToggle}
-              className="h-8 w-8 rounded-lg hover:bg-accent transition-colors"
+              className="control-button-compressed expand-button"
             >
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         )}
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 p-3 space-y-1 scrollbar-hide overflow-hidden hover:overflow-y-auto">
+      <nav className="flex-1 p-3 space-y-2 scrollbar-hide overflow-hidden hover:overflow-y-auto">
         {navigation.map((item) => {
           const isActive = pathname === item.href
           return (
@@ -154,30 +160,33 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
               <motion.div
                 whileHover={{ 
                   x: isExpanded ? 4 : 0,
-                  scale: !isExpanded ? 1.08 : 1
+                  scale: !isExpanded ? 1.02 : 1
                 }}
                 whileTap={{ scale: 0.96 }}
                 className={cn(
                   "flex items-center gap-3 rounded-xl transition-all duration-200 group relative",
-                  isExpanded ? "px-4 py-3" : "p-3 justify-center",
-                  isActive
-                    ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent/80"
+                  isExpanded 
+                    ? cn(
+                        "px-4 py-3",
+                        isActive
+                          ? "bg-primary text-primary-foreground shadow-lg shadow-primary/20"
+                          : "text-muted-foreground hover:text-foreground hover:bg-accent/80"
+                      )
+                    : cn(
+                        "nav-item-compressed",
+                        isActive && "active"
+                      )
                 )}
               >
-                {/* Icon container with improved positioning for collapsed state */}
-                <div className={cn(
-                  "flex items-center justify-center rounded-lg transition-all duration-200 shrink-0",
-                  !isExpanded && "w-12 h-12 bg-background/10 border border-border/30 shadow-sm",
-                  isActive && !isExpanded && "bg-primary/15 border-primary/30 shadow-md",
-                  !isActive && !isExpanded && "hover:bg-accent/60 hover:border-border/50 hover:shadow-sm"
-                )}>
+                {/* Icon with enhanced styling for compressed state */}
+                {isExpanded ? (
                   <item.icon className={cn(
                     "h-5 w-5 flex-shrink-0 transition-all duration-200",
-                    isActive && !isExpanded ? "text-primary" : isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-primary",
-                    !isExpanded && "h-6 w-6"
+                    isActive ? "text-primary-foreground" : "text-muted-foreground group-hover:text-primary"
                   )} />
-                </div>
+                ) : (
+                  <item.icon className="nav-icon-compressed" />
+                )}
                 
                 <AnimatePresence mode="wait">
                   {isExpanded && (
@@ -193,11 +202,10 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
                   )}
                 </AnimatePresence>
                 
-                {/* Enhanced tooltip for collapsed state */}
+                {/* Enhanced tooltip for compressed state */}
                 {!isExpanded && (
-                  <div className="absolute left-full ml-3 px-3 py-2 bg-popover text-popover-foreground text-sm rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-all duration-300 whitespace-nowrap z-50 shadow-lg border border-border">
+                  <div className="sidebar-tooltip">
                     {item.name}
-                    <div className="absolute left-0 top-1/2 -translate-x-1 -translate-y-1/2 w-2 h-2 bg-popover border-l border-t border-border rotate-45"></div>
                   </div>
                 )}
               </motion.div>
@@ -207,12 +215,17 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
       </nav>
 
       {/* User Profile */}
-      <div className="p-4 border-t border-border bg-muted/30">
+      <div className={cn(
+        isExpanded ? "p-4 border-t border-border bg-muted/30" : "user-profile-compressed"
+      )}>
         <div className={cn(
           "flex items-center transition-all duration-200",
           isExpanded ? "gap-3" : "flex-col gap-2"
         )}>
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-sm border-2 border-background flex-shrink-0">
+          <div className={cn(
+            "bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center shadow-sm border-2 border-background flex-shrink-0",
+            isExpanded ? "w-10 h-10" : "user-avatar-compressed"
+          )}>
             <span className="text-sm font-semibold text-primary-foreground">
               {userProfile?.name?.charAt(0) || 'I'}
             </span>
@@ -239,12 +252,19 @@ export function InstructorSidebar({ collapsed, onToggle }: InstructorSidebarProp
             "flex items-center",
             isExpanded ? "gap-1" : "flex-col gap-1"
           )}>
-            <SimpleThemeToggle />
+            <div className={cn(
+              isExpanded ? "" : "control-button-compressed"
+            )}>
+              <SimpleThemeToggle />
+            </div>
             <Button
               variant="ghost"
               size="icon"
               onClick={signOut}
-              className="h-9 w-9 rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors group"
+              className={cn(
+                "rounded-lg text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-colors group",
+                isExpanded ? "h-9 w-9" : "control-button-compressed"
+              )}
               title="Sign Out"
             >
               <LogOut className="h-4 w-4" />

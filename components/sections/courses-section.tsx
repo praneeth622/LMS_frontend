@@ -95,7 +95,7 @@ const featuredCourses = [
 
 export function CoursesSection() {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-32 bg-gradient-to-b from-background via-muted/10 to-background">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Categories */}
         <motion.div
@@ -103,17 +103,17 @@ export function CoursesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-8">
             Explore <span className="text-primary">Course Categories</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
             Discover courses across various disciplines and skill levels to advance your career.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 mb-24">
           {categories.map((category, index) => (
             <motion.div
               key={category.title}

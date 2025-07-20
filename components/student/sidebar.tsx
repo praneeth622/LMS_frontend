@@ -100,12 +100,18 @@ export function StudentSidebar({ collapsed, onToggle }: StudentSidebarProps) {
       initial={false}
       animate={{ width: isExpanded ? 280 : 80 }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="bg-background border-r border-border h-screen flex flex-col shadow-lg"
+      className={cn(
+        "h-screen flex flex-col shadow-lg",
+        isExpanded ? "bg-background border-r border-border" : "sidebar-compressed"
+      )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Header */}
-      <div className="p-4 border-b border-border">
+      <div className={cn(
+        "p-4 border-b border-border",
+        !isExpanded && "p-3"
+      )}>
         <div className="flex items-center justify-between">
           <AnimatePresence mode="wait">
             {isExpanded ? (
@@ -132,8 +138,8 @@ export function StudentSidebar({ collapsed, onToggle }: StudentSidebarProps) {
                 transition={{ duration: 0.2 }}
                 className="flex items-center justify-center w-full"
               >
-                <div className="w-10 h-10 gradient-primary rounded-xl flex items-center justify-center shadow-md">
-                  <GraduationCap className="h-5 w-5 text-white" />
+                <div className="brand-logo-compressed">
+                  <GraduationCap className="h-6 w-6 text-primary-foreground" />
                 </div>
               </motion.div>
             )}
@@ -150,14 +156,14 @@ export function StudentSidebar({ collapsed, onToggle }: StudentSidebarProps) {
           )}
         </div>
         {!isExpanded && (
-          <div className="mt-2 flex justify-center">
+          <div className="mt-3 flex justify-center">
             <Button
               variant="ghost"
               size="icon"
               onClick={onToggle}
-              className="h-8 w-8 rounded-lg hover:bg-muted transition-colors"
+              className="control-button-compressed expand-button"
             >
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="h-4 w-4" />
             </Button>
           </div>
         )}

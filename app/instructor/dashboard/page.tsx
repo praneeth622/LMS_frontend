@@ -122,7 +122,7 @@ export default function InstructorDashboard() {
 
   return (
     <ProtectedRoute allowedRoles={[2]}>
-      <div className="flex h-screen bg-background">
+      <div className="flex h-screen bg-gradient-to-br from-background via-muted/8 to-background">
         <InstructorSidebar 
           collapsed={sidebarCollapsed} 
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
@@ -134,44 +134,44 @@ export default function InstructorDashboard() {
             subtitle={`Welcome back, ${userProfile?.name || 'Instructor'}! Here's what's happening with your courses.`}
           />
           
-          <main className="flex-1 overflow-y-auto bg-instructor">
-            <div className="max-w-7xl mx-auto p-6 space-y-6">
-              {/* Premium Header Section */}
+          <main className="flex-1 overflow-y-auto p-8 lg:p-12">
+            <div className="max-w-7xl mx-auto space-y-12">
+              {/* Enhanced Premium Header Section */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="relative overflow-hidden rounded-3xl p-8 text-white gradient-instructor shadow-xl"
+                transition={{ duration: 0.6 }}
+                className="relative overflow-hidden rounded-3xl p-12 lg:p-16 text-white bg-gradient-to-br from-primary via-primary/90 to-accent shadow-2xl"
               >
                 {/* Background Pattern */}
                 <div className="absolute inset-0 bg-white/10 opacity-50" />
-                <div className="absolute -top-4 -right-4 w-32 h-32 bg-white/10 rounded-full" />
-                <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-white/5 rounded-full" />
+                <div className="absolute -top-8 -right-8 w-48 h-48 bg-white/10 rounded-full blur-xl" />
+                <div className="absolute -bottom-8 -left-8 w-56 h-56 bg-white/5 rounded-full blur-2xl" />
 
                 {/* Content */}
                 <div className="relative z-10">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
-                        <span className="text-white font-bold text-2xl">
+                  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+                    <div className="flex items-center gap-8">
+                      <div className="w-24 h-24 rounded-3xl bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl">
+                        <span className="text-white font-bold text-4xl">
                           {userProfile?.name?.charAt(0) || 'I'}
                         </span>
                       </div>
                       <div>
-                        <h1 className="text-3xl font-bold mb-2">
+                        <h1 className="text-5xl lg:text-6xl font-bold mb-6">
                           Welcome back, {userProfile?.name || 'Instructor'}! 🎓
                         </h1>
-                        <p className="text-white/90 text-lg">
+                        <p className="text-white/90 text-2xl leading-relaxed">
                           Ready to inspire minds and shape the future of learning?
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-3">
-                      <Button variant="secondary" className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30">
-                        <Calendar className="h-4 w-4 mr-2" />
+                    <div className="flex items-center gap-6 w-full lg:w-auto">
+                      <Button variant="secondary" className="bg-white/20 backdrop-blur-sm text-white border-white/30 hover:bg-white/30 flex-1 lg:flex-none px-8 py-4 text-lg">
+                        <Calendar className="h-6 w-6 mr-3" />
                         Schedule
                       </Button>
-                      <Button className="bg-white text-red-600 hover:bg-white/90 font-semibold">
+                      <Button className="bg-white text-primary hover:bg-white/90 font-semibold flex-1 lg:flex-none px-8 py-4 text-lg">
                         Create Course
                       </Button>
                     </div>
@@ -179,173 +179,212 @@ export default function InstructorDashboard() {
                 </div>
               </motion.div>
 
-              {/* Premium Stats Cards */}
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <MetricCard
-                  title="Total Students"
-                  value="1,247"
-                  subtitle="Active learners"
-                  icon={Users}
-                  trend={{ value: "+12%", direction: "up" }}
-                  gradient="instructor"
-                />
-                <MetricCard
-                  title="Course Revenue"
-                  value="$15,230"
-                  subtitle="This month"
-                  icon={DollarSign}
-                  trend={{ value: "+8%", direction: "up" }}
-                  gradient="instructor"
-                />
-                <MetricCard
-                  title="Course Rating"
-                  value="4.9"
-                  subtitle="Average rating"
-                  icon={Star}
-                  trend={{ value: "+0.2", direction: "up" }}
-                  gradient="instructor"
-                />
-                <MetricCard
-                  title="Active Courses"
-                  value="8"
-                  subtitle="Published courses"
-                  icon={BookOpen}
-                  trend={{ value: "+2", direction: "up" }}
-                  gradient="instructor"
-                />
+              {/* Enhanced Premium Stats Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.1 }}
+                >
+                  <MetricCard
+                    title="Total Students"
+                    value="1,247"
+                    subtitle="Active learners across all courses"
+                    icon={Users}
+                    trend={{ value: "+12%", direction: "up" }}
+                    gradient="instructor"
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <MetricCard
+                    title="Course Revenue"
+                    value="$15,230"
+                    subtitle="Total earnings this month"
+                    icon={DollarSign}
+                    trend={{ value: "+8%", direction: "up" }}
+                    gradient="instructor"
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                  <MetricCard
+                    title="Course Rating"
+                    value="4.9"
+                    subtitle="Average student rating"
+                    icon={Star}
+                    trend={{ value: "+0.2", direction: "up" }}
+                    gradient="instructor"
+                  />
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <MetricCard
+                    title="Active Courses"
+                    value="8"
+                    subtitle="Currently published"
+                    icon={BookOpen}
+                    trend={{ value: "+2", direction: "up" }}
+                    gradient="instructor"
+                  />
+                </motion.div>
               </div>
 
-              {/* Let's Connect Section */}
+              {/* Enhanced Community Section */}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.2 }}
-                className="grid grid-cols-1 lg:grid-cols-3 gap-6"
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="grid grid-cols-1 lg:grid-cols-3 gap-10"
               >
-                {/* Let's Connect */}
-                <Card className="border-0 shadow-sm bg-white dark:bg-gray-800">
-                  <CardHeader className="pb-4">
+                {/* Enhanced Let's Connect */}
+                <Card className="border-0 shadow-lg bg-card rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                  <CardHeader className="pb-8 bg-gradient-to-r from-muted/20 to-muted/10">
                     <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+                      <CardTitle className="text-2xl font-semibold text-foreground">
                         Let's Connect
                       </CardTitle>
-                      <Button variant="ghost" size="sm" className="text-gray-500 dark:text-gray-400">
+                      <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
                         See all
                       </Button>
                     </div>
                   </CardHeader>
-                  <CardContent className="space-y-4">
+                  <CardContent className="space-y-8 p-8">
                     {recentStudents.slice(0, 2).map((student) => (
-                      <div key={student.id} className="flex items-center space-x-3">
-                        <Avatar className="h-10 w-10">
+                      <div key={student.id} className="flex items-center space-x-4 p-4 rounded-2xl hover:bg-muted/30 transition-colors">
+                        <Avatar className="h-14 w-14 shadow-lg">
                           <AvatarImage src={student.avatar} alt={student.name} />
-                          <AvatarFallback className="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+                          <AvatarFallback className="bg-primary/10 text-primary font-semibold">
                             {student.name.split(' ').map(n => n[0]).join('')}
                           </AvatarFallback>
                         </Avatar>
                         <div className="flex-1">
-                          <h4 className="font-medium text-gray-900 dark:text-gray-100">{student.name}</h4>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">Cybersecurity specialist</p>
+                          <h4 className="font-semibold text-foreground">{student.name}</h4>
+                          <p className="text-sm text-muted-foreground">Cybersecurity specialist</p>
                         </div>
-                        <Button variant="ghost" size="sm" className="text-gray-500 dark:text-gray-400">
-                          <Plus className="h-4 w-4" />
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-full">
+                          <Plus className="h-6 w-6" />
                         </Button>
                       </div>
                     ))}
                   </CardContent>
                 </Card>
 
-                {/* Unlock Premium Features */}
-                <Card className="border-0 shadow-sm bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-gray-900 dark:text-gray-100 mb-2">
-                      Unlock Premium Features
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                      Get access to exclusive benefits and expand your freelancing opportunities
-                    </p>
-                    <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
-                      Upgrade now
-                    </Button>
+                {/* Enhanced Unlock Premium Features */}
+                <Card className="border-0 shadow-lg bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                  <CardContent className="p-10">
+                    <div className="text-center space-y-8">
+                      <div className="w-20 h-20 mx-auto bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center shadow-lg">
+                        <Star className="h-10 w-10 text-white" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-2xl text-foreground mb-4">
+                          Unlock Premium Features
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed">
+                          Get access to exclusive benefits and expand your teaching opportunities
+                        </p>
+                      </div>
+                      <Button className="w-full bg-primary hover:bg-primary/90 text-white py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
+                        Upgrade now
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
 
-              {/* Main Dashboard Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Income Tracker - Takes 2 columns */}
-                <div className="lg:col-span-2">
-                  <IncomeTrackerChart
-                    title="Income Tracker"
-                    description="Track changes in income over time and access detailed data on each project and payments received"
+              {/* Enhanced Main Dashboard Grid */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+                {/* Enhanced Income Tracker - Takes 2 columns */}
+                <motion.div 
+                  className="lg:col-span-2"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  <div className="bg-card rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <IncomeTrackerChart
+                      title="Income Tracker"
+                      description="Track changes in income over time and access detailed data on each project and payments received"
+                      data={enrollmentData}
+                    />
+                  </div>
+                </motion.div>
+
+                {/* Enhanced Recent Projects Sidebar */}
+                <motion.div 
+                  className="space-y-10"
+                  initial={{ opacity: 0, x: 30 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                >
+                  <Card className="border-0 shadow-lg bg-card rounded-3xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                    <CardHeader className="pb-8 bg-gradient-to-r from-muted/20 to-muted/10">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-2xl font-semibold text-foreground">
+                          Your Recent Projects
+                        </CardTitle>
+                        <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-primary">
+                          See all Projects
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="space-y-8 p-8">
+                      {recentCourses.slice(0, 3).map((course) => (
+                        <div key={course.id} className="project-item flex items-center space-x-4 p-4 rounded-2xl hover:bg-muted/30 transition-all duration-300">
+                          <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center flex-shrink-0 transition-transform duration-300">
+                            <BookOpen className="h-8 w-8 text-primary" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="font-semibold text-foreground truncate transition-colors">{course.title}</h4>
+                            <p className="text-muted-foreground">${(course.students * 50).toLocaleString()}/hour</p>
+                            <div className="flex items-center gap-3 mt-2">
+                              <Badge variant="secondary" className="text-xs font-medium">
+                                {course.status === 'published' ? 'Paid' : 'Not Paid'}
+                              </Badge>
+                              <Badge variant="outline" className="text-xs">
+                                Remote
+                              </Badge>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </div>
+
+              {/* Enhanced Revenue and Subscriptions Cards */}
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.8 }}
+                className="grid grid-cols-1 lg:grid-cols-2 gap-10"
+              >
+                <div className="bg-card rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  <UserGrowthChart
+                    title="Revenue & Subscriptions"
+                    description="Track your revenue and subscription growth over time"
                     data={enrollmentData}
                   />
                 </div>
-
-                {/* Recent Projects Sidebar */}
-                <div className="space-y-6">
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: 0.2 }}
-                  >
-                    <Card className="border-0 shadow-sm bg-white dark:bg-gray-800">
-                      <CardHeader className="pb-4">
-                        <div className="flex items-center justify-between">
-                          <CardTitle className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-                            Your Recent Projects
-                          </CardTitle>
-                          <Button variant="ghost" size="sm" className="text-gray-500 dark:text-gray-400">
-                            See all Project
-                          </Button>
-                        </div>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        {recentCourses.slice(0, 3).map((course) => (
-                          <div key={course.id} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                            <div className="w-10 h-10 rounded-lg bg-red-100 dark:bg-red-900/30 flex items-center justify-center flex-shrink-0">
-                              <BookOpen className="h-5 w-5 text-red-600 dark:text-red-400" />
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-medium text-gray-900 dark:text-gray-100 truncate">{course.title}</h4>
-                              <p className="text-sm text-gray-600 dark:text-gray-400">${(course.students * 50).toLocaleString()}/hour</p>
-                              <div className="flex items-center gap-2 mt-1">
-                                <Badge variant="secondary" className="text-xs">
-                                  {course.status === 'published' ? 'Paid' : 'Not Paid'}
-                                </Badge>
-                                <Badge variant="outline" className="text-xs">
-                                  Remote
-                                </Badge>
-                              </div>
-                            </div>
-                          </div>
-                        ))}
-                      </CardContent>
-                    </Card>
-                  </motion.div>
+                <div className="bg-card rounded-3xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+                  <ProposalProgressChart
+                    title="Course Progress"
+                    description="Track your course creation and student engagement metrics"
+                    data={revenueData}
+                  />
                 </div>
-              </div>
-
-              {/* Revenue and Subscriptions Cards */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-                className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-              >
-                <UserGrowthChart
-                  title="Revenue & Subscriptions"
-                  description="Track your revenue and subscription growth"
-                  data={enrollmentData}
-                />
-                <ProposalProgressChart
-                  title="Course Progress"
-                  description="Track your course creation and student engagement"
-                  data={revenueData}
-                />
               </motion.div>
-
-
             </div>
           </main>
         </div>
