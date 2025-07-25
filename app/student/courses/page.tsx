@@ -70,7 +70,6 @@ export default function StudentCoursesPage() {
   const [sortBy, setSortBy] = React.useState("popularity")
   const [cart, setCart] = React.useState<number[]>([])
   const [wishlist, setWishlist] = React.useState<number[]>([])
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   
   const { userProfile } = useAuth()
 
@@ -241,7 +240,7 @@ export default function StudentCoursesPage() {
             <Button
               size="icon"
               variant={wishlist.includes(course.id) ? "default" : "secondary"}
-              className="h-8 w-8 bg-white/90 hover:bg-white"
+              className="h-8 w-8 bg-background/90 hover:bg-background dark:bg-card/90 dark:hover:bg-card"
               onClick={() => toggleWishlist(course.id)}
             >
               <Heart className={`h-4 w-4 ${wishlist.includes(course.id) ? 'fill-current' : ''}`} />
@@ -392,10 +391,7 @@ export default function StudentCoursesPage() {
   return (
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex min-h-screen bg-background">
-        <StudentSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
-        />
+        <StudentSidebar />
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader
             title="Course Catalog"

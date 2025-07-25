@@ -7,8 +7,15 @@ import { Loader2 } from 'lucide-react'
 
 interface ProtectedRouteProps {
   children: React.ReactNode
-  allowedRoles?: number[]
+  allowedRoles?: (string | number)[]
   redirectTo?: string
+}
+
+// Role mapping for convenience
+const ROLE_MAP: Record<string, number> = {
+  'admin': 1,
+  'instructor': 2,
+  'student': 3,
 }
 
 export function ProtectedRoute({ 
@@ -27,7 +34,11 @@ export function ProtectedRoute({
       }
 
       if (allowedRoles.length > 0 && userProfile) {
-        if (userProfile.role_id !== undefined && !allowedRoles.includes(userProfile.role_id)) {
+        const numericRoles = allowedRoles.map(role => 
+          typeof role === 'string' ? ROLE_MAP[role] : role
+        ).filter(Boolean)
+        
+        if (userProfile.role_id !== undefined && !numericRoles.includes(userProfile.role_id)) {
           // Redirect based on user role
           switch (userProfile.role_id) {
             case 1: // Admin
@@ -60,8 +71,14 @@ export function ProtectedRoute({
     return null
   }
 
-  if (allowedRoles.length > 0 && userProfile && userProfile.role_id !== undefined && !allowedRoles.includes(userProfile.role_id)) {
-    return null
+  if (allowedRoles.length > 0 && userProfile && userProfile.role_id !== undefined) {
+    const numericRoles = allowedRoles.map(role => 
+      typeof role === 'string' ? ROLE_MAP[role] : role
+    ).filter(Boolean)
+    
+    if (!numericRoles.includes(userProfile.role_id)) {
+      return null
+    }
   }
 
   return <>{children}</>

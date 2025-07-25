@@ -51,7 +51,6 @@ interface CalendarEvent {
 
 export default function StudentCalendar() {
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [events, setEvents] = React.useState<CalendarEvent[]>([])
   const [loading, setLoading] = React.useState(true)
   const [currentDate, setCurrentDate] = React.useState(new Date())
@@ -231,8 +230,8 @@ export default function StudentCalendar() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
         <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          
+          
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">

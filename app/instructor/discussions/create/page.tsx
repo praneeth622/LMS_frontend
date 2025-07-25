@@ -1,64 +1,50 @@
 "use client"
 
 import * as React from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
-import { 
-  ArrowLeft, 
-  Save, 
-  MessageSquare,
-  Users,
-  BookOpen
-} from "lucide-react"
-import { ProtectedRoute } from '@/components/auth/protected-route'
-import { InstructorSidebar } from '@/components/instructor/sidebar'
-import { InstructorHeader } from '@/components/instructor/header'
+import { ArrowLeft, Save, Eye } from "lucide-react"
+import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "react-hot-toast"
-import { instructorApi } from '@/lib/instructor-api'
-import { useAuth } from '@/contexts/auth-context'
-import Link from "next/link"
+import { ProtectedRoute } from '@/components/auth/protected-route'
+import { InstructorSidebar } from '@/components/instructor/sidebar'
+import { InstructorHeader } from '@/components/instructor/header'
+
+const categories = [
+  "General Discussion",
+  "Course Questions",
+  "Technical Support",
+  "Project Feedback",
+  "Study Groups",
+  "Announcements"
+]
+
+interface DiscussionFormData {
+  title: string
+  content: string
+  category: string
+  pinned: boolean
+  allowComments: boolean
+}
 
 export default function CreateDiscussionPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
-  const [loading, setLoading] = React.useState(false)
-  const [courses, setCourses] = React.useState<any[]>([])
-  
   const router = useRouter()
-  const { userProfile } = useAuth()
-
-  const [formData, setFormData] = React.useState({
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState<DiscussionFormData>({
     title: '',
     content: '',
-    course_id: '',
-    lecture_id: '',
-    category: 'general'
+    category: '',
+    pinned: false,
+    allowComments: true
   })
 
-  // Fetch instructor's courses
-  React.useEffect(() => {
-    const fetchCourses = async () => {
-      if (!userProfile?.id) return
-      
-      try {
-        const response = await instructorApi.getCoursesByInstructor(userProfile.id)
-        if (response.success) {
-          setCourses(response.data)
-        }
-      } catch (error) {
-        console.error('Error fetching courses:', error)
-      }
-    }
-
-    fetchCourses()
-  }, [userProfile])
-
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: keyof DiscussionFormData, value: string | boolean) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -67,74 +53,40 @@ export default function CreateDiscussionPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setLoading(true)
     
-    if (!userProfile?.id) {
-      toast.error('User profile not found')
-      return
-    }
-
-    if (!formData.title.trim()) {
-      toast.error('Discussion title is required')
-      return
-    }
-
-    if (!formData.content.trim()) {
-      toast.error('Discussion content is required')
-      return
-    }
-
-    if (!formData.course_id) {
-      toast.error('Please select a course')
-      return
-    }
-
     try {
-      setLoading(true)
-      
-      const discussionData = {
-        title: formData.title.trim(),
-        content: formData.content.trim(),
-        course_id: parseInt(formData.course_id),
-        user_id: userProfile.id,
-        lecture_id: formData.lecture_id ? parseInt(formData.lecture_id) : undefined
-      }
-
-      const response = await instructorApi.createDiscussion(discussionData)
-      
-      if (response.success) {
-        toast.success('Discussion created successfully!')
-        router.push('/instructor/discussions')
-      } else {
-        toast.error(response.message || 'Failed to create discussion')
-      }
+      // Submit discussion logic
+      console.log('Creating discussion:', formData)
+      // router.push('/instructor/discussions')
     } catch (error) {
       console.error('Error creating discussion:', error)
-      toast.error('Failed to create discussion')
     } finally {
       setLoading(false)
     }
   }
 
-  const categories = [
-    { value: 'general', label: 'General Discussion' },
-    { value: 'question', label: 'Question & Answer' },
-    { value: 'announcement', label: 'Announcement' },
-    { value: 'assignment', label: 'Assignment Help' },
-    { value: 'technical', label: 'Technical Support' }
-  ]
+  const handleSaveAsDraft = async () => {
+    setLoading(true)
+    try {
+      // Save as draft logic
+      console.log('Saving draft:', formData)
+    } catch (error) {
+      console.error('Error saving draft:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
-    <ProtectedRoute allowedRoles={[2]}>
-      <div className="flex h-screen bg-background">
-        <InstructorSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+    <ProtectedRoute allowedRoles={['instructor']}>
+      <div className="flex h-screen bg-gray-50">
+        <InstructorSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <InstructorHeader 
-            title="Start Discussion"
-            subtitle="Create a new discussion topic for your students"
+            title="Create Discussion"
+            subtitle="Start a new discussion topic for your students"
           />
           
           <main className="flex-1 overflow-y-auto p-6">
@@ -149,11 +101,11 @@ export default function CreateDiscussionPage() {
                 </Button>
               </div>
 
+              {/* Discussion Form */}
               <form onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                   {/* Main Content */}
                   <div className="lg:col-span-2 space-y-6">
-                    {/* Discussion Information */}
                     <Card>
                       <CardHeader>
                         <CardTitle>Discussion Details</CardTitle>
@@ -174,37 +126,18 @@ export default function CreateDiscussionPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="course">Course *</Label>
-                          <Select
-                            value={formData.course_id}
-                            onValueChange={(value) => handleInputChange('course_id', value)}
-                          >
-                            <SelectTrigger>
-                              <SelectValue placeholder="Select a course" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              {courses.map((course) => (
-                                <SelectItem key={course.id} value={course.id.toString()}>
-                                  {course.title}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                        </div>
-
-                        <div className="space-y-2">
                           <Label htmlFor="category">Category</Label>
                           <Select
                             value={formData.category}
                             onValueChange={(value) => handleInputChange('category', value)}
                           >
                             <SelectTrigger>
-                              <SelectValue />
+                              <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
                               {categories.map((category) => (
-                                <SelectItem key={category.value} value={category.value}>
-                                  {category.label}
+                                <SelectItem key={category} value={category}>
+                                  {category}
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -212,69 +145,14 @@ export default function CreateDiscussionPage() {
                         </div>
 
                         <div className="space-y-2">
-                          <Label htmlFor="content">Discussion Content *</Label>
+                          <Label htmlFor="content">Content</Label>
                           <Textarea
                             id="content"
-                            placeholder="Start the discussion with your thoughts, questions, or announcements..."
+                            placeholder="Write your discussion content here..."
                             rows={8}
                             value={formData.content}
                             onChange={(e) => handleInputChange('content', e.target.value)}
-                            required
                           />
-                          <p className="text-sm text-muted-foreground">
-                            Be clear and engaging to encourage student participation.
-                          </p>
-                        </div>
-                      </CardContent>
-                    </Card>
-
-                    {/* Discussion Guidelines */}
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Discussion Guidelines</CardTitle>
-                        <CardDescription>
-                          Tips for creating engaging discussions
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-3">
-                        <div className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2" />
-                          <div>
-                            <p className="font-medium">Ask open-ended questions</p>
-                            <p className="text-sm text-muted-foreground">
-                              Encourage students to share their thoughts and experiences
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2" />
-                          <div>
-                            <p className="font-medium">Provide context</p>
-                            <p className="text-sm text-muted-foreground">
-                              Give background information to help students understand the topic
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2" />
-                          <div>
-                            <p className="font-medium">Set expectations</p>
-                            <p className="text-sm text-muted-foreground">
-                              Let students know what kind of responses you're looking for
-                            </p>
-                          </div>
-                        </div>
-                        
-                        <div className="flex items-start space-x-3">
-                          <div className="w-2 h-2 bg-primary rounded-full mt-2" />
-                          <div>
-                            <p className="font-medium">Be responsive</p>
-                            <p className="text-sm text-muted-foreground">
-                              Engage with student responses to keep the discussion active
-                            </p>
-                          </div>
                         </div>
                       </CardContent>
                     </Card>
@@ -284,65 +162,60 @@ export default function CreateDiscussionPage() {
                   <div className="space-y-6">
                     <Card>
                       <CardHeader>
-                        <CardTitle>Publish Discussion</CardTitle>
+                        <CardTitle>Publish</CardTitle>
                         <CardDescription>
-                          Start the discussion for your students
+                          Save your discussion or publish it for students
                         </CardDescription>
                       </CardHeader>
-                      <CardContent>
+                      <CardContent className="space-y-4">
                         <Button
-                          type="submit"
+                          type="button"
+                          variant="outline"
                           className="w-full"
+                          onClick={handleSaveAsDraft}
                           disabled={loading}
                         >
                           <Save className="mr-2 h-4 w-4" />
-                          Start Discussion
+                          Save as Draft
+                        </Button>
+                        
+                        <Button
+                          type="submit"
+                          className="w-full"
+                          disabled={loading || !formData.title.trim()}
+                        >
+                          <Eye className="mr-2 h-4 w-4" />
+                          Publish Discussion
                         </Button>
                       </CardContent>
                     </Card>
 
                     <Card>
                       <CardHeader>
-                        <CardTitle>Discussion Summary</CardTitle>
+                        <CardTitle>Discussion Settings</CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-4">
-                        <div className="flex items-center space-x-2">
-                          <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm">
-                            {formData.category.replace('_', ' ')} discussion
-                          </span>
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="pinned">Pin Discussion</Label>
+                          <input
+                            type="checkbox"
+                            id="pinned"
+                            checked={formData.pinned}
+                            onChange={(e) => handleInputChange('pinned', e.target.checked)}
+                            className="rounded"
+                          />
                         </div>
                         
-                        {formData.course_id && (
-                          <div className="flex items-center space-x-2">
-                            <BookOpen className="h-4 w-4 text-muted-foreground" />
-                            <span className="text-sm">
-                              {courses.find(c => c.id.toString() === formData.course_id)?.title || 'Selected course'}
-                            </span>
-                          </div>
-                        )}
-
-                        <div className="flex items-center space-x-2">
-                          <Users className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm">
-                            All enrolled students can participate
-                          </span>
+                        <div className="flex items-center justify-between">
+                          <Label htmlFor="allowComments">Allow Comments</Label>
+                          <input
+                            type="checkbox"
+                            id="allowComments"
+                            checked={formData.allowComments}
+                            onChange={(e) => handleInputChange('allowComments', e.target.checked)}
+                            className="rounded"
+                          />
                         </div>
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Moderation Tools</CardTitle>
-                      </CardHeader>
-                      <CardContent className="text-sm text-muted-foreground space-y-2">
-                        <p>After creating the discussion, you can:</p>
-                        <ul className="space-y-1 ml-4">
-                          <li>• Pin important discussions</li>
-                          <li>• Lock discussions when needed</li>
-                          <li>• Moderate student responses</li>
-                          <li>• Reply to student questions</li>
-                        </ul>
                       </CardContent>
                     </Card>
                   </div>

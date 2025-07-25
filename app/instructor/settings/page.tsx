@@ -16,19 +16,18 @@ import { ProtectedRoute } from '@/components/auth/protected-route'
 import { InstructorSidebar } from '@/components/instructor/sidebar'
 import { InstructorHeader } from '@/components/instructor/header'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Switch } from "@/components/ui/switch"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Separator } from "@/components/ui/separator"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { toast } from "react-hot-toast"
 import { useAuth } from '@/contexts/auth-context'
 
 export default function InstructorSettingsPage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
   const [showPassword, setShowPassword] = React.useState(false)
   const { userProfile } = useAuth()
@@ -64,24 +63,14 @@ export default function InstructorSettingsPage() {
     dateFormat: 'MM/dd/yyyy'
   })
 
-  React.useEffect(() => {
-    if (userProfile) {
-      setProfileData(prev => ({
-        ...prev,
-        name: userProfile.name || '',
-        email: userProfile.email || ''
-      }))
-    }
-  }, [userProfile])
-
-  const handleProfileUpdate = async (e: React.FormEvent) => {
+  const handleProfileUpdate = (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
 
     try {
       // Here you would call the API to update profile
       // await instructorApi.updateProfile(profileData)
-      toast.success('Profile updated successfully!')
+      toast.success('Profile updated!')
     } catch (error) {
       console.error('Error updating profile:', error)
       toast.error('Failed to update profile')
@@ -90,16 +79,10 @@ export default function InstructorSettingsPage() {
     }
   }
 
-  const handlePasswordUpdate = async (e: React.FormEvent) => {
+  const handlePasswordUpdate = (e: React.FormEvent) => {
     e.preventDefault()
-    
     if (passwordData.newPassword !== passwordData.confirmPassword) {
-      toast.error('New passwords do not match')
-      return
-    }
-
-    if (passwordData.newPassword.length < 6) {
-      toast.error('Password must be at least 6 characters long')
+      toast.error('Passwords do not match')
       return
     }
 
@@ -108,12 +91,8 @@ export default function InstructorSettingsPage() {
     try {
       // Here you would call the API to update password
       // await instructorApi.updatePassword(passwordData)
-      toast.success('Password updated successfully!')
-      setPasswordData({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
-      })
+      toast.success('Password updated!')
+      setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' })
     } catch (error) {
       console.error('Error updating password:', error)
       toast.error('Failed to update password')
@@ -122,7 +101,7 @@ export default function InstructorSettingsPage() {
     }
   }
 
-  const handleNotificationUpdate = async () => {
+  const handleNotificationUpdate = () => {
     setLoading(true)
 
     try {
@@ -130,14 +109,14 @@ export default function InstructorSettingsPage() {
       // await instructorApi.updateNotificationSettings(notificationSettings)
       toast.success('Notification settings updated!')
     } catch (error) {
-      console.error('Error updating notifications:', error)
+      console.error('Error updating notification settings:', error)
       toast.error('Failed to update notification settings')
     } finally {
       setLoading(false)
     }
   }
 
-  const handlePreferencesUpdate = async () => {
+  const handlePreferencesUpdate = () => {
     setLoading(true)
 
     try {
@@ -155,10 +134,7 @@ export default function InstructorSettingsPage() {
   return (
     <ProtectedRoute allowedRoles={[2]}>
       <div className="flex h-screen bg-background">
-        <InstructorSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
-        />
+        <InstructorSidebar />
         
         <div className="flex-1 flex flex-col overflow-hidden">
           <InstructorHeader 

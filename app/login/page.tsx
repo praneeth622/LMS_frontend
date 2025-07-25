@@ -105,15 +105,16 @@ export default function LoginPage() {
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>
-                  <Input
+                                    <Input
                     id="email"
                     type="email"
                     placeholder="Enter your email"
+                    autoComplete="email"
                     {...register("email")}
-                    className={errors.email ? "border-red-500" : ""}
+                    className={errors.email ? "border-error" : ""}
                   />
                   {errors.email && (
-                    <p className="text-sm text-red-500">{errors.email.message}</p>
+                    <p className="text-sm text-error">{errors.email.message}</p>
                   )}
                 </div>
                 <div className="space-y-2">
@@ -124,7 +125,7 @@ export default function LoginPage() {
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter your password"
                       {...register("password")}
-                      className={errors.password ? "border-red-500" : ""}
+                      className={errors.password ? "border-error" : ""}
                     />
                     <Button
                       type="button"
@@ -141,7 +142,7 @@ export default function LoginPage() {
                     </Button>
                   </div>
                   {errors.password && (
-                    <p className="text-sm text-red-500">{errors.password.message}</p>
+                    <p className="text-sm text-error">{errors.password.message}</p>
                   )}
                 </div>
                 <div className="flex items-center justify-between">

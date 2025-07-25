@@ -1,53 +1,54 @@
 "use client"
 
 import * as React from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { useRouter } from "next/navigation"
+import Link from "next/link"
 import { ArrowLeft, Save, Eye } from "lucide-react"
-import { ProtectedRoute } from '@/components/auth/protected-route'
-import { InstructorSidebar } from '@/components/instructor/sidebar'
-import { InstructorHeader } from '@/components/instructor/header'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { toast } from "react-hot-toast"
-import { instructorApi } from '@/lib/instructor-api'
-import { useAuth } from '@/contexts/auth-context'
-import Link from "next/link"
+import { ProtectedRoute } from '@/components/auth/protected-route'
+import { InstructorSidebar } from '@/components/instructor/sidebar'
+import { InstructorHeader } from '@/components/instructor/header'
 
 const categories = [
   "Programming",
-  "Web Development",
-  "Mobile Development",
-  "Data Science",
-  "Machine Learning",
   "Design",
   "Business",
   "Marketing",
   "Photography",
   "Music",
-  "Language",
-  "Other"
+  "Health & Fitness",
+  "Lifestyle",
+  "Personal Development",
+  "Teaching & Academics"
 ]
 
+interface CourseFormData {
+  title: string
+  description: string
+  category: string
+  price: string
+  status: 'draft' | 'published'
+}
+
 export default function CreateCoursePage() {
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
-  const [loading, setLoading] = React.useState(false)
-  const [formData, setFormData] = React.useState({
+  const router = useRouter()
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState<CourseFormData>({
     title: '',
     description: '',
     category: '',
     price: '',
-    status: 'draft' as 'draft' | 'published'
+    status: 'draft'
   })
-  
-  const router = useRouter()
-  const { userProfile } = useAuth()
 
-  const handleInputChange = (field: string, value: string) => {
+  const handleInputChange = (field: keyof CourseFormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: value
@@ -56,69 +57,37 @@ export default function CreateCoursePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
-    if (!userProfile?.id) {
-      toast.error('User profile not found')
-      return
-    }
+    // Handle form submission
+  }
 
-    if (!formData.title.trim()) {
-      toast.error('Course title is required')
-      return
-    }
-
+  const handleSaveAsDraft = async () => {
+    setLoading(true)
     try {
-      setLoading(true)
-      
-      const courseData = {
-        title: formData.title.trim(),
-        description: formData.description.trim(),
-        category: formData.category,
-        price: formData.price ? parseFloat(formData.price) : 0,
-        created_by: userProfile.id,
-        status: formData.status
-      }
-
-      const response = await instructorApi.createCourse(courseData)
-      
-      if (response.success) {
-        toast.success('Course created successfully!')
-        router.push('/instructor/courses')
-      } else {
-        toast.error(response.message || 'Failed to create course')
-      }
+      // Save as draft logic
+      setFormData(prev => ({ ...prev, status: 'draft' }))
     } catch (error) {
-      console.error('Error creating course:', error)
-      toast.error('Failed to create course')
+      console.error('Error saving draft:', error)
     } finally {
       setLoading(false)
     }
   }
 
-  const handleSaveAsDraft = async () => {
-    setFormData(prev => ({ ...prev, status: 'draft' }))
-    // The form submission will handle the actual save
-    setTimeout(() => {
-      const form = document.getElementById('course-form') as HTMLFormElement
-      form?.requestSubmit()
-    }, 0)
-  }
-
   const handlePublish = async () => {
-    setFormData(prev => ({ ...prev, status: 'published' }))
-    // The form submission will handle the actual save
-    setTimeout(() => {
-      const form = document.getElementById('course-form') as HTMLFormElement
-      form?.requestSubmit()
-    }, 0)
+    setLoading(true)
+    try {
+      // Publish logic
+      setFormData(prev => ({ ...prev, status: 'published' }))
+    } catch (error) {
+      console.error('Error publishing course:', error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
-    <ProtectedRoute allowedRoles={[2]}>
-      <div className="flex h-screen bg-background">
+    <ProtectedRoute allowedRoles={['instructor']}>
+      <div className="flex h-screen bg-gray-50">
         <InstructorSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">

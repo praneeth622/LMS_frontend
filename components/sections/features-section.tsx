@@ -10,147 +10,220 @@ import {
   Shield, 
   Zap,
   CheckCircle,
-  Star
+  Star,
+  Brain,
+  Smartphone,
+  Globe,
+  Target
 } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
 
 const features = [
   {
-    icon: BookOpen,
-    title: "Expert-Led Courses",
-    description: "Learn from industry professionals with real-world experience and proven track records.",
-    gradient: "from-blue-500 to-cyan-500"
+    icon: Brain,
+    title: "AI-Powered Learning",
+    description: "Personalized learning paths and recommendations based on your progress and goals.",
+    gradient: "from-purple-500 to-pink-500",
+    highlight: "Smart",
+    stats: "98% accuracy"
   },
   {
     icon: Users,
-    title: "Interactive Learning",
-    description: "Engage with peers and instructors through live sessions, discussions, and group projects.",
-    gradient: "from-purple-500 to-pink-500"
+    title: "Interactive Community",
+    description: "Connect with learners worldwide through live sessions, study groups, and forums.",
+    gradient: "from-blue-500 to-cyan-500",
+    highlight: "Global",
+    stats: "50K+ students"
   },
   {
     icon: Trophy,
-    title: "Certifications",
-    description: "Earn recognized certificates upon completion to boost your career prospects.",
-    gradient: "from-orange-500 to-red-500"
+    title: "Industry Certifications",
+    description: "Earn recognized certificates from top companies and institutions.",
+    gradient: "from-orange-500 to-amber-500",
+    highlight: "Verified",
+    stats: "200+ partners"
   },
   {
     icon: Clock,
-    title: "Flexible Schedule",
-    description: "Learn at your own pace with 24/7 access to course materials and resources.",
-    gradient: "from-green-500 to-emerald-500"
+    title: "Learn at Your Pace",
+    description: "Flexible scheduling with offline access and mobile-first design.",
+    gradient: "from-green-500 to-emerald-500",
+    highlight: "24/7",
+    stats: "Anytime access"
   },
   {
-    icon: Shield,
-    title: "Lifetime Access",
-    description: "Get unlimited access to course content and updates for continuous learning.",
-    gradient: "from-indigo-500 to-blue-500"
+    icon: Smartphone,
+    title: "Mobile Learning",
+    description: "Seamless experience across all devices with offline content download.",
+    gradient: "from-indigo-500 to-purple-500",
+    highlight: "Mobile",
+    stats: "iOS & Android"
   },
   {
-    icon: Zap,
-    title: "Fast Track Learning",
-    description: "Accelerated learning paths designed to help you achieve your goals quickly.",
-    gradient: "from-yellow-500 to-orange-500"
+    icon: Target,
+    title: "Goal-Oriented Tracks",
+    description: "Structured learning paths designed to achieve specific career outcomes.",
+    gradient: "from-pink-500 to-rose-500",
+    highlight: "Focused",
+    stats: "95% success rate"
   }
+]
+
+const stats = [
+  { value: "50K+", label: "Students Enrolled", icon: Users },
+  { value: "200+", label: "Expert Courses", icon: BookOpen },
+  { value: "95%", label: "Completion Rate", icon: CheckCircle },
+  { value: "4.9/5", label: "Average Rating", icon: Star }
 ]
 
 export function FeaturesSection() {
   return (
-    <section className="py-24 bg-gradient-to-b from-background to-muted/20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 lg:py-32 bg-gradient-to-b from-background via-muted/10 to-background">
+      <div className="container mx-auto px-6 sm:px-8 lg:px-12">
+        
+        {/* Section Header with enhanced spacing */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          viewport={{ once: true }}
+          className="text-center mb-32"
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-            Why Choose <span className="text-primary">EduFlow</span>?
+          <Badge variant="secondary" className="mb-8 px-8 py-4 text-base font-medium bg-primary/12 text-primary hover:bg-primary/20 transition-all duration-300 shadow-lg backdrop-blur-sm">
+            Why Choose EduFlow
+          </Badge>
+          <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold text-foreground mb-12 leading-tight">
+            Features that
+            <span className="text-gradient block mt-4">Accelerate Learning</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Experience the future of online learning with our cutting-edge platform designed for modern learners.
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-5xl mx-auto leading-relaxed">
+            Experience next-generation online education with cutting-edge technology, 
+            expert instructors, and a global community of learners.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Stats Bar with improved design */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-16 mb-32"
+        >
+          {stats.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+              viewport={{ once: true }}
+              className="text-center group"
+            >
+              <div className="flex justify-center mb-4">
+                <div className="p-4 rounded-3xl bg-primary/12 text-primary group-hover:bg-primary/20 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                  <stat.icon className="w-8 h-8" />
+                </div>
+              </div>
+              <div className="text-4xl md:text-5xl font-bold text-foreground mb-2 group-hover:scale-105 transition-transform duration-300">
+                {stat.value}
+              </div>
+              <div className="text-base text-muted-foreground font-medium">
+                {stat.label}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+
+        {/* Features Grid with enhanced spacing */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 lg:gap-16">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
+              viewport={{ once: true }}
+              whileHover={{ y: -8 }}
               className="group"
             >
-              <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300 bg-card/50 backdrop-blur-sm">
-                <CardHeader className="text-center pb-4">
-                  <div className={`inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r ${feature.gradient} rounded-full mb-4 mx-auto group-hover:scale-110 transition-transform duration-300`}>
-                    <feature.icon className="h-8 w-8 text-white" />
+              <Card className="card-interactive h-full group relative overflow-hidden p-10 hover:shadow-2xl hover:shadow-primary/10 transition-all duration-500 border-0 bg-gradient-to-br from-background to-muted/20">
+                {/* Enhanced Background Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                
+                <CardHeader className="relative mb-8">
+                  <div className="flex items-start justify-between mb-8">
+                    <div className={`p-6 rounded-3xl bg-gradient-to-br ${feature.gradient} group-hover:scale-110 transition-transform duration-300 shadow-xl`}>
+                      <feature.icon className="w-8 h-8 text-white" />
+                    </div>
+                    <Badge variant="outline" className="text-sm font-medium border-primary/30 text-primary bg-primary/8 px-3 py-1">
+                      {feature.highlight}
+                    </Badge>
                   </div>
-                  <CardTitle className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                  <CardTitle className="text-2xl font-bold text-foreground group-hover:text-primary transition-colors">
                     {feature.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <CardDescription className="text-muted-foreground leading-relaxed">
+                
+                <CardContent className="relative">
+                  <CardDescription className="text-muted-foreground mb-6 leading-relaxed text-lg">
                     {feature.description}
                   </CardDescription>
+                  <div className="flex items-center justify-between pt-4">
+                    <span className="text-base text-primary font-semibold">
+                      {feature.stats}
+                    </span>
+                    <motion.div 
+                      className="opacity-0 group-hover:opacity-100 transition-opacity"
+                      whileHover={{ x: 5 }}
+                    >
+                      <CheckCircle className="w-6 h-6 text-green-500" />
+                    </motion.div>
+                  </div>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
         </div>
 
-        {/* Additional Features Grid */}
+        {/* Enhanced Bottom CTA */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="text-center mt-32"
         >
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Learning Benefits</h3>
-            {[
-              "Access to 200+ premium courses",
-              "Interactive quizzes and assignments",
-              "Progress tracking and analytics",
-              "Mobile-friendly learning experience"
-            ].map((benefit, index) => (
-              <motion.div
-                key={benefit}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center space-x-3"
-              >
-                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0" />
-                <span className="text-muted-foreground">{benefit}</span>
-              </motion.div>
-            ))}
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-foreground mb-6">Success Metrics</h3>
-            {[
-              "95% completion rate",
-              "4.8/5 average rating",
-              "50,000+ satisfied learners",
-              "Industry-recognized certificates"
-            ].map((metric, index) => (
-              <motion.div
-                key={metric}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center space-x-3"
-              >
-                <Star className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-                <span className="text-muted-foreground">{metric}</span>
-              </motion.div>
-            ))}
+          <div className="bg-gradient-to-r from-primary/12 to-accent/12 rounded-3xl p-12 md:p-16 border border-primary/20 backdrop-blur-sm">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <h3 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+                Ready to Transform Your Skills?
+              </h3>
+              <p className="text-xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed">
+                Join thousands of learners who have already started their journey to success.
+                Experience the future of education today.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-6 justify-center">
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-primary px-10 py-5 text-xl font-medium shadow-xl hover:shadow-2xl transition-all duration-300"
+                >
+                  Start Free Trial
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-secondary px-10 py-5 text-xl font-medium border-2 hover:border-primary/40 transition-all duration-300"
+                >
+                  View All Courses
+                </motion.button>
+              </div>
+            </motion.div>
           </div>
         </motion.div>
       </div>

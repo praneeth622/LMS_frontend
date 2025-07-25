@@ -58,7 +58,6 @@ interface Assignment {
 export default function AssignmentDetails() {
   const { assignmentId } = useParams()
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [assignment, setAssignment] = React.useState<Assignment | null>(null)
   const [loading, setLoading] = React.useState(true)
 
@@ -193,8 +192,8 @@ export default function AssignmentDetails() {
       <ProtectedRoute allowedRoles={[3]}>
         <div className="flex h-screen bg-background">
           <StudentSidebar 
-            collapsed={sidebarCollapsed} 
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            
+            
           />
           
           <div className="flex-1 flex flex-col overflow-hidden">
@@ -221,8 +220,8 @@ export default function AssignmentDetails() {
       <ProtectedRoute allowedRoles={[3]}>
         <div className="flex h-screen bg-background">
           <StudentSidebar 
-            collapsed={sidebarCollapsed} 
-            onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+            
+            
           />
           
           <div className="flex-1 flex flex-col overflow-hidden">
@@ -260,8 +259,8 @@ export default function AssignmentDetails() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
         <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          
+          
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">

@@ -51,7 +51,6 @@ interface Certificate {
 
 export default function StudentCertificates() {
   const { userProfile } = useAuth()
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const [certificates, setCertificates] = React.useState<Certificate[]>([])
   const [loading, setLoading] = React.useState(true)
   const [searchTerm, setSearchTerm] = React.useState("")
@@ -242,8 +241,8 @@ export default function StudentCertificates() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex h-screen bg-background">
         <StudentSidebar 
-          collapsed={sidebarCollapsed} 
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)} 
+          
+          
         />
         
         <div className="flex-1 flex flex-col overflow-hidden">

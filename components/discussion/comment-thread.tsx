@@ -82,9 +82,9 @@ export function CommentThread({
   const getRoleColor = (role: string) => {
     switch (role.toLowerCase()) {
       case 'admin':
-        return 'text-red-600'
+        return 'text-critical'
       case 'instructor':
-        return 'text-blue-600'
+        return 'text-info'
       default:
         return 'text-muted-foreground'
     }

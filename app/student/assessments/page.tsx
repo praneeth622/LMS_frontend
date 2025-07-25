@@ -31,7 +31,6 @@ export default function StudentAssessmentsPage() {
   const [quizzes, setQuizzes] = React.useState<Quiz[]>([])
   const [assignments, setAssignments] = React.useState<Assignment[]>([])
   const [loading, setLoading] = React.useState(true)
-  const [sidebarCollapsed, setSidebarCollapsed] = React.useState(false)
   const { userProfile } = useAuth()
 
   const stats = [
@@ -161,8 +160,8 @@ export default function StudentAssessmentsPage() {
     <ProtectedRoute allowedRoles={[3]}>
       <div className="flex min-h-screen bg-background">
         <StudentSidebar
-          collapsed={sidebarCollapsed}
-          onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          
+          
         />
         <div className="flex-1 flex flex-col overflow-hidden">
           <StudentHeader

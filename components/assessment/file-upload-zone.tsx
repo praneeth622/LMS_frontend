@@ -207,7 +207,7 @@ export function FileUploadZone({
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
                           {uploadedFile.status === 'error' && (
-                            <AlertCircle className="h-4 w-4 text-red-500" />
+                            <AlertCircle className="h-4 w-4 text-error" />
                           )}
                           {uploadedFile.status === 'completed' && uploadedFile.url && (
                             <Button
